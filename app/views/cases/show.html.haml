@@ -10,8 +10,9 @@
         = link_to element.suite.build, report_path(element.suite)
 .line
 .bs-callout{:class => "bs-callout-#{@case.result.type}"}
-  .pull-right
-    = link_to "Paste2", paste_report_case_path(@suite,@case), :class => "btn btn-default btn-xs"
+  - if @case.result.message
+    .pull-right
+      = link_to "Paste2", paste_report_case_path(@suite,@case), :class => "btn btn-default btn-xs"
   %h4
     Class:
     = @case.classname

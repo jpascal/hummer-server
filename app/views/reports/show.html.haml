@@ -1,3 +1,4 @@
+= render "applications/breadcrumbs"
 .masthead
   %ul.nav.nav-justified
     %li{:class => ("active" unless params[:type])}
@@ -29,10 +30,10 @@
       %th Time
   %tbody
     - @cases.each do |element|
-      %tr{:id => element.id}
-        %td= link_to element.name, "#"
+      %tr{:class => "case-#{element.result.type}"}
+        %td= link_to element.name, report_case_path(@suite, element)
         %td= (element.classname unless element.name.start_with? "ContextSuite")
         %td= element.time
         %div{:id => "info-#{element.id}"}
-
+= paginate @cases
 

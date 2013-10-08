@@ -1,2 +1,15 @@
-%h1 Root#index
-%p Find me in app/views/root/index.html.haml
+%h2 Best builds:
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Build
+      %th Tests
+      %th Passed
+      %th Posted
+  %tbody
+    - @suites.each do |suite|
+      %tr
+        %td= link_to suite.build, report_path(suite)
+        %td= suite.total_tests
+        %td= suite.total_passed
+        %td{:style => "width: 1%;", :nowrap => true}= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")

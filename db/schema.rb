@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20131008094456) do
     t.string   "classname",                   :null => false
     t.string   "name",                        :null => false
     t.float    "time",       :default => 0.0
+    t.string   "paste"
     t.integer  "suite_id"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20131008094456) do
   create_table "suites", :force => true do |t|
     t.text     "build"
     t.text     "description"
+    t.string   "paste"
     t.string   "tempest"
     t.integer  "total_tests",    :default => 0
     t.integer  "total_errors",   :default => 0

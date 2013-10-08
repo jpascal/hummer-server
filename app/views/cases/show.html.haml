@@ -1,0 +1,22 @@
+= render "applications/breadcrumbs"
+
+- if @related_cases.any?
+  .line
+    Related tests:
+    - @related_cases.each do |element|
+      .line
+        = link_to element.result.type, report_case_path(element.suite, element)
+        in
+        = link_to element.suite.build, report_path(element.suite)
+.line
+.bs-callout{:class => "bs-callout-#{@case.result.type}"}
+  .pull-right
+    = link_to "Paste2", paste_report_case_path(@suite,@case), :class => "btn btn-default btn-xs"
+  %h4
+    Class:
+    = @case.classname
+  %p
+    Test:
+    = @case.name
+  - if @case.result.message
+    %pre= @case.result.message

@@ -88,6 +88,7 @@ GEM
     net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    paste2 (0.0.2)
     polyglot (0.3.3)
     progress (2.4.0)
     puma (2.6.0)
@@ -156,6 +157,7 @@ DEPENDENCIES
   jquery-rails
   json
   kaminari
+  paste2
   puma
   rails (= 3.2.14)
   sass-rails (~> 3.2.3)

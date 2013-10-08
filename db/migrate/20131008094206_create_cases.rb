@@ -4,6 +4,7 @@ class CreateCases < ActiveRecord::Migration
       t.string      :classname, :null => false
       t.string      :name, :null => false
       t.float       :time, :default => 0.0
+      t.string      :paste
       t.belongs_to  :suite
       t.timestamps
     end

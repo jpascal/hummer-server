@@ -7,18 +7,31 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    .navbar.navbar-default.navbar-fixed-top
+    #wrap
+      .navbar.navbar-inverse.navbar-fixed-top
+        .container
+          .navbar-header
+            %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            =link_to root_path, :class => "navbar-brand" do
+              %span{:class=>"glyphicon glyphicon-home"}
+          .navbar-collapse.collapse
+            %ul.nav.navbar-nav
+              %li{:class => ("active" if request.path.start_with? "/reports")}
+                =link_to "Reports", reports_path
+              %li
+            %form.navbar-form.navbar-right
+              .form-group
+                %input{:type=>"text", :placeholder=>"Login", :class=>"form-control"}
+              .form-group
+                %input{:type=>"password", :placeholder=>"Password", :class=>"form-control"}
+              %button{:type=>"submit", :class=>"btn btn-success"} Sign in
+              = link_to "New report", new_report_path, :class=>"btn btn-info"
       .container
-        .navbar-header
-          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          =link_to "Hummer", root_path, :class => "navbar-brand"
-        .navbar-collapse.collapse
-          %ul.nav.navbar-nav
-            %li{:class => ("active" if params[:controller] == "reports")}
-              =link_to "Reports", reports_path
-            %li
-    .container
-      = yield
+        = yield
+    #footer
+      .container
+        %p.text-muted.credit
+          Hummer. Application for analyze tempest reports.

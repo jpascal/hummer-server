@@ -2,7 +2,6 @@ require 'rexml/document'
 
 class Suite < ActiveRecord::Base
   paginates_per 20
-  default_scope :order => "created_at desc"
   mount_uploader :tempest, TempestUploader
   attr_accessible :build, :description, :total_tests, :total_errors, :total_failures, :total_skip, :tempest
   has_many :cases, :dependent => :delete_all, :autosave => true

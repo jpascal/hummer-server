@@ -1,0 +1,12 @@
+=form_for @suite, :url => reports_path, :html => {:class=>"form-horizontal", :role=>"form"} do |f|
+  .form-group
+    = f.label :build, :for=>"suite_build", :class=>"col-lg-2 control-label"
+    .col-lg-10
+      = f.text_field :build, :class => "form-control"
+  .form-group
+    = f.label :tempest, :for=>"suite_tempest", :class=>"col-lg-2 control-label"
+    .col-lg-10
+      = f.file_field :tempest
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.button 'Sumbit', :class => "btn btn-default"

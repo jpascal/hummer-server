@@ -43,3 +43,6 @@ gem 'dump'
 
 # Pagginator
 gem 'kaminari'
+
+# Post tempest to Paste2
+gem 'paste2'

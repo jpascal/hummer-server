@@ -18,7 +18,9 @@
         %td= suite.total_failures
         %td= suite.total_skip
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
-        %td
-          =link_to "Delete", "#", :class => "btn btn-default btn-xs"
+        %td{:style => "width: 1%;", :nowrap => true}
+          =link_to "Delete", "#", :class => "btn btn-danger btn-xs"
+          =link_to "Compare", "#", :class => "btn btn-info btn-xs"
+          =link_to "Paste2", "#", :class => "btn btn-default btn-xs"
 = paginate @suites
 

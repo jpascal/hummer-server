@@ -1,0 +1,24 @@
+
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Build
+      %th Tests
+      %th Errors
+      %th Failures
+      %th Skip
+      %th Created
+      %th Actions
+  %tbody
+    - @suites.each do |suite|
+      %tr
+        %td= link_to suite.build, report_path(suite)
+        %td= suite.total_tests
+        %td= suite.total_errors
+        %td= suite.total_failures
+        %td= suite.total_skip
+        %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
+        %td
+          =link_to "Delete", "#", :class => "btn btn-default btn-xs"
+= paginate @suites
+

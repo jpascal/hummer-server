@@ -41,3 +41,5 @@ gem 'haml-rails'
 # Backup utility for database/uploads
 gem 'dump'
 
+# Pagginator
+gem 'kaminari'

@@ -1,0 +1,36 @@
+.masthead
+  %ul.nav.nav-justified
+    %li{:class => ("active" unless params[:type])}
+      =link_to report_path(@suite) do
+        All
+        %span.label.label-default= @suite.total_tests
+    %li{:class => ("active" if params[:type] == "error")}
+      =link_to report_path(@suite, :type => "error") do
+        Errors
+        %span.label.label-danger= @suite.total_errors
+    %li{:class => ("active" if params[:type] == "failure")}
+      =link_to report_path(@suite, :type => "failure") do
+        Failures
+        %span.label.label-warning= @suite.total_failures
+    %li{:class => ("active" if params[:type] == "skipped")}
+      =link_to report_path(@suite, :type => "skipped") do
+        Skip
+        %span.label.label-info= @suite.total_skip
+    %li{:class => ("active" if params[:type] == "passed")}
+      =link_to report_path(@suite, :type => "passed") do
+        Passes
+        %span.label.label-success= @suite.total_tests - (@suite.total_errors + @suite.total_skip + @suite.total_failures)
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Class
+      %th Time
+  %tbody
+    - @cases.each do |element|
+      %tr{:id => element.id}
+        %td= link_to element.name, "#"
+        %td= (element.classname unless element.name.start_with? "ContextSuite")
+        %td= element.time
+

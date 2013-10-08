@@ -2,8 +2,23 @@
 %html
   %head
     %title Hummer
-    = stylesheet_link_tag    "application", :media => "all"
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    = stylesheet_link_tag    "application", :media => "screen", :rel => "stylesheet"
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    = yield
+    .navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          =link_to "Hummer", root_path, :class => "navbar-brand"
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li{:class => ("active" if params[:controller] == "reports")}
+              =link_to "Reports", reports_path
+            %li
+    .container
+      = yield

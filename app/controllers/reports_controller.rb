@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_filter :require_user, :only => [:new, :create, :paste, :destroy]
   def index
     @suites = Suite.page(params[:page]).order("created_at desc")
   end

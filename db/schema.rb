@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131008094456) do
+ActiveRecord::Schema.define(:version => 20131009054506) do
 
   create_table "cases", :force => true do |t|
     t.string   "classname",                   :null => false
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20131008094456) do
   create_table "suites", :force => true do |t|
     t.text     "build"
     t.text     "description"
+    t.integer  "user_id"
     t.string   "paste"
     t.string   "tempest"
     t.integer  "total_tests",    :default => 0
@@ -42,6 +43,20 @@ ActiveRecord::Schema.define(:version => 20131008094456) do
     t.integer  "total_skip",     :default => 0
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "login"
+    t.string   "name"
+    t.integer  "login_count",        :default => 0, :null => false
+    t.integer  "failed_login_count", :default => 0, :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "persistence_token",                 :null => false
+    t.string   "perishable_token",                  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
 end

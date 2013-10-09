@@ -1,5 +1,9 @@
 Hummer::Application.routes.draw do
-  root :to => 'root#index'
+
+  get :login, :controller => :sessions, :action => :new
+  post :login, :controller => :sessions, :action => :create
+  get :logout, :controller => :sessions, :action => :destroy
+
   resources :reports, :except => [:edit, :update] do
     member do
       get :paste
@@ -10,4 +14,7 @@ Hummer::Application.routes.draw do
       end
     end
   end
+
+  root :to => 'root#index'
+
 end

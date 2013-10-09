@@ -1,4 +1,5 @@
 class CasesController < ApplicationController
+  before_filter :require_user, :only => :paste
   before_filter :load_suite
   def show
     @case = @suite.cases.find(params[:id])

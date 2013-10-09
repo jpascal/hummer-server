@@ -1,0 +1,8 @@
+
+= form_for @session, :url => login_path, :html => {:class => "separate-sections"} do |f|
+  - @session.errors.full_messages.each do |message|
+    .message
+      = message
+  = f.text_field :login, :placeholder => "Login"
+  = f.password_field :password, :placeholder => "Password", :autocomplete => :off
+  %button{:type=>"submit", :class=>"btn btn-success"} Sign in

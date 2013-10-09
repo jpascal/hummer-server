@@ -46,3 +46,6 @@ gem 'kaminari'
 
 # Post tempest to Paste2
 gem 'paste2'
+
+# LDAP helper
+gem 'net-ldap'

@@ -33,4 +33,7 @@ class ReportsController < ApplicationController
       redirect_to reports_path
     end
   end
+  def search
+    render :json => Case.includes(:result).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => report_case_path(params[:id],test), :type => test.result.type}}
+  end
 end

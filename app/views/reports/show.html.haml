@@ -1,6 +1,8 @@
 = render "applications/breadcrumbs"
 .masthead
   %ul.nav.nav-justified
+    %li.search-tab
+      %input.typeahead{:placeholder=>"Search test", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_report_path(@suite), :limit => 10} }
     %li{:class => ("active" unless params[:type])}
       =link_to report_path(@suite) do
         All
@@ -21,6 +23,8 @@
       =link_to report_path(@suite, :type => "passed") do
         Passes
         %span.label.label-success= @suite.total_skip
+
+
 
 %table.table.table-condensed.table-hover
   %thead

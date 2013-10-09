@@ -19,8 +19,8 @@
 %table.table.table-condensed.table-hover
   %thead
     %tr
-      %th Original
-      %th Compare
+      %th Original from #{link_to @suite.build, report_path(@suite)}
+      %th Compared from #{link_to @suite_to_compare.build, report_path(@suite_to_compare)}
   %tbody
   - @compares.each do |original, compare|
     %tr

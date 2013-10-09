@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009054506) do
+ActiveRecord::Schema.define(:version => 20131009120941) do
 
   create_table "cases", :force => true do |t|
     t.string   "classname",                   :null => false
@@ -18,8 +18,17 @@ ActiveRecord::Schema.define(:version => 20131009054506) do
     t.float    "time",       :default => 0.0
     t.string   "paste"
     t.integer  "suite_id"
+    t.string   "tracker"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.text     "message"
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "results", :force => true do |t|

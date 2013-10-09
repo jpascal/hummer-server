@@ -13,4 +13,24 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require hogan
+//= require typeahead
 //= require_tree .
+
+$(function() {
+    $('.typeahead').each(function(){
+        $(this).typeahead([
+            {
+                limit: $(this).data('limit'),
+                remote: $(this).data('source') +'?query=%QUERY',
+                minLength: 3,
+                valueKey: 'name',
+                template: '<strong class="case-{{type}}">{{name}}</strong>',
+                engine: Hogan
+            }
+        ]).bind('typeahead:selected', function (obj, datum) {
+                window.location = datum.path;
+        });
+    });
+
+});

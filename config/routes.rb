@@ -6,6 +6,7 @@ Hummer::Application.routes.draw do
 
   resources :reports, :except => [:edit, :update] do
     member do
+      get :search
       get :paste
     end
     resources :compares, :only => [:index, :show]

@@ -6,6 +6,7 @@ class CreateCases < ActiveRecord::Migration
       t.float       :time, :default => 0.0
       t.string      :paste
       t.belongs_to  :suite
+      t.string      :tracker
       t.timestamps
     end
   end

@@ -20,7 +20,7 @@
     %li{:class => ("active" if params[:type] == "passed")}
       =link_to report_path(@suite, :type => "passed") do
         Passes
-        %span.label.label-success= @suite.total_tests - (@suite.total_errors + @suite.total_skip + @suite.total_failures)
+        %span.label.label-success= @suite.total_skip
 
 %table.table.table-condensed.table-hover
   %thead
@@ -30,8 +30,8 @@
       %th Time
   %tbody
     - @cases.each do |element|
-      %tr{:class => "case-#{element.result.type}"}
-        %td= link_to element.name, report_case_path(@suite, element)
+      %tr
+        %td= link_to element.name, report_case_path(@suite, element), :class => "case-#{element.result.type}"
         %td= (element.classname unless element.name.start_with? "ContextSuite")
         %td= element.time
         %div{:id => "info-#{element.id}"}

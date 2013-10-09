@@ -1,14 +1,5 @@
 = render "applications/breadcrumbs"
 
-- if @related_cases.any?
-  .line
-    Related tests:
-    - @related_cases.each do |element|
-      .line
-        = link_to element.result.type, report_case_path(element.suite, element)
-        in
-        = link_to element.suite.build, report_path(element.suite)
-.line
 .bs-callout{:class => "bs-callout-#{@case.result.type}"}
   - if @case.result.message and current_user
     .pull-right
@@ -21,3 +12,20 @@
     = @case.name
   - if @case.result.message
     %pre= @case.result.message
+
+- if @related_cases.any?
+  %h4 Related tests:
+  %table.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th Build
+        %th Test
+        %th Result
+        %th Created
+    %tbody
+      - @related_cases.each do |element|
+        %tr
+          %td= link_to element.suite.build, report_path(element.suite)
+          %td= link_to element.name, report_case_path(element.suite, element)
+          %td= element.result.type
+          %td{:style => "width: 1%;", :nowrap => true}= l(element.suite.created_at, :format => "%H:%M / %d.%m.%Y")

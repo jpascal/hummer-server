@@ -3,6 +3,7 @@ require 'rexml/document'
 class Suite < ActiveRecord::Base
   paginates_per 20
   mount_uploader :tempest, TempestUploader
+  default_scope :select => "*, (total_errors + total_skip + total_failures) as total_passed"
   scope :best_builds, :select => "*, (total_errors + total_skip + total_failures) as total_passed", :order => "total_tests desc, total_passed desc", :limit => 10
   attr_accessible :build, :description, :total_tests, :total_errors, :total_failures, :total_skip, :tempest
   has_many :cases, :dependent => :delete_all, :autosave => true

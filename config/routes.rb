@@ -8,6 +8,7 @@ Hummer::Application.routes.draw do
     member do
       get :paste
     end
+    resources :compares, :only => [:index, :show]
     resources :cases, :only => :show do
       member do
         get :paste

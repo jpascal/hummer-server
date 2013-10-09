@@ -78,7 +78,7 @@ body {
 }
 .bs-callout-failure {
   background-color: #fcf2f2;
-  border-color: #dFb5b4;
+  border-color: #f0ad4e;
 }
 .bs-callout-warning {
   background-color: #fefbed;
@@ -91,4 +91,17 @@ body {
 .bs-callout-passed {
   background-color: #d1ebc0;
   border-color: #63df72;
+}
+
+a.case-passed {
+    color: #5cb85c;
+}
+a.case-failure {
+    color: #f0ad4e;
+}
+a.case-error {
+    color: #d9534f;
+}
+a.case-skipped {
+    color: #5bc0de;
 }

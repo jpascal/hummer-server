@@ -22,14 +22,18 @@
               %li{:class => ("active" if request.path.start_with? "/reports")}
                 =link_to "Reports", reports_path
               %li
-            - unless request.path.start_with? "/login"
-              = form_for Session.new, :url => login_path, :html => { :class => "navbar-form navbar-right" } do |f|
-                .form-group
-                  = f.text_field :login, :placeholder=>"Login", :class=>"form-control", :size => 15
-                .form-group
-                  = f.password_field :password, :placeholder=>"Password", :class=>"form-control", :size => 15
-                %button{:type=>"submit", :class=>"btn btn-success"} Sign in
-                = link_to "New report", new_report_path, :class=>"btn btn-info"
+            .pull-right.navbar-right
+              - unless request.path.start_with? "/login"
+                = form_for Session.new, :url => login_path, :html => { :class => "navbar-form navbar-right" } do |f|
+                  - unless current_user
+                    .form-group
+                      = f.text_field :login, :placeholder=>"Login", :class=>"form-control", :size => 15
+                    .form-group
+                      = f.password_field :password, :placeholder=>"Password", :class=>"form-control", :size => 15
+                    %button{:type=>"submit", :class=>"btn btn-success"} Sign in
+                  - else
+                    = link_to "Sign out", logout_path, :class=>"btn btn-default"
+              = link_to "New report", new_report_path, :class=>"btn btn-default navbar-btn" if current_user
       .container
         - flash.each do |key, value|
           = content_tag :div, :class => "alert alert-#{key}" do

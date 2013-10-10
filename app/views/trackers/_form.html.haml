@@ -1,0 +1,13 @@
+.modal-header
+  %button.close{:type=>:button, :data => {:dismiss=>"modal"}, :aria => {:hidden=>"true"}} &times;
+  %h4.modal-title URL to issue
+= form_tag report_case_tracker_path(@suite,@case), :remote => true, :method => :put, :class=>"form-horizontal", :role=>"form" do
+  .modal-body
+    .form-group{:style=>"margin-bottom: 0px;"}
+      %label.col-lg-2.control-label
+        URL
+      .col-lg-10
+        = text_field_tag :tracker, @case.tracker, :class => "form-control"
+  .modal-footer{:style=>"margin-top: 0px;"}
+    %button.btn.btn-default{:type=>:button, :data => {:dismiss=>"modal"}} Close
+    %button.btn.btn-primary{:type=>:submit} Save changes

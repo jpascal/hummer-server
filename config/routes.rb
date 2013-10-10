@@ -11,6 +11,7 @@ Hummer::Application.routes.draw do
     end
     resources :compares, :only => [:index, :show]
     resources :cases, :only => :show do
+      resource :tracker, :only => [:show, :edit, :update], :controller => :trackers
       member do
         get :paste
       end

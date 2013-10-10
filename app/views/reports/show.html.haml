@@ -2,7 +2,7 @@
 .masthead
   %ul.nav.nav-justified
     %li.search-tab
-      %input.typeahead{:placeholder=>"Search test", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_report_path(@suite), :limit => 10} }
+      %input.typeahead{:placeholder=>"Tap to search", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_report_path(@suite), :limit => 10} }
     %li{:class => ("active" unless params[:type])}
       =link_to report_path(@suite) do
         All
@@ -29,13 +29,17 @@
 %table.table.table-condensed.table-hover
   %thead
     %tr
-      %th Name
-      %th Class
+      %th Name/Class
+      %th Tracker
       %th Time
   %tbody
     - @cases.each do |element|
       %tr
-        %td= link_to element.name, report_case_path(@suite, element), :class => "case-#{element.result.type}"
+        %td
+          = link_to element.name, report_case_path(@suite, element), :class => "case-#{element.result.type}"
+          - if element.tracker
+            %br
+            = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"
         %td= (element.classname unless element.name.start_with? "ContextSuite")
         %td= element.time
         %div{:id => "info-#{element.id}"}

@@ -28,5 +28,5 @@
         = link_to original.name, report_case_path(@suite, original), :class => "case-#{original.result.type}"
       %td
         - if compare
-          = link_to compare.name, report_case_path(@suite_to_compare, compare), :class => "case-#{original.result.type}"
+          = link_to compare.name, report_case_path(@suite_to_compare, compare), :class => "case-#{compare.result.type}"
 = paginate @cases

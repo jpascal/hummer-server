@@ -16,8 +16,8 @@
 //= require hogan
 //= require typeahead
 //= require_tree .
-
 $(function() {
+    $('#modal').modal("hide");
     $('.typeahead').each(function(){
         $(this).typeahead([
             {
@@ -32,5 +32,4 @@ $(function() {
                 window.location = datum.path;
         });
     });
-
 });

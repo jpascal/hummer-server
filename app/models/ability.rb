@@ -4,10 +4,9 @@ class Ability
     user ||= User.new
     can [:read,:search,:paste], Suite
     can [:read,:paste], Case
-
-    if not user.new_record? # Registered user
+    unless user.new_record? # Registered user
       can [:delete,:create], Suite
+      can :track, Case
     end
-
   end
 end

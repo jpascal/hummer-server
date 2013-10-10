@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @suite = Suite.new
   end
   def create
-    @suite = Suite.new(params[:suite])
+    @suite = Suite.new(report_params)
     if @suite.save
       redirect_to report_path @suite
     else
@@ -35,5 +35,9 @@ class ReportsController < ApplicationController
   end
   def search
     render :json => Case.includes(:result).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => report_case_path(params[:id],test), :type => test.result.type}}
+  end
+private
+  def report_params
+    params.require(:report).permit(:build, :tempest)
   end
 end

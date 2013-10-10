@@ -49,3 +49,6 @@ gem 'paste2'
 
 # LDAP helper
 gem 'net-ldap'
+
+# Add authorization system
+gem 'cancan'

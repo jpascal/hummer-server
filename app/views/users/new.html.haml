@@ -1,0 +1,17 @@
+= form_for @user, :url => signup_path, :html => {:class => "separate-sections"} do |f|
+  = f.block_for :name, :class => "input-prepend" do
+    = f.text_field :name, :placeholder => "User name"
+    = f.error_for :name
+
+  = f.block_for :login, :class => "input-prepend" do
+    = f.text_field :login, :placeholder => "User login"
+    = f.error_for :login
+
+  = f.block_for :password, :class => "input-prepend" do
+    = f.password_field :password, :placeholder => "Password"
+    = f.error_for :password
+
+  = f.block_for :password_confirmation, :class => "input-prepend" do
+    = f.password_field :password_confirmation, :placeholder => "Confirmation"
+    = f.error_for :password_confirmation
+  = f.submit "Signup", :class => "btn btn-blue btn-block", :id => 'user_sign_up'

@@ -23,9 +23,8 @@ private
   end
 
   def current_user
-    User.new
-    #return @current_user if defined?(@current_user)
-    #@current_user = current_session && current_session.user
+    return @current_user if defined?(@current_user)
+    @current_user = current_session && current_session.user
   end
 
   def current_resource

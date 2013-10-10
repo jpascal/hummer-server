@@ -1,6 +1,6 @@
 class CasesController < ApplicationController
-  before_filter :require_user, :only => :paste
-  before_filter :load_suite
+  load_and_authorize_resource :suite
+  load_and_authorize_resource :case, :through => :suite
   def show
     @case = @suite.cases.find(params[:id])
     @related_cases = Case.where("cases.id != ?", @case).where(:classname => @case.classname, :name => @case.name).includes(:result)
@@ -12,9 +12,5 @@ class CasesController < ApplicationController
       @case.save!
     end
     redirect_to @case.paste
-  end
-private
-  def load_suite
-    @suite = Suite.find(params[:report_id])
   end
 end

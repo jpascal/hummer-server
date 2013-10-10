@@ -1,12 +1,12 @@
 = render "applications/breadcrumbs"
 
 .bs-callout{:class => "bs-callout-#{@case.result.type}"}
-  - if @case.result.message and current_user
+  - if @case.result.message
     .pull-right
-      = link_to "Paste2", paste_report_case_path(@suite,@case), :class => "btn btn-default btn-xs"
+      = link_to "Paste2", paste_suite_case_path(@suite,@case), :class => "btn btn-default btn-xs" if can? :paste, @case
       .btn-group.btn-group-xs
-        = link_to (extract_tracker(@case.tracker) || "Link to"), report_case_tracker_path(@suite,@case), :remote => true, :class => "btn btn-default", :id => :tracker
-        = link_to edit_report_case_tracker_path(@suite,@case), :remote => true, :class => "btn btn-default" do
+        = link_to( (extract_tracker(@case.tracker) || "Link to"), suite_case_tracker_path(@suite,@case), :remote => true, :class => "btn btn-default", :id => :tracker)
+        = link_to edit_suite_case_tracker_path(@suite,@case), :remote => true, :class => "btn btn-default" do
           %span.glyphicon.glyphicon-pencil
   %h4
     Class:
@@ -28,6 +28,6 @@
     %tbody
       - @related_cases.each do |element|
         %tr
-          %td= link_to element.suite.build, report_path(element.suite)
-          %td= link_to element.name, report_case_path(element.suite, element), :class => "case-#{element.result.type}"
+          %td= link_to element.suite.build, suite_path(element.suite)
+          %td= link_to element.name, suite_case_path(element.suite, element), :class => "case-#{element.result.type}"
           %td{:style => "width: 1%;", :nowrap => true}= l(element.suite.created_at, :format => "%H:%M / %d.%m.%Y")

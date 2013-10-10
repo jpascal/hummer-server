@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :require_guest, :only => [:new, :create]
   before_filter :require_user, :only => :destroy
 

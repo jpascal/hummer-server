@@ -1,5 +1,6 @@
 class TrackersController < ApplicationController
-  before_filter :load_suite_and_case
+  load_and_authorize_resource :suite
+  load_and_authorize_resource :case, :through => :suite
   respond_to :js
   def edit
 
@@ -9,17 +10,8 @@ class TrackersController < ApplicationController
       render :edit
     end
   end
-  def destroy
-    @case.tracker = nil
-    @case.save!
-  end
   def update
-    @case.tracker = params[:tracker]
+    @case.tracker = params[:tracker].empty? ? nil : params[:tracker]
     @case.save!
-  end
-private
-  def load_suite_and_case
-    @suite = Suite.find(params[:report_id])
-    @case = @suite.cases.find(params[:case_id])
   end
 end

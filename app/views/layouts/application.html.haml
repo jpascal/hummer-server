@@ -20,7 +20,7 @@
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
               %li{:class => ("active" if request.path.start_with? "/reports")}
-                =link_to "Reports", reports_path
+                =link_to "Suites", suites_path
               %li
             .pull-right.navbar-right
               -#- unless request.path.start_with? "/login"
@@ -33,7 +33,7 @@
               -#      %button{:type=>"submit", :class=>"btn btn-success"} Sign in
               -#    - else
               -#      = link_to "Sign out", logout_path, :class=>"btn btn-default"
-              = link_to "New report", new_report_path, :class=>"btn btn-default navbar-btn" if current_user
+              = link_to "New report", new_suite_path, :class=>"btn btn-default navbar-btn" if can? :create, Suite
       .container
         - flash.each do |key, value|
           = content_tag :div, :class => "alert alert-#{key}" do

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  load_and_authorise_resource
   def index
     @users = User.all
   end

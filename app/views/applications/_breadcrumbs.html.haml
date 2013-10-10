@@ -1,9 +1,9 @@
 %ol.breadcrumb
   %li
-    = link_to "Reports", reports_path
+    = link_to "Reports", suites_path
   - if @case and @suite
     %li
-      = link_to @suite.build, report_path(@suite)
+      = link_to @suite.build, suite_path(@suite)
     %li.active= @case.name
   - else @suite
     %li.active= @suite.build

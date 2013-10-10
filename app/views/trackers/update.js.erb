@@ -1,2 +1,2 @@
 $("#modal").modal("hide");
-$("#tracker").html("<%= extract_tracker(@case.tracker) %>");
+$("#tracker").html("<%= extract_tracker(@case.tracker) || "Link to" %>");

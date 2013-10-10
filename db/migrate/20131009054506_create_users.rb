@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string    :login
+      t.string    :email
       t.string    :name
       t.boolean   :active,  :default => false
       t.integer   :login_count, :null => false, :default => 0

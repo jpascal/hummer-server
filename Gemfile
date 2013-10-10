@@ -20,9 +20,6 @@ gem 'jquery-rails'
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby'
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
 # Use puma as the app server
 gem 'puma'
 
@@ -46,9 +43,6 @@ gem 'kaminari'
 
 # Post tempest to Paste2
 gem 'paste2'
-
-# LDAP helper
-gem 'net-ldap'
 
 # Add authorization system
 gem 'cancan'

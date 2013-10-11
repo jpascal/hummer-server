@@ -10,7 +10,6 @@ class ComparesController < ApplicationController
       redirect_to suites_path
     end
     params[:type] ||= "error"
-    @compare = Suite.find(params[:id])
     @cases = @suite.cases.page(params[:page])
     @cases = @cases.where(:results => {:type => params[:type]}) if params[:type]
     @cases = @cases.includes(:result)

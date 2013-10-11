@@ -4,8 +4,6 @@ class SuitesController < ApplicationController
   def index
     @suites = @suites.page(params[:page]).order("created_at desc")
   end
-  def new
-  end
   def create
     @suite.user = current_user
     if @suite.save

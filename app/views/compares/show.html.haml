@@ -1,32 +1,32 @@
 .masthead
   %ul.nav.nav-justified
     %li{:class => ("active" if params[:type] == "error")}
-      =link_to report_compare_path(@suite,@suite_to_compare, :type => "error") do
+      =link_to suite_compare_path(@suite,@compare, :type => "error") do
         Errors
         %span.label.label-danger= @suite.total_errors
     %li{:class => ("active" if params[:type] == "failure")}
-      =link_to report_compare_path(@suite,@suite_to_compare, :type => "failure") do
+      =link_to suite_compare_path(@suite,@compare, :type => "failure") do
         Failures
         %span.label.label-warning= @suite.total_failures
     %li{:class => ("active" if params[:type] == "skipped")}
-      =link_to report_compare_path(@suite,@suite_to_compare, :type => "skipped") do
+      =link_to suite_compare_path(@suite,@compare, :type => "skipped") do
         Skip
         %span.label.label-info= @suite.total_skip
     %li{:class => ("active" if params[:type] == "passed" or not params[:type].present?)}
-      =link_to report_compare_path(@suite,@suite_to_compare, :type => "passed") do
+      =link_to suite_compare_path(@suite,@compare, :type => "passed") do
         Passed
         %span.label.label-success= @suite.total_passed
 %table.table.table-condensed.table-hover
   %thead
     %tr
-      %th Original from #{link_to @suite.build, report_path(@suite)}
-      %th Compared from #{link_to @suite_to_compare.build, report_path(@suite_to_compare)}
+      %th Original from #{link_to @suite.build, suite_path(@suite)}
+      %th Compared from #{link_to @compare.build, suite_path(@compare)}
   %tbody
   - @compares.each do |original, compare|
     %tr
       %td
-        = link_to original.name, report_case_path(@suite, original), :class => "case-#{original.result.type}"
+        = link_to original.name, suite_case_path(@suite, original), :class => "case-#{original.result.type}"
       %td
         - if compare
-          = link_to compare.name, report_case_path(@compare, compare), :class => "case-#{compare.result.type}"
+          = link_to compare.name, suite_case_path(@compare, compare), :class => "case-#{compare.result.type}"
 = paginate @cases

@@ -13,27 +13,34 @@
 
 ActiveRecord::Schema.define(version: 20131009054506) do
 
-  create_table "cases", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "cases", id: false, force: true do |t|
+    t.uuid     "id",                       null: false
     t.string   "classname",                null: false
     t.string   "name",                     null: false
     t.float    "time",       default: 0.0
     t.string   "paste"
-    t.integer  "suite_id"
+    t.uuid     "suite_id"
     t.string   "tracker"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "results", force: true do |t|
+  create_table "results", id: false, force: true do |t|
+    t.uuid     "id",         null: false
     t.string   "type"
     t.string   "name"
     t.text     "message"
-    t.integer  "case_id"
+    t.uuid     "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "suites", force: true do |t|
+  create_table "suites", id: false, force: true do |t|
+    t.uuid     "id",                         null: false
     t.text     "build"
     t.text     "description"
     t.string   "paste"
@@ -42,12 +49,13 @@ ActiveRecord::Schema.define(version: 20131009054506) do
     t.integer  "total_errors",   default: 0
     t.integer  "total_failures", default: 0
     t.integer  "total_skip",     default: 0
-    t.integer  "user_id"
+    t.uuid     "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", id: false, force: true do |t|
+    t.uuid     "id",                                 null: false
     t.string   "email"
     t.string   "name"
     t.boolean  "active",             default: false

@@ -1,6 +1,6 @@
 class CreateSuites < ActiveRecord::Migration
   def change
-    create_table :suites do |t|
+    create_table :suites, :id => :uuid do |t|
       t.text :build
       t.text :description
       t.string :paste
@@ -9,7 +9,7 @@ class CreateSuites < ActiveRecord::Migration
       t.integer :total_errors, :default => 0
       t.integer :total_failures, :default => 0
       t.integer :total_skip, :default => 0
-      t.belongs_to :user
+      t.uuid    :user_id
       t.timestamps
     end
   end

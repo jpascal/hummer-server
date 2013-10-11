@@ -1,10 +1,10 @@
 class CreateResults < ActiveRecord::Migration
   def change
-    create_table :results do |t|
+    create_table :results, :id => :uuid do |t|
       t.string      :type
       t.string      :name
       t.text        :message
-      t.belongs_to  :case
+      t.uuid        :case_id
       t.timestamps
     end
   end

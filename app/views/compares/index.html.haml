@@ -17,6 +17,7 @@
       %th Errors
       %th Failures
       %th Skip
+      %th User
       %th Posted
       %th Actions
   %tbody
@@ -27,6 +28,7 @@
         %td= suite.total_errors
         %td= suite.total_failures
         %td= suite.total_skip
+        %td= link_to suite.user.name, user_path(suite.user)
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
         %td{:style => "width: 1%;", :nowrap => true}
           =link_to "Choose", suite_compare_path(@suite,suite), :class => "btn btn-info btn-xs"

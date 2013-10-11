@@ -6,8 +6,8 @@
       %th Errors
       %th Failures
       %th Skip
-      %th Posted
       %th User
+      %th Posted
       %th Actions
   %tbody
     - suites.each do |suite|
@@ -17,8 +17,8 @@
         %td= suite.total_errors
         %td= suite.total_failures
         %td= suite.total_skip
-        %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
         %td= link_to suite.user.name, user_path(suite.user)
+        %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
         %td.text-right{:style => "width: 1%;", :nowrap => true}
           =link_to "Delete", suite_path(suite), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, suite
           =link_to "Compare", suite_compares_path(suite), :class => "btn btn-info btn-xs"

@@ -7,8 +7,6 @@ class Ability
     can [:read,:search,:paste], Suite # Allow read and past2
     can [:read,:paste], Case # Allow read and past2
 
-    can :read, User
-
     if current_user.admin
       can :destroy, User do |user|
         current_user != user
@@ -32,6 +30,7 @@ class Ability
       can :destroy, Suite do |suite| # Allow poet tempest reports
         suite.user == current_user
       end
+      can :read, User
       can :track, Case # Allow track cases
     end
   end

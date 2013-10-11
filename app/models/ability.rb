@@ -13,7 +13,7 @@ class Ability
       can :destroy, User do |user|
         current_user != user
       end
-      can :edit, User
+      can [:edit,:update], User
     end
 
     # Only for guests
@@ -24,7 +24,7 @@ class Ability
 
     # For registered users
     unless current_user.new_record?
-      can :edit, User do |user|
+      can [:edit,:update], User do |user|
         current_user == user
       end
       can :destroy, Session # Allow signout

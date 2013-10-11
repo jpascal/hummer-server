@@ -4,3 +4,35 @@
       = image_tag gravatar_url(@user,64), :class => "gravatar"
     .col-lg-11
       %h3= @user.name
+.single-form
+  %h2.text-center
+    User profile
+  .well
+    = form_for @user, :html => {:class => "separate-sections"} do |f|
+      = f.error_for_base :p, :class => "text-center"
+      = f.block_for :name, :class => "form-group" do
+        = f.label :name
+        = f.error_for :name
+        = f.text_field :name, :class => "form-control"
+      = f.block_for :email, :class => "form-group" do
+        = f.label :email
+        = f.error_for :email
+        = f.text_field :email, :class => "form-control"
+      = f.block_for :password, :class => "form-group" do
+        = f.label :password
+        = f.error_for :password
+        = f.password_field :password, :class => "form-control"
+      = f.block_for :password_confirmation, :class => "form-group" do
+        = f.label :password_confirmation
+        = f.error_for :password_confirmation
+        = f.password_field :password_confirmation, :class => "form-control"
+      - if current_user.admin?
+        .checkbox-inline
+          %label
+            = f.check_box :admin
+            Admin
+        .checkbox-inline
+          %label
+            = f.check_box :active
+            Active
+      = f.submit "Save", :class => "btn btn-block btn-success"

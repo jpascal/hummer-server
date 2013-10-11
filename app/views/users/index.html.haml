@@ -1,0 +1,30 @@
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th
+      %th Name
+      - if current_user and current_user.admin
+        %th Admin
+        %th Active
+      %th Suites
+      %th Last active
+      %th Created
+      %th Actions
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td{:style => "width: 1%;", :nowrap => true}= image_tag gravatar_url(user,22), :class => "gravatar"
+        %td= link_to user.name, user_path(user)
+        - if current_user and current_user.admin
+          %td= user.admin ? "Yes" : "No"
+          %td= user.active ? "Yes" : "No"
+        %td= user.suites.count
+        %td
+          - if user.last_request_at
+            = l(user.last_request_at, :format => "%H:%M / %d.%m.%Y")
+        %td= l(user.created_at, :format => "%H:%M / %d.%m.%Y")
+        %td{:style => "width: 1%;", :nowrap => true}
+          = link_to "Edit", edit_user_path(user), :class => "btn btn-info btn-xs" if can? :edit, user
+          = link_to "Delete", user_path(user), :method => :delete, :confirm => "Are you sure?", :class => "btn btn-danger btn-xs" if can? :destroy, user
+= paginate @users
+

@@ -1,12 +1,13 @@
 class SuitesController < ApplicationController
+  before_action :new_suite, :only => :create
   load_and_authorize_resource
   def index
-    @suites = Suite.page(params[:page]).order("created_at desc")
+    @suites = @suites.page(params[:page]).order("created_at desc")
   end
   def new
   end
   def create
-    @suite = Suite.new(report_params)
+    @suite.user = current_user
     if @suite.save
       redirect_to suite_path @suite
     else
@@ -32,8 +33,9 @@ class SuitesController < ApplicationController
   def search
     render :json => Case.includes(:result).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => suite_case_path(params[:id],test), :type => test.result.type}}
   end
-  private
-  def report_params
-    params.require(:report).permit(:build, :tempest)
+private
+  def new_suite
+    suite_params = params.require(:suite).permit(:build, :tempest)
+    @suite = Suite.new(suite_params)
   end
 end

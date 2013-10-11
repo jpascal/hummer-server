@@ -1,6 +1,3 @@
-.panel.panel-default
-  .panel-body
-    Choose report to compare with
 %table.table.table-condensed.table-hover
   %thead
     %tr
@@ -10,9 +7,10 @@
       %th Failures
       %th Skip
       %th Posted
+      %th User
       %th Actions
   %tbody
-    - @compares.each do |suite|
+    - suites.each do |suite|
       %tr
         %td= link_to suite.build, suite_path(suite)
         %td= suite.total_tests
@@ -20,7 +18,10 @@
         %td= suite.total_failures
         %td= suite.total_skip
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
+        %td= link_to suite.user.name, user_path(suite.user)
         %td{:style => "width: 1%;", :nowrap => true}
-          =link_to "Choose", suite_compare_path(@suite,suite), :class => "btn btn-info btn-xs"
-= paginate @compares
+          =link_to "Delete", suite_path(suite), :method => :delete, :confirm => "Are you sure?", :class => "btn btn-danger btn-xs" if can? :destroy, suite
+          =link_to "Compare", suite_compares_path(suite), :class => "btn btn-info btn-xs"
+          =link_to "Paste2", paste_suite_path(suite), :class => "btn btn-default btn-xs" if can? :paste, suite
+= paginate suites
 

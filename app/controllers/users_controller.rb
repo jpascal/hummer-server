@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
+  before_filter :new_user, :only => :create
   load_and_authorize_resource
   def index
-    @users = User.all
+    @users = User.page(params[:page])
+  end
+  def show
+    @suites = @user.suites.page(params[:page])
   end
   def edit
   end
@@ -20,7 +24,8 @@ class UsersController < ApplicationController
     end
   end
 private
-  def user_params
-    params.require(:user).permit(:name, :login, :password, :password_confirmation)
+  def new_user
+    user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    @user = User.new(user_params)
   end
 end

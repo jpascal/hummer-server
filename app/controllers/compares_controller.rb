@@ -2,9 +2,13 @@ class ComparesController < ApplicationController
   load_and_authorize_resource :suite, :id_param => :suite_id
   load_and_authorize_resource :compare, :class => "Suite"
   def index
-    @compare = Suite.where("id != ?",@suite).page(params[:page])
+    @compares = @compares.where("id != ?",@suite).page(params[:page])
   end
   def show
+    if params[:id] == @suite.id.to_s
+      flash[:warning] = "You can't compare equal suites"
+      redirect_to suites_path
+    end
     params[:type] ||= "error"
     @compare = Suite.find(params[:id])
     @cases = @suite.cases.page(params[:page])

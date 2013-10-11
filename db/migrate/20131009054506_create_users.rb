@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime  :last_request_at
       t.datetime  :current_login_at
       t.datetime  :last_login_at
+      t.boolean   :admin, :default => false
       t.string    :persistence_token, :null => false
       t.string    :perishable_token, :null => false
       t.string    :crypted_password, :null => false

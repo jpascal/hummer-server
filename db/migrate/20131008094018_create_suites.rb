@@ -3,13 +3,13 @@ class CreateSuites < ActiveRecord::Migration
     create_table :suites do |t|
       t.text :build
       t.text :description
-      t.belongs_to :user
       t.string :paste
       t.string :tempest
       t.integer :total_tests, :default => 0
       t.integer :total_errors, :default => 0
       t.integer :total_failures, :default => 0
       t.integer :total_skip, :default => 0
+      t.belongs_to :user
       t.timestamps
     end
   end

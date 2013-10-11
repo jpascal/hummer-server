@@ -1,4 +1,5 @@
 class Session < Authlogic::Session::Base
   authenticate_with User
-  verify_password_method :valid_ldap_credentials?
+  remember_me_for 2.weeks
+  logged_in_timeout = 2.hours
 end

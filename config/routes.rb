@@ -7,6 +7,8 @@ Hummer::Application.routes.draw do
   get :signup, :controller => :users, :action => :new
   post :signup, :controller => :users, :action => :create
 
+  resources :users
+
   resources :suites, :except => [:edit, :update], :as => :suites do
     member do
       get :search

@@ -6,7 +6,9 @@ class Suite < ActiveRecord::Base
   default_scope :select => "*, (total_errors + total_skip + total_failures) as total_passed"
   scope :best_builds, :select => "*, (total_errors + total_skip + total_failures) as total_passed", :order => "total_tests desc, total_passed desc", :limit => 10
   has_many :cases, :dependent => :delete_all, :autosave => true
-  validates :build, :presence => true, :uniqueness => true
+  belongs_to :user
+  validates :build, :user, :presence => true
+  validates :build, :uniqueness => true
   before_create do
     document = REXML::Document.new(self.tempest.file.read)
     self.total_errors = document.root.attributes["errors"].to_i

@@ -169,3 +169,36 @@ body {
     -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
+
+form .error > span {
+    color: #d9534f;
+}
+
+form .base-error {
+    color: #d9534f;
+}
+
+.single-form .well {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 400px;
+}
+
+.user-menu {
+    display:inline;
+    color: #FFFFFF;
+}
+
+.gravatar {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.user-menu .gravatar {
+    width: 32px;
+    height: 32px;
+    margin-left: 15px;
+}

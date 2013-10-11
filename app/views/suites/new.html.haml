@@ -1,4 +1,4 @@
-=form_for @suite, :as => :report, :url => suites_path, :html => {:class=>"form-horizontal", :role=>"form"} do |f|
+=form_for @suite, :url => suites_path, :html => {:class=>"form-horizontal", :role=>"form"} do |f|
   .form-group
     = f.label :build, :for=>"suite_build", :class=>"col-lg-2 control-label"
     .col-lg-10

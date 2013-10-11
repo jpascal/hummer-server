@@ -9,14 +9,10 @@ class SessionsController < ApplicationController
   end
   def create
     @session = Session.new(params[:session])
-    if params[:session]
-      @user = User.find_or_create_by_login(params[:session][:login])
-    end
     if @session.save
       flash[:success] = "Sign in success"
       redirect_to root_path
     else
-      @user.destroy
       render :new
     end
   end

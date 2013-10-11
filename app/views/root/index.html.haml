@@ -3,6 +3,7 @@
   %thead
     %tr
       %th Build
+      %th User
       %th Tests
       %th Passed
       %th Posted
@@ -10,6 +11,7 @@
     - @suites.each do |suite|
       %tr
         %td= link_to suite.build, suite_path(suite)
+        %td= link_to suite.user.name, user_path(suite.user)
         %td= suite.total_tests
         %td= suite.total_passed
         %td{:style => "width: 1%;", :nowrap => true}= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")

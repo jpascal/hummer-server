@@ -1,4 +1,7 @@
 .well
-  = image_tag gravatar_url(@user,64), :class => "gravatar"
-  %h3= @user.name
+  .row
+    .col-lg-1
+      = image_tag gravatar_url(@user,64), :class => "gravatar"
+    .col-lg-11
+      %h3= @user.name
 = render "suites/suites", :suites => @suites

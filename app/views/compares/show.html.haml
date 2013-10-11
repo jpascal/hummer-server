@@ -1,3 +1,13 @@
+%ol.breadcrumb
+  %li
+    = link_to "Suites", suites_path
+  %li
+    = link_to @suite.build, suite_path(@suite)
+  %li
+    = link_to "compare", suite_compares_path(@suite)
+  %li.active
+    = @suite.build
+
 .masthead
   %ul.nav.nav-justified
     %li{:class => ("active" if params[:type] == "error")}
@@ -19,8 +29,8 @@
 %table.table.table-condensed.table-hover
   %thead
     %tr
-      %th Original from #{link_to @suite.build, suite_path(@suite)}
-      %th Compared from #{link_to @compare.build, suite_path(@compare)}
+      %th Original
+      %th Compared
   %tbody
   - @compares.each do |original, compare|
     %tr

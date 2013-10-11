@@ -1,3 +1,11 @@
+%ol.breadcrumb
+  %li
+    = link_to "Suites", suites_path
+  %li
+    = link_to @suite.build, suite_path(@suite)
+  %li.active
+    compare
+
 .panel.panel-default
   .panel-body
     Choose report to compare with

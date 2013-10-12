@@ -1,0 +1,23 @@
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Suites
+      - if can? :read, User
+        %th User
+      %th Created
+      %th Actions
+  %tbody
+    - projects.each do |project|
+      %tr
+        %td= link_to project.name, project_path(project)
+        %td= project.suites.count
+        - if can? :read, User
+          %td= link_to project.user.name, user_path(project.user)
+        %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")
+        %td.text-right{:style => "width: 1%;", :nowrap => true}
+          =link_to "Delete", project_path(project), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, project
+          =link_to "Edit", edit_project_path(project), :class => "btn btn-default btn-xs" if can? :edit, project
+- if projects.respond_to? :current_page
+  = paginate projects
+

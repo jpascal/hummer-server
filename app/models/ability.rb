@@ -6,11 +6,13 @@ class Ability
     # For all
     can [:read,:search,:paste], Suite # Allow read and past2
     can [:read,:paste], Case # Allow read and past2
+    can :read, Project
 
     if current_user.admin
       can :destroy, User do |user|
         current_user != user
       end
+      can [:edit,:update,:destroy], Project
       can [:edit,:update], User
     end
 
@@ -22,6 +24,10 @@ class Ability
 
     # For registered users
     unless current_user.new_record?
+      can :create, Project
+      can [:destroy,:edit,:update], Project do |project|
+        project.user == current_user
+      end
       can [:edit,:update], User do |user|
         current_user == user
       end

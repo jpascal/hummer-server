@@ -6,4 +6,7 @@
       %h3
         = @user.name
         = link_to "edit", edit_user_path(@user)
+%h4 Suites
 = render "suites/suites", :suites => @suites
+%h4 Projects
+= render "projects/projects", :projects => @projects

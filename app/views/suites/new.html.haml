@@ -10,6 +10,11 @@
         = f.error_for :build
         = f.text_field :build, :class => "form-control"
 
+      = f.block_for :project_id, :class => "form-group" do
+        = f.label :project
+        = f.error_for :project_id
+        = f.select :project_id, Project.all, {}, {:class => "form-control"}
+
       = f.block_for :tempest, :class => "form-group" do
         = f.label :tempest
         = f.error_for :tempest

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
   def show
     @suites = @user.suites.page(params[:page])
+    @projects = @user.projects
   end
   def edit
   end

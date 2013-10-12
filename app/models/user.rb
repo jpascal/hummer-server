@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   validates :name, :length => { :minimum => 4 }
   has_many :suites
-  paginates_per 20
+  has_many :projects, :dependent => :nullify
 
-  validate
+  paginates_per 20
 
   before_create do
     if User.count == 0

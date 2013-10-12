@@ -1,4 +1,5 @@
-%ol.breadcrumb
-  %li
-    = link_to "Suites", suites_path
+%h4
+  Suites
+  = link_to "Add", new_suite_path, :class => "btn btn-success btn-xs pull-right" if can? :create, Suite
+
 = render "suites", :suites => @suites

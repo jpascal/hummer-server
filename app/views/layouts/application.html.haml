@@ -19,6 +19,8 @@
               %span{:class=>"glyphicon glyphicon-home"}
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
+              %li{:class => ("active" if request.path.start_with? "/projects")}
+                =link_to "Projects", projects_path
               %li{:class => ("active" if request.path.start_with? "/suites")}
                 =link_to "Suites", suites_path
               - if can? :index, User
@@ -27,7 +29,6 @@
             .pull-right.navbar-right
               = link_to "Login", login_path, :class=>"btn btn-default navbar-btn" if can? :create, Session and not request.path.start_with? "/login"
               = link_to "Sign up", signup_path, :class=>"btn btn-success navbar-btn" if can? :create, User and not request.path.start_with? "/signup"
-              = link_to "New suite", new_suite_path, :class=>"btn btn-default navbar-btn" if can? :create, Suite
               - if current_user
                 %a.user-menu
                   = link_to user_path(current_user) do

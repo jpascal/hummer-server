@@ -1,7 +1,14 @@
 class User < ActiveRecord::Base
   validates :name, :length => { :minimum => 4 }
   has_many :suites
-  has_many :projects, :dependent => :nullify
+  has_many :owner_of_projects, :dependent => :nullify, :foreign_key => :owner_id, :class_name => "Project"
+
+  has_many :members, :dependent => :delete_all
+  has_many :member_of_projects, :through => :members, :source => :project
+
+  def all_projects
+    self.owner_of_projects + self.member_of_projects
+  end
 
   paginates_per 20
 

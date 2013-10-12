@@ -25,7 +25,7 @@ $(function() {
                 remote: $(this).data('source') +'?query=%QUERY',
                 minLength: 3,
                 valueKey: 'name',
-                template: '<strong class="case-{{type}}">{{name}}</strong>',
+                template: $(this).data('template'),
                 engine: Hogan
             }
         ]).bind('typeahead:selected', function (obj, datum) {

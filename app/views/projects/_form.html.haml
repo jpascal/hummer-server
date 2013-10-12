@@ -1,0 +1,9 @@
+= form_for @project, :html => {:class => "separate-sections"} do |f|
+  = f.error_for_base :p, :class => "text-center"
+
+  = f.block_for :name, :class => "form-group" do
+    = f.label :name
+    = f.error_for :name
+    = f.text_field :name, :class => "form-control"
+
+  = f.submit "Submit", :class => "btn btn-block btn-success"

@@ -2,7 +2,7 @@
 .masthead
   %ul.nav.nav-justified
     %li.search-tab
-      %input.typeahead{:placeholder=>"Tap to search", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_suite_path(@suite), :limit => 10} }
+      %input.typeahead{:placeholder=>"Tap to search", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_suite_path(@suite), :limit => 10, :template => render("search")} }
     %li{:class => ("active" unless params[:type])}
       =link_to suite_path(@suite) do
         All

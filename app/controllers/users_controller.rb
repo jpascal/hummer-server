@@ -2,11 +2,15 @@ class UsersController < ApplicationController
   before_filter :new_user, :only => :create
   load_and_authorize_resource
   def index
-    @users = User.page(params[:page])
+    @users = User
+    @users = @users.where(:active => true) if params[:type] == "active"
+    @users = @users.where(:active => false) if params[:type] == "not_active"
+    @users = @users.where(:admin => true) if params[:type] == "admin"
+    @users = @users.page(params[:page])
   end
   def show
     @suites = @user.suites.page(params[:page])
-    @projects = @user.projects
+    @projects = @user.all_projects
   end
   def edit
   end
@@ -19,6 +23,8 @@ class UsersController < ApplicationController
     end
   end
   def destroy
+    @user.destroy
+    redirect_to users_path
   end
   def new
   end
@@ -29,6 +35,9 @@ class UsersController < ApplicationController
     else
       render :new
     end
+  end
+  def search
+    render :json => User.where("name like ? or email like ?", "%#{params[:query]}%", "%#{params[:query]}%").collect{|user| {:name => user.name, :path => user_path(user), :active => user.active, :admin => user.admin}}
   end
 private
   def edit_user

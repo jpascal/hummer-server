@@ -13,7 +13,7 @@ class Ability
         current_user != user
       end
       can [:edit,:update,:destroy], Project
-      can [:edit,:update], User
+      can [:search,:edit,:update], User
     end
 
     # Only for guests
@@ -26,7 +26,7 @@ class Ability
     unless current_user.new_record?
       can :create, Project
       can [:destroy,:edit,:update], Project do |project|
-        project.user == current_user
+        project.owner == current_user
       end
       can [:edit,:update], User do |user|
         current_user == user

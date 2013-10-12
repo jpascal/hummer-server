@@ -2,7 +2,7 @@ class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects, :id => :uuid do |t|
       t.string  :name
-      t.uuid    :user_id
+      t.uuid    :owner_id
       t.timestamps
     end
     add_column :suites, :project_id, :uuid

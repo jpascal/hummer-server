@@ -23,7 +23,7 @@
         %td= suite.total_passed
         - if can? :read, User
           %td= link_to suite.user.name, user_path(suite.user)
-        %td= suite.project ? suite.project.name : ""
+        %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
         %td.text-right{:style => "width: 1%;", :nowrap => true}
           =link_to "Download", suite.tempest.url, :class => "btn btn-default btn-xs"

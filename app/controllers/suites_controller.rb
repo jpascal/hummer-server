@@ -33,7 +33,7 @@ class SuitesController < ApplicationController
   end
 private
   def new_suite
-    suite_params = params.require(:suite).permit(:build, :tempest)
+    suite_params = params.require(:suite).permit(:build, :tempest, :project_id)
     @suite = Suite.new(suite_params)
   end
 end

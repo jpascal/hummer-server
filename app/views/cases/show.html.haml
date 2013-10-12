@@ -24,12 +24,14 @@
   %table.table.table-condensed.table-hover
     %thead
       %tr
+        %th Project
         %th Build
         %th Test
         %th Created
     %tbody
       - @related_cases.each do |element|
         %tr
+          %td= link_to element.suite.project.name, project_path(element.suite.project)
           %td= link_to element.suite.build, suite_path(element.suite)
           %td= link_to element.name, suite_case_path(element.suite, element), :class => "case-#{element.result.type}"
           %td{:style => "width: 1%;", :nowrap => true}= l(element.suite.created_at, :format => "%H:%M / %d.%m.%Y")

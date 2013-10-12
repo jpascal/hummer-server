@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   def all_projects
     self.owner_of_projects + self.member_of_projects
   end
+  def all_projects_ids
+    all_projects.collect{|project| project.id}
+  end
+
 
   paginates_per 20
 

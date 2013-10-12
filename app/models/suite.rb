@@ -10,6 +10,9 @@ class Suite < ActiveRecord::Base
   belongs_to :project
   validates :build, :user, :project_id, :tempest, :presence => true
   validates :build, :uniqueness => {:scope => :project_id}
+  before_validation do
+    self.project = nil unless self.user.all_projects_ids.include? self.project_id
+  end
   before_create do
     document = REXML::Document.new(self.tempest.file.read)
     self.total_errors = document.root.attributes["errors"].to_i

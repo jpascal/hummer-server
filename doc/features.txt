@@ -4,3 +4,4 @@ Features:
 - user can change name of self uploaded suite
 - admin can edit projects
 - admin can manage suites
+- add minitests in application for all actions

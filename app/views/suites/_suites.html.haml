@@ -26,8 +26,8 @@
         %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
         %td.text-right{:style => "width: 1%;", :nowrap => true}
-          =link_to "Download", suite.tempest.url, :class => "btn btn-default btn-xs"
           =link_to "Delete", suite_path(suite), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, suite
+          =link_to "Download", suite.tempest.url, :class => "btn btn-default btn-xs"
           =link_to "Compare", suite_compares_path(suite), :class => "btn btn-info btn-xs"
           =link_to "Paste2", paste_suite_path(suite), :class => "btn btn-default btn-xs" if can? :paste, suite
 - if suites.respond_to? :current_page

@@ -1,0 +1,8 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: <%= database_name.downcase %>
+  pool: <%= database_pool %>
+  username: <%= database_user.downcase %>
+  password: <%= database_password %>
+  host: <%= database_host %>

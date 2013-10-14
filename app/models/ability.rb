@@ -12,7 +12,7 @@ class Ability
       can :destroy, User do |user|
         current_user != user
       end
-      can [:edit,:update,:destroy], Project
+      can [:create,:edit,:update,:destroy], Project
       can [:search,:edit,:update], User
     end
 
@@ -24,10 +24,6 @@ class Ability
 
     # For registered users
     unless current_user.new_record?
-      can :create, Project
-      can [:destroy,:edit,:update], Project do |project|
-        project.owner == current_user
-      end
       can [:edit,:update], User do |user|
         current_user == user
       end

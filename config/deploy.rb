@@ -23,7 +23,7 @@ server "hummer.vm.mirantis.net", :web, :app, :db, :primary => true
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = false
 set :normalize_asset_timestamps,  false
-set :shared_children,             %w(log)
+set :shared_children,             %w(log sockets)
 set :keep_releases,               3
 set :use_sudo,                    false
 

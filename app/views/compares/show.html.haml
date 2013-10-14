@@ -6,7 +6,7 @@
   %li
     = link_to "compare", suite_compares_path(@suite)
   %li.active
-    = @suite.build
+    = link_to @compare.build, suite_path(@compare)
 
 .masthead
   %ul.nav.nav-justified

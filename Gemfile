@@ -24,7 +24,7 @@ gem 'bcrypt-ruby'
 gem 'puma'
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', '2.15.5'
 
 # For authenticate users: Authlogic
 gem 'authlogic'

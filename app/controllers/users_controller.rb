@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = User
     @users = @users.where(:active => true) if params[:type] == "active"
-    @users = @users.where(:active => false) if params[:type] == "not_active"
+    @users = @users.where(:active => false) if params[:type] == "not_actived"
     @users = @users.where(:admin => true) if params[:type] == "admin"
     @users = @users.page(params[:page])
   end

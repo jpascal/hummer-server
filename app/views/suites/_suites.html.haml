@@ -7,7 +7,7 @@
       %th Failures
       %th Skip
       %th Passed
-      - if can? :read, User
+      - if current_user
         %th User
       %th Project
       %th Posted
@@ -21,7 +21,7 @@
         %td= suite.total_failures
         %td= suite.total_skip
         %td= suite.total_passed
-        - if can? :read, User
+        - if current_user
           %td= link_to suite.user.name, user_path(suite.user)
         %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")

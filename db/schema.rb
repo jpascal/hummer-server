@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(version: 20131012131150) do
   end
 
   create_table "members", id: false, force: true do |t|
-    t.uuid     "id",         null: false
-    t.uuid     "project_id"
+    t.uuid     "id",                         null: false
     t.uuid     "user_id"
+    t.boolean  "owner",      default: false
+    t.uuid     "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -37,7 +37,8 @@
       .container
         - flash.each do |key, value|
           = content_tag :div, :class => "alert alert-#{key}" do
-            %button.close{:type=>"button", :data => {:dismiss=>"alert"}}= "&times;"
+            %button.close{:type=>"button", :data => {:dismiss=>"alert"}}
+              &times;
             = value
         = yield
     #footer

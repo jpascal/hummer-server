@@ -22,6 +22,9 @@ def service name, operation, role
 end
 
 namespace :deploy do
+  task :uploads, :roles => :web, :except => { :no_release => true } do
+    run "ln -nfs #{shared_path}/public/uploads #{release_path}/public/uploads"
+  end
   task :precompile, :roles => :web, :except => { :no_release => true } do
     run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} RAILS_GROUPS=assets assets:precompile"
   end

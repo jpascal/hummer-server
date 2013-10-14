@@ -3,7 +3,7 @@
 class TempestUploader < CarrierWave::Uploader::Base
   storage :file
   def store_dir
-    "tempests"
+    "uploads/tempests"
   end
   def filename
     @name ||= "#{secure_token}.xml" if original_filename.present?

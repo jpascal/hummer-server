@@ -23,10 +23,11 @@ server "hummer.vm.mirantis.net", :web, :app, :db, :primary => true
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = false
 set :normalize_asset_timestamps,  false
-set :shared_children,             %w(bundle log config pids sockets)
+set :shared_children,             %w(log)
 set :keep_releases,               3
 set :use_sudo,                    false
 
 after "deploy:finalize_update", "database:symlink"
 after "deploy:finalize_update", "deploy:precompile"
 
+after "deploy:setup", "database:config"

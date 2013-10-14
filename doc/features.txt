@@ -1,0 +1,6 @@
+Features:
+- all can view project page
+- user can change project of self uploaded suite
+- user can change name of self uploaded suite
+- admin can edit projects
+- admin can manage suites

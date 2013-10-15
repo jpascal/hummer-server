@@ -12,6 +12,17 @@ class SuitesController < ApplicationController
       render :new
     end
   end
+  def edit
+
+  end
+  def update
+    @suite.update(update_suite)
+    if @suite.save
+      redirect_to suite_path(@suite)
+    else
+      render :edit
+    end
+  end
   def paste
     unless @suite.paste
       @suite.paste = Paste2::Client.post(@suite.tempest.read)
@@ -32,6 +43,9 @@ class SuitesController < ApplicationController
     render :json => Case.includes(:result).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => suite_case_path(params[:id],test), :type => test.result.type}}
   end
 private
+  def update_suite
+    params.require(:suite).permit(:build, :project_id)
+  end
   def new_suite
     suite_params = params.require(:suite).permit(:build, :tempest, :project_id)
     @suite = Suite.new(suite_params)

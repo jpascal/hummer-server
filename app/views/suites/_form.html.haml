@@ -1,0 +1,19 @@
+= form_for @suite, :url => suites_path, :html => {:class => "separate-sections"} do |f|
+  = f.error_for_base :p, :class => "text-center"
+
+  = f.block_for :project_id, :class => "form-group" do
+    = f.label :project
+    = f.error_for :project_id
+    = f.select :project_id, current_user.all_projects.collect{|project| [project.name,project.id]}, {}, {:class => "form-control"}
+
+  = f.block_for :build, :class => "form-group" do
+    = f.label :build
+    = f.error_for :build
+    = f.text_field :build, :class => "form-control"
+
+  - if @suite.new_record?
+    = f.block_for :tempest, :class => "form-group" do
+      = f.label :tempest
+      = f.error_for :tempest
+      = f.file_field :tempest
+  = f.submit "Submit", :class => "btn btn-block btn-success"

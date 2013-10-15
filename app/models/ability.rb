@@ -12,6 +12,7 @@ class Ability
       can :destroy, User do |user|
         current_user != user
       end
+      can [:edit,:update], Suite
       can [:create,:edit,:update,:destroy], Project
       can [:search,:edit,:update], User
     end
@@ -32,6 +33,9 @@ class Ability
       end
       can :destroy, Session # Allow signout
       can :create, Suite
+      can [:edit,:update], Suite do |suite|
+        suite.user == current_user
+      end
       can :destroy, Suite do |suite| # Allow poet tempest reports
         suite.user == current_user
       end

@@ -15,7 +15,7 @@ Hummer::Application.routes.draw do
     end
   end
   resources :projects
-  resources :suites, :except => [:edit, :update], :as => :suites do
+  resources :suites, :as => :suites do
     member do
       get :search
       get :paste

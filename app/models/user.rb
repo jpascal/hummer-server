@@ -9,7 +9,9 @@ class User < ActiveRecord::Base
   has_many :member_of_projects, :through => :members, :source => :project
 
   def all_projects
-    (self.owner_of_projects + self.member_of_projects + self.projects_of_suites).uniq
+    # TODO: return this when members will be full implemented
+    #(self.owner_of_projects + self.member_of_projects + self.projects_of_suites).uniq
+    Project.all
   end
   def all_projects_ids
     all_projects.collect{|project| project.id}

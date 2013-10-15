@@ -27,6 +27,9 @@ class Ability
       can [:edit,:update], User do |user|
         current_user == user
       end
+      can [:edit,:update], Project do |project|
+        project.owner == current_user
+      end
       can :destroy, Session # Allow signout
       can :create, Suite
       can :destroy, Suite do |suite| # Allow poet tempest reports

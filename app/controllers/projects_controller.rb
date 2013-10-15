@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
   end
 private
   def project_params
-    if current_user.admin
+    if current_user.admin or @project.owner == current_user
       params.require(:project).permit(:name, :owner_id)
     else
       params.require(:project).permit(:name)

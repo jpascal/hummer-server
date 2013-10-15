@@ -5,7 +5,7 @@
     = f.label :name
     = f.error_for :name
     = f.text_field :name, :class => "form-control"
-  - if current_user and current_user.admin
+  - if (current_user and current_user.admin) or @project.owner == current_user
     = f.block_for :owner_id, :class => "form-group" do
       = f.label :owner
       = f.error_for :owner_id

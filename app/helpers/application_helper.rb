@@ -4,7 +4,7 @@ module ApplicationHelper
     uri = URI(link)
     if uri.path =~ /\/.+\/\+.+\/\d+/ and uri.host = "bugs.launchpad.net"
       "Launchpad:#{uri.path.split("/")[1]}##{uri.path.split("/")[3]}"
-    elsif uri.path =~ "https:\/\/github.com\/.+\/.+\/(issues|pull)\/\d+"
+    elsif uri.path =~ /https\:\/\/github\.com\/[a-zA-Z-]+\/[a-zA-Z-]+\/(pull|issues)\/\d+/
       parts = uri.path.split("/")
       "GitHub:#{parts[3]}/#{parts[4]}##{parts[6]}"
     else

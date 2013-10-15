@@ -3,7 +3,10 @@ module ApplicationHelper
     return unless link
     uri = URI(link)
     if uri.path =~ /\/.+\/\+.+\/\d+/ and uri.host = "bugs.launchpad.net"
-      "#{uri.path.split("/")[1]}##{uri.path.split("/")[3]}"
+      "Launchpad:#{uri.path.split("/")[1]}##{uri.path.split("/")[3]}"
+    elsif uri.path =~ "https:\/\/github.com\/.+\/.+\/(issues|pull)\/\d+"
+      parts = uri.path.split("/")
+      "GitHub:#{parts[3]}/#{parts[4]}##{parts[6]}"
     else
       link
     end

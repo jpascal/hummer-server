@@ -18,10 +18,11 @@ class ComparesController < ApplicationController
     @compares = []
 
     @cases_suite.each do |case_suite|
-      found_case = find_in_cases @cases_compare, case_suite.name
+      found_case, index = find_in_cases @cases_compare, case_suite.name
       if found_case
         @compares << [case_suite, found_case]
-        @cases_compare.delete found_case
+        puts "delete at #{index}"
+        @cases_compare.delete_at index
       else
         @compares << [case_suite, nil]
       end
@@ -34,6 +35,9 @@ class ComparesController < ApplicationController
   end
 private
   def find_in_cases cases, name
-    cases.select{|c| c.name == name }.first
+    cases.each_with_index do |c,i|
+      return [c,i] if c.name == name
+    end
+    return [nil, nil]
   end
 end

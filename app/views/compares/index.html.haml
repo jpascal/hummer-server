@@ -34,5 +34,5 @@
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
         %td{:style => "width: 1%;", :nowrap => true}
           =link_to "Choose", suite_compare_path(@suite,suite), :class => "btn btn-info btn-xs"
-= paginate @compares
-
+- if @compares.respond_to? :current_page
+  = paginate @compares

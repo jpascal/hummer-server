@@ -9,12 +9,31 @@ class ComparesController < ApplicationController
       flash[:warning] = "You can't compare equal suites"
       redirect_to suites_path
     end
+
     params[:type] ||= "error"
-    @cases = @suite.cases.page(params[:page])
-    @cases = @cases.where(:results => {:type => params[:type]}) if params[:type]
-    @cases = @cases.includes(:result)
-    @compares = @cases.collect do |original|
-      [original,@compare.cases.includes(:result).where(:name => original.name,:classname => original.classname).first]
+
+    @cases_suite = @suite.cases.includes(:result).all.to_a
+    @cases_compare = @compare.cases.includes(:result).all.to_a
+
+    @compares = []
+
+    @cases_suite.each do |case_suite|
+      found_case = find_in_cases @cases_compare, case_suite.name
+      if found_case
+        @compares << [case_suite, found_case]
+        @cases_compare.delete found_case
+      else
+        @compares << [case_suite, nil]
+      end
     end
+    @cases_compare.each do |c|
+      @compares << [nil, c]
+    end
+
+    @compares = Kaminari.paginate_array(@compares).page(params[:page]).per(20)
+  end
+private
+  def find_in_cases cases, name
+    cases.select{|c| c.name == name }.first
   end
 end

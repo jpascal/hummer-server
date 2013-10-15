@@ -8,35 +8,18 @@
   %li.active
     = link_to @compare.build, suite_path(@compare)
 
-.masthead
-  %ul.nav.nav-justified
-    %li{:class => ("active" if params[:type] == "error")}
-      =link_to suite_compare_path(@suite,@compare, :type => "error") do
-        Errors
-        %span.label.label-danger= @suite.total_errors
-    %li{:class => ("active" if params[:type] == "failure")}
-      =link_to suite_compare_path(@suite,@compare, :type => "failure") do
-        Failures
-        %span.label.label-warning= @suite.total_failures
-    %li{:class => ("active" if params[:type] == "skipped")}
-      =link_to suite_compare_path(@suite,@compare, :type => "skipped") do
-        Skip
-        %span.label.label-info= @suite.total_skip
-    %li{:class => ("active" if params[:type] == "passed" or not params[:type].present?)}
-      =link_to suite_compare_path(@suite,@compare, :type => "passed") do
-        Passed
-        %span.label.label-success= @suite.total_passed
 %table.table.table-condensed.table-hover
   %thead
     %tr
-      %th Original
-      %th Compared
+      %th.text-right{:style => "width: 50%;"}= @suite.build
+      %th.text-left{:style => "width: 50%;"}= @compare.build
   %tbody
   - @compares.each do |original, compare|
     %tr
-      %td
-        = link_to original.name, suite_case_path(@suite, original), :class => "case-#{original.result.type}"
-      %td
+      %td.text-right
+        = link_to original.name, suite_case_path(@suite, original), :class => "case-#{original.result.type}" if original
+      %td.text-left
         - if compare
-          = link_to compare.name, suite_case_path(@compare, compare), :class => "case-#{compare.result.type}"
-= paginate @cases
+          = link_to compare.name, suite_case_path(@compare, compare), :class => "case-#{compare.result.type}" if compare
+- if @compares.respond_to? :current_page
+  = paginate @compares

@@ -11,6 +11,9 @@ class ProjectsController < ApplicationController
       render :new
     end
   end
+  def edit
+    @users = User.where(:active => true)
+  end
   def destroy
     @project.destroy
     redirect_to :back
@@ -25,7 +28,11 @@ class ProjectsController < ApplicationController
   end
 private
   def project_params
-    params.require(:project).permit(:name)
+    if current_user.admin
+      params.require(:project).permit(:name, :owner_id)
+    else
+      params.require(:project).permit(:name)
+    end
   end
   def new_project
     @project = Project.new(project_params)

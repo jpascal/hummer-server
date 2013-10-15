@@ -5,5 +5,10 @@
     = f.label :name
     = f.error_for :name
     = f.text_field :name, :class => "form-control"
+  - if current_user and current_user.admin
+    = f.block_for :owner_id, :class => "form-group" do
+      = f.label :owner
+      = f.error_for :owner_id
+      = f.select :owner_id, @users.collect {|user| ["#{user.name}", user.id]}, {}, {:class => "form-control"}
 
   = f.submit "Submit", :class => "btn btn-block btn-success"

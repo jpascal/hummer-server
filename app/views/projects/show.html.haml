@@ -1,0 +1,6 @@
+.well
+  .row
+    .col-lg-12
+      = @project.name
+%h4 Suites
+= render "suites/suites", :suites => @project.suites

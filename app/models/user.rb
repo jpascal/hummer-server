@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  self.primary_key = :id
   validates :name, :length => { :minimum => 4 }
   has_many :suites
   has_many :projects_of_suites, :through => :suites, :source => :project

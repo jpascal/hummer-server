@@ -1,4 +1,4 @@
-= form_for @suite, :url => suites_path, :html => {:class => "separate-sections"} do |f|
+= form_for @suite, :html => {:class => "separate-sections"} do |f|
   = f.error_for_base :p, :class => "text-center"
 
   = f.block_for :project_id, :class => "form-group" do

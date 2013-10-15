@@ -12,7 +12,7 @@ set :user,          "hummer"
 # Repository
 set :repository,    "http://eshurmin@stash.teamcentre.ru/scm/self/hummer.git"
 set :scm,           :git
-set :branch,        "feature/postgresql"
+set :branch,        :master
 set :deploy_to,     "/home/#{user}/application"
 set :deploy_via,    :copy
 set :copy_exclude,  [".git"]

@@ -12,7 +12,7 @@ class Ability
       can :destroy, User do |user|
         current_user != user
       end
-      can [:edit,:update], Suite
+      can [:edit,:update, :destroy], Suite
       can [:create,:edit,:update,:destroy], Project
       can [:search,:edit,:update], User
     end

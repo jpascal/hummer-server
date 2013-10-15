@@ -1,10 +1,12 @@
 class ProjectsController < ApplicationController
   before_filter :new_project, :only => :create
+  before_filter :load_users, :only => [:edit,:update,:create,:new]
   load_and_authorize_resource
   def index
 
   end
   def create
+    @users = User.where(:active => true)
     if @project.save
       redirect_to projects_path
     else
@@ -12,10 +14,7 @@ class ProjectsController < ApplicationController
     end
   end
   def new
-    @users = User.where(:active => true)
-  end
-  def edit
-    @users = User.where(:active => true)
+    @project.owner = current_user
   end
   def destroy
     @project.destroy
@@ -39,6 +38,8 @@ private
   end
   def new_project
     @project = Project.new(project_params)
-    @project.owner = current_user
+  end
+  def load_users
+    @users = User.where(:active => true)
   end
 end

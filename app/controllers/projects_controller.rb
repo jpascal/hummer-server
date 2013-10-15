@@ -11,6 +11,9 @@ class ProjectsController < ApplicationController
       render :new
     end
   end
+  def new
+    @users = User.where(:active => true)
+  end
   def edit
     @users = User.where(:active => true)
   end

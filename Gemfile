@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.0'
+gem 'rails', :github => "rails/rails", :ref => "4-0-stable"
 
 gem 'pg'
 

@@ -19,8 +19,11 @@ class ComparesController < ApplicationController
 
     @cases_suite.each do |case_suite|
       found_case, index = find_in_cases @cases_compare, case_suite.name
-      if found_case and found_case.result.type != case_suite.result.type
-        @compares << [case_suite, found_case]
+
+      if found_case
+        if found_case.result.type != case_suite.result.type
+          @compares << [case_suite, found_case]
+        end
         @cases_compare.delete_at index
       else
         @compares << [case_suite, nil]

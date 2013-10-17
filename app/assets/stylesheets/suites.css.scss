@@ -12,3 +12,14 @@
     padding-right: 0;
   }
 }
+th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+th .asc {
+  background-image: image_url("up_arrow.gif");
+}
+th .desc {
+  background-image: image_url("down_arrow.gif");
+}

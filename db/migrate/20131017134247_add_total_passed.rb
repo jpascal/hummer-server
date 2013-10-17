@@ -2,7 +2,8 @@ class AddTotalPassed < ActiveRecord::Migration
   def up
     add_column :suites, :total_passed, :integer
     Suite.all.each do |suite|
-      suite.update!(:total_passed => suite.total_tests - (suite.total_errors + suite.total_skip + suite.total_failures))
+      suite.total_passed = suite.total_tests - (suite.total_errors + suite.total_skip + suite.total_failures)
+      suite.save!
     end
   end
   def down

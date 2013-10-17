@@ -7,8 +7,7 @@ class Suite < ActiveRecord::Base
   has_many :cases, :dependent => :delete_all, :autosave => true
   belongs_to :user
   belongs_to :project
-  validates :build, :user, :project_id, :presence => true
-  validates :tempest, :on => :create
+  validates :build, :user, :project_id, :tempest, :presence => true
   validates :build, :uniqueness => {:scope => :project_id}
   # TODO: need realise membership
   #before_validation do

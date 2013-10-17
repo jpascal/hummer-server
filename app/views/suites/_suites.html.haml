@@ -1,16 +1,16 @@
 %table.table.table-condensed.table-hover
   %thead
     %tr
-      %th Build
-      %th Tests
-      %th Errors
-      %th Failures
-      %th Skip
-      %th Passed
+      %th= sortable(:build)
+      %th= sortable(:total_tests, "Tests")
+      %th= sortable(:total_errors, "Errors")
+      %th= sortable(:total_failures, "Failures")
+      %th= sortable(:total_skip, "Skip")
+      %th= sortable(:total_passed, "Passed")
       - if current_user
         %th User
       %th Project
-      %th Posted
+      %th= sortable(:created_at, "Posted")
       %th Actions
   %tbody
     - suites.each do |suite|

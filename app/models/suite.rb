@@ -4,8 +4,6 @@ class Suite < ActiveRecord::Base
   self.primary_key = :id
   paginates_per 20
   mount_uploader :tempest, TempestUploader
-  default_scope :select => "*, (total_errors + total_skip + total_failures) as total_passed"
-  scope :best_builds, :select => "*, (total_errors + total_skip + total_failures) as total_passed", :order => "total_passed desc", :limit => 10
   has_many :cases, :dependent => :delete_all, :autosave => true
   belongs_to :user
   belongs_to :project

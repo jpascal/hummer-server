@@ -1,8 +1,9 @@
 class SuitesController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :new_suite, :only => :create
   load_and_authorize_resource
   def index
-    @suites = @suites.page(params[:page]).order("created_at desc")
+    @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
   end
   def create
     @suite.user = current_user
@@ -45,6 +46,12 @@ class SuitesController < ApplicationController
 private
   def update_suite
     params.require(:suite).permit(:build, :project_id)
+  end
+  def sort_column
+    Suite.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   def new_suite
     suite_params = params.require(:suite).permit(:build, :tempest, :project_id)

@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131012131150) do
+ActiveRecord::Schema.define(version: 20131017134247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "cases", id: false, force: true do |t|
     t.uuid     "id",                       null: false
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20131012131150) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.uuid     "project_id"
+    t.integer  "total_passed"
   end
 
   create_table "users", id: false, force: true do |t|

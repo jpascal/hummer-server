@@ -1,5 +1,5 @@
 class RootController < ApplicationController
   def index
-    @suites = Suite.best_builds
+    redirect_to suites_path
   end
 end

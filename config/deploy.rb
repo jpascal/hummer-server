@@ -28,6 +28,7 @@ set :keep_releases,               3
 set :use_sudo,                    false
 
 after "deploy:finalize_update", "database:symlink"
+after "deploy:finalize_update", "deploy:migrate"
 after "deploy:finalize_update", "deploy:uploads"
 after "deploy:finalize_update", "deploy:precompile"
 

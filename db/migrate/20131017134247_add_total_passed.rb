@@ -3,7 +3,7 @@ class AddTotalPassed < ActiveRecord::Migration
     add_column :suites, :total_passed, :integer
     Suite.all.each do |suite|
       suite.total_passed = suite.total_tests - (suite.total_errors + suite.total_skip + suite.total_failures)
-      suite.save!
+      suite.save(:validate => false)
     end
   end
   def down

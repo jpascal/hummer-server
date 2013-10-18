@@ -19,6 +19,7 @@ class Suite < ActiveRecord::Base
     self.total_failures = document.root.attributes["failures"].to_i
     self.total_tests = document.root.attributes["tests"].to_i
     self.total_skip = document.root.attributes["skip"].to_i
+    self.total_passed = self.total_tests - (self.total_errors + self.total_skip + self.total_failures)
     document.elements.each("testsuite/testcase") do |test_case|
       tmp = self.cases.build({
         :classname => test_case.attributes["classname"],

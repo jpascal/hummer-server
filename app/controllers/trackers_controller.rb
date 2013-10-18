@@ -1,19 +1,20 @@
 class TrackersController < ApplicationController
-  load_and_authorize_resource :suite
-  load_and_authorize_resource :case, :through => :suite
+  load_resource :suite
+  load_resource :case, :through => :suite
+  before_action :try_authorize
   respond_to :js
-  def edit
-    authorize!(:track, @case)
-  end
   def show
     unless @case.tracker
-      authorize!(:track, @case)
       render :edit
     end
   end
   def update
-    authorize!(:track, @case)
     @case.tracker = params[:tracker].empty? ? nil : params[:tracker]
+    @case.tracker_user = current_user
     @case.save!
+  end
+private
+  def try_authorize
+    authorize!(:track, @case)
   end
 end

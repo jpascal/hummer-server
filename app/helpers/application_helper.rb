@@ -2,11 +2,11 @@ module ApplicationHelper
   def extract_tracker link
     return unless link
     uri = URI(link)
-    if uri.path =~ /\/.+\/\+.+\/\d+/ and uri.host = "bugs.launchpad.net"
-      "Launchpad:#{uri.path.split("/")[1]}##{uri.path.split("/")[3]}"
-    elsif uri.path =~ /https\:\/\/github\.com\/[a-zA-Z-]+\/[a-zA-Z-]+\/(pull|issues)\/\d+/
+    if uri.path =~ /\/.+\/\+.+\/\d+/ and uri.host == "bugs.launchpad.net"
+      "Launchpad - #{uri.path.split("/")[1]}##{uri.path.split("/")[3]}"
+    elsif uri.path =~ /\/[a-zA-Z-]+\/[a-zA-Z-]+\/(pull|issues)\/\d+/
       parts = uri.path.split("/")
-      "GitHub:#{parts[3]}/#{parts[4]}##{parts[6]}"
+      "GitHub - #{parts[1]}/#{parts[2]}##{parts[4]}(#{parts[3]})"
     else
       link
     end

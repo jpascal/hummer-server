@@ -8,7 +8,7 @@ Hummer::Application.routes.draw do
   post :signup, :controller => :users, :action => :create
 
   resources :recoveries, :except => :index
-
+  resources :bugs, :only => [:index, :show]
   resources :users do
     collection do
       get :search

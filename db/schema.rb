@@ -11,22 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131017134247) do
+ActiveRecord::Schema.define(version: 20131018110523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "cases", id: false, force: true do |t|
-    t.uuid     "id",                       null: false
-    t.string   "classname",                null: false
-    t.string   "name",                     null: false
-    t.float    "time",       default: 0.0
+    t.uuid     "id",                            null: false
+    t.string   "classname",                     null: false
+    t.string   "name",                          null: false
+    t.float    "time",            default: 0.0
     t.string   "paste"
     t.uuid     "suite_id"
     t.string   "tracker"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.uuid     "tracker_user_id"
   end
 
   create_table "members", id: false, force: true do |t|

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show
     @suites = @user.suites.page(params[:page])
     @projects = @user.all_projects
+    @bugs = @user.trackers
   end
   def edit
   end

@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :members, :dependent => :delete_all
   has_many :member_of_projects, :through => :members, :source => :project
 
+  has_many :trackers, :class_name => "Case", :foreign_key => "tracker_user_id"
+
   def all_projects
     # TODO: return this when members will be full implemented
     #(self.owner_of_projects + self.member_of_projects + self.projects_of_suites).uniq

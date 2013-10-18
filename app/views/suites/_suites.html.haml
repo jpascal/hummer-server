@@ -1,36 +1,40 @@
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th= sortable(:build)
-      %th= sortable(:total_tests, "Tests")
-      %th= sortable(:total_errors, "Errors")
-      %th= sortable(:total_failures, "Failures")
-      %th= sortable(:total_skip, "Skip")
-      %th= sortable(:total_passed, "Passed")
-      - if current_user
-        %th User
-      %th Project
-      %th= sortable(:created_at, "Posted")
-      %th Actions
-  %tbody
-    - suites.each do |suite|
+- if suites.all.count > 0
+  %table.table.table-condensed.table-hover
+    %thead
       %tr
-        %td= link_to suite.build, suite_path(suite)
-        %td= suite.total_tests
-        %td= suite.total_errors
-        %td= suite.total_failures
-        %td= suite.total_skip
-        %td= suite.total_passed
+        %th= sortable(:build)
+        %th= sortable(:total_tests, "Tests")
+        %th= sortable(:total_errors, "Errors")
+        %th= sortable(:total_failures, "Failures")
+        %th= sortable(:total_skip, "Skip")
+        %th= sortable(:total_passed, "Passed")
         - if current_user
-          %td= link_to suite.user.name, user_path(suite.user)
-        %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
-        %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
-        %td.text-right{:style => "width: 1%;", :nowrap => true}
-          =link_to "Delete", suite_path(suite), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, suite
-          =link_to "Edit", edit_suite_path(suite), :class => "btn btn-default btn-xs" if can? :update, suite
-          =link_to "Download", suite.tempest.url, :class => "btn btn-default btn-xs"
-          =link_to "Compare", suite_compares_path(suite), :class => "btn btn-info btn-xs"
-          =link_to "Paste2", paste_suite_path(suite), :class => "btn btn-default btn-xs" if can? :paste, suite
+          %th User
+        %th Project
+        %th= sortable(:created_at, "Posted")
+        %th Actions
+    %tbody
+      - suites.each do |suite|
+        %tr
+          %td= link_to suite.build, suite_path(suite)
+          %td= suite.total_tests
+          %td= suite.total_errors
+          %td= suite.total_failures
+          %td= suite.total_skip
+          %td= suite.total_passed
+          - if current_user
+            %td= link_to suite.user.name, user_path(suite.user)
+          %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
+          %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
+          %td.text-right{:style => "width: 1%;", :nowrap => true}
+            =link_to "Delete", suite_path(suite), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, suite
+            =link_to "Edit", edit_suite_path(suite), :class => "btn btn-default btn-xs" if can? :update, suite
+            =link_to "Download", suite.tempest.url, :class => "btn btn-default btn-xs"
+            =link_to "Compare", suite_compares_path(suite), :class => "btn btn-info btn-xs"
+            =link_to "Paste2", paste_suite_path(suite), :class => "btn btn-default btn-xs" if can? :paste, suite
+- else
+  %p.well.text-center{:style => "margin-top: 20px;"}
+    No suites
 - if suites.respond_to? :current_page
   = paginate suites
 

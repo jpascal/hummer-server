@@ -1,27 +1,31 @@
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th Name
-      %th Suites
-      - if current_user
-        %th Owner
-      -# TODO: need realise membership
-      -#%th Members
-      %th Created
-      %th Actions
-  %tbody
-    - projects.each do |project|
+- if projects.all.count > 0
+  %table.table.table-condensed.table-hover
+    %thead
       %tr
-        %td= link_to project.name, project_path(project)
-        %td= project.suites.count
+        %th Name
+        %th Suites
         - if current_user
-          %td= link_to project.owner.name, user_path(project.owner)
+          %th Owner
         -# TODO: need realise membership
-        -#%td= project.members.count + 1
-        %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")
-        %td.text-right{:style => "width: 1%;", :nowrap => true}
-          =link_to "Delete", project_path(project), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, project
-          =link_to "Edit", edit_project_path(project), :class => "btn btn-default btn-xs" if can? :edit, project
+        -#%th Members
+        %th Created
+        %th Actions
+    %tbody
+      - projects.each do |project|
+        %tr
+          %td= link_to project.name, project_path(project)
+          %td= project.suites.count
+          - if current_user
+            %td= link_to project.owner.name, user_path(project.owner)
+          -# TODO: need realise membership
+          -#%td= project.members.count + 1
+          %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")
+          %td.text-right{:style => "width: 1%;", :nowrap => true}
+            =link_to "Delete", project_path(project), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, project
+            =link_to "Edit", edit_project_path(project), :class => "btn btn-default btn-xs" if can? :edit, project
+- else
+  %p.well.text-center{:style => "margin-top: 20px;"}
+    No projects
 - if projects.respond_to? :current_page
   = paginate projects
 

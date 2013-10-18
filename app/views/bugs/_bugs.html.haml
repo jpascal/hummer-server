@@ -1,22 +1,26 @@
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th Suite
-      %th Test
-      %th Bug
-      - if current_user
-        %th Owner
-      %th Linked
-  %tbody
-    - bugs.each do |bug|
+- if bugs.all.count > 0
+  %table.table.table-condensed.table-hover
+    %thead
       %tr
-        %td= link_to bug.suite.build, suite_path(bug.suite)
-        %td= link_to bug.name, suite_case_path(bug.suite,bug), :class => "case-#{bug.result.type}"
-        %td= link_to extract_tracker(bug.tracker), bug.tracker
+        %th Suite
+        %th Test
+        %th Bug
         - if current_user
-          %td= link_to bug.tracker_user.name, user_path(bug.tracker_user)
-        %td= l(bug.updated_at, :format => "%H:%M / %d.%m.%Y")
-        %td.text-right{:style => "width: 1%;", :nowrap => true}
+          %th Owner
+        %th Linked
+    %tbody
+      - bugs.each do |bug|
+        %tr
+          %td= link_to bug.suite.build, suite_path(bug.suite)
+          %td= link_to bug.name, suite_case_path(bug.suite,bug), :class => "case-#{bug.result.type}"
+          %td= link_to extract_tracker(bug.tracker), bug.tracker
+          - if current_user
+            %td= link_to bug.tracker_user.name, user_path(bug.tracker_user)
+          %td= l(bug.updated_at, :format => "%H:%M / %d.%m.%Y")
+          %td.text-right{:style => "width: 1%;", :nowrap => true}
+- else
+  %p.well.text-center{:style => "margin-top: 20px;"}
+    No bugs
 - if bugs.respond_to? :current_page
   = paginate bugs
 

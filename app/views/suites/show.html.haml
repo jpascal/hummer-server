@@ -21,8 +21,8 @@
         %span.label.label-info= @suite.total_skip
     %li{:class => ("active" if params[:type] == "passed")}
       =link_to suite_path(@suite, :type => "passed") do
-        Passes
-        %span.label.label-success= @suite.total_skip
+        Passed
+        %span.label.label-success= @suite.total_passed
 %table.table.table-condensed.table-hover
   %thead
     %tr

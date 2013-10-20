@@ -3,7 +3,8 @@ class SuitesController < ApplicationController
   before_action :new_suite, :only => :create
   load_and_authorize_resource
   def index
-    @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
+    @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction).tagged_with(params[:feature])
+    @features = ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features"})
   end
   def create
     @suite.user = current_user
@@ -18,7 +19,7 @@ class SuitesController < ApplicationController
   end
   def update
     @suite.update(update_suite)
-    if @suite.save
+    if @suite.save!
       redirect_to suite_path(@suite)
     else
       render :edit
@@ -45,7 +46,7 @@ class SuitesController < ApplicationController
   end
 private
   def update_suite
-    params.require(:suite).permit(:build, :project_id)
+    params.require(:suite).permit(:build, :project_id, :feature_list)
   end
   def sort_column
     Suite.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
@@ -54,7 +55,7 @@ private
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   def new_suite
-    suite_params = params.require(:suite).permit(:build, :tempest, :project_id)
+    suite_params = params.require(:suite).permit(:build, :tempest, :project_id, :feature_list)
     @suite = Suite.new(suite_params)
   end
 end

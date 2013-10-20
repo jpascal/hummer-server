@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include ActsAsTaggableOn::TagsHelper
   def extract_tracker link
     return unless link
     uri = URI(link)

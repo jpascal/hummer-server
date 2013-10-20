@@ -10,6 +10,7 @@
  *
  *= require bootstrap
  *= require bootstrap-theme
+ *= require bootstrap-tagsinput
  *= require_self
  *= require_tree .
  */

@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require hogan
 //= require typeahead
+//= require bootstrap-tagsinput
 //= require_tree .
 $(function() {
     $('#modal').modal("hide");

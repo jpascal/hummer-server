@@ -4,10 +4,12 @@ class Suite < ActiveRecord::Base
   self.primary_key = :id
   paginates_per 20
   mount_uploader :tempest, TempestUploader
+  acts_as_taggable_on :features
   has_many :cases, :dependent => :delete_all, :autosave => true
   belongs_to :user
   belongs_to :project
-  validates :build, :user, :project_id, :tempest, :presence => true
+  validates :build, :user, :project_id, :presence => true
+  validates :tempest, :presence => true, :on => :create
   validates :build, :uniqueness => {:scope => :project_id}
   # TODO: need realise membership
   #before_validation do

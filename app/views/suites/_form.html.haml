@@ -11,6 +11,12 @@
     = f.error_for :build
     = f.text_field :build, :class => "form-control"
 
+  = f.block_for :feature_list, :class => "form-group" do
+    = f.label :feature_list
+    = f.error_for :feature_list
+    %div
+      = f.text_field :feature_list, :class => "form-control", :data => {:role=> :tagsinput}
+
   - if @suite.new_record?
     = f.block_for :tempest, :class => "form-group" do
       = f.label :tempest

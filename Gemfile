@@ -46,3 +46,6 @@ gem 'paste2'
 
 # Add authorization system
 gem 'cancan'
+
+# Add tags functionality
+gem 'acts-as-taggable-on'

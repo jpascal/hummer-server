@@ -3,7 +3,8 @@ class SuitesController < ApplicationController
   before_action :new_suite, :only => :create
   load_and_authorize_resource
   def index
-    @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction).tagged_with(params[:feature])
+    @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
+    @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
     @features = ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features"})
   end
   def create

@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 20131020124321) do
   create_table "taggings", id: false, force: true do |t|
     t.uuid     "id",                        null: false
     t.uuid     "tag_id"
-    t.integer  "taggable_id"
+    t.uuid     "taggable_id"
     t.string   "taggable_type"
-    t.integer  "tagger_id"
+    t.uuid     "tagger_id"
     t.string   "tagger_type"
     t.string   "context",       limit: 128
     t.datetime "created_at"

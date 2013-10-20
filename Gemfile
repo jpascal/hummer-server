@@ -48,4 +48,5 @@ gem 'paste2'
 gem 'cancan'
 
 # Add tags functionality
-gem 'acts-as-taggable-on'
+# in future need change to gem from github
+gem 'acts-as-taggable-on', :github => "awt/acts-as-taggable-on"

@@ -2,9 +2,11 @@
   Suites
   = link_to "Add", new_suite_path, :class => "btn btn-success btn-xs pull-right" if can? :create, Suite
 
-%h5
-  Feature filter:
-  - @features.each do |feature|
-    = link_to feature.name, suites_path(:feature => feature.name), :class => "tag label #{params[:feature] != feature.name ? "label-info" : "label-success"}"
+- if @features.all.any?
+  %h5
+    Feature filter:
+    = link_to "all", suites_path, :class => "tag label #{params[:feature].present? ? "label-info" : "label-success"}"
+    - @features.each do |feature|
+      = link_to feature.name, suites_path(:feature => feature.name), :class => "tag label #{params[:feature] != feature.name ? "label-info" : "label-success"}"
 
 = render "suites", :suites => @suites

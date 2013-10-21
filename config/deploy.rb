@@ -1,10 +1,10 @@
-require 'dump/capistrano'
 require 'bundler/capistrano'
 require 'puma/capistrano'
 
 load 'config/recipes/base'
 load 'config/recipes/database'
 load 'config/recipes/console'
+load 'config/recipes/dump'
 
 set :application,   "hummer"
 set :user,          "hummer"

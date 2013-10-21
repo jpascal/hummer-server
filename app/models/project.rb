@@ -9,6 +9,6 @@ class Project < ActiveRecord::Base
   has_many :members
   has_many :users, :through => :members
 
-  acts_as_taggable_on :default_features
+  acts_as_taggable_on :features
 
 end

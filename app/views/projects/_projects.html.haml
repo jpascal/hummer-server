@@ -16,7 +16,7 @@
           %td
             = link_to project.name, project_path(project)
             %br
-            - project.default_features.each do |feature|
+            - project.features.each do |feature|
               %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
           %td= project.suites.count
           - if current_user

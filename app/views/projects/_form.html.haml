@@ -6,11 +6,11 @@
     = f.error_for :name
     = f.text_field :name, :class => "form-control"
 
-  = f.block_for :default_feature_list, :class => "form-group" do
-    = f.label :default_feature_list
-    = f.error_for :default_feature_list
+  = f.block_for :feature_list, :class => "form-group" do
+    = f.label :feature_list
+    = f.error_for :feature_list
     %div
-      = f.text_field :default_feature_list, :class => "form-control", :data => {:role=> :tagsinput}
+      = f.text_field :feature_list, :class => "form-control", :data => {:role=> :tagsinput}
 
   - if (current_user and current_user.admin) or @project.owner == current_user
     = f.block_for :owner_id, :class => "form-group" do

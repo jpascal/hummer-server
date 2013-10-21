@@ -5,7 +5,7 @@ class SuitesController < ApplicationController
   def index
     @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
     @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
-    @features = ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"})
+    @features = ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"}).uniq
   end
   def create
     @suite.user = current_user

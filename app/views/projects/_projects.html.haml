@@ -13,7 +13,11 @@
     %tbody
       - projects.each do |project|
         %tr
-          %td= link_to project.name, project_path(project)
+          %td
+            = link_to project.name, project_path(project)
+            %br
+            - project.default_features.each do |feature|
+              %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
           %td= project.suites.count
           - if current_user
             %td= link_to project.owner.name, user_path(project.owner)

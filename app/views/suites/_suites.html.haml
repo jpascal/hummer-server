@@ -20,7 +20,8 @@
             = link_to suite.build, suite_path(suite)
             - if suite.features.all.any?
               %br
-              = suite.features.join(", ")
+              - suite.features.each do |feature|
+                %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
           %td= suite.total_tests
           %td= suite.total_errors
           %td= suite.total_failures

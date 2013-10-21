@@ -31,9 +31,9 @@ class ProjectsController < ApplicationController
 private
   def project_params
     if current_user.admin or @project.owner == current_user
-      params.require(:project).permit(:name, :owner_id)
+      params.require(:project).permit(:name, :owner_id, :default_feature_list)
     else
-      params.require(:project).permit(:name)
+      params.require(:project).permit(:name, :default_feature_list)
     end
   end
   def new_project

@@ -1,22 +1,21 @@
 %h4
   Bugs
-- if @bugs.all.count > 0
-  .masthead
-    %ul.nav.nav-justified
-      %li{:class => ("active" unless params[:type])}
-        =link_to bugs_path(@suite) do
-          All
-          %span.label.label-default= @total_tests
-      %li{:class => ("active" if params[:type] == "error")}
-        =link_to bugs_path(@suite, :type => "error") do
-          Errors
-          %span.label.label-danger= @total_errors
-      %li{:class => ("active" if params[:type] == "failure")}
-        =link_to bugs_path(@suite, :type => "failure") do
-          Failures
-          %span.label.label-warning= @total_failures
-      %li{:class => ("active" if params[:type] == "skipped")}
-        =link_to bugs_path(@suite, :type => "skipped") do
-          Skip
-          %span.label.label-info= @total_skipped
+.masthead
+  %ul.nav.nav-justified
+    %li{:class => ("active" unless params[:type])}
+      =link_to bugs_path(@suite) do
+        All
+        %span.label.label-default= @total_tests
+    %li{:class => ("active" if params[:type] == "error")}
+      =link_to bugs_path(@suite, :type => "error") do
+        Errors
+        %span.label.label-danger= @total_errors
+    %li{:class => ("active" if params[:type] == "failure")}
+      =link_to bugs_path(@suite, :type => "failure") do
+        Failures
+        %span.label.label-warning= @total_failures
+    %li{:class => ("active" if params[:type] == "skipped")}
+      =link_to bugs_path(@suite, :type => "skipped") do
+        Skip
+        %span.label.label-info= @total_skipped
 = render "bugs", :bugs => @bugs

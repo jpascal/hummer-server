@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title Hummer
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    = stylesheet_link_tag    "application", :media => "screen", :rel => "stylesheet"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    #wrap
+      .navbar.navbar-inverse.navbar-fixed-top
+        .container
+          .navbar-header
+            %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            =link_to root_path, :class => "navbar-brand" do
+              %span{:class=>"glyphicon glyphicon-home"}
+      .container
+        = yield
+    #footer
+      .container
+        %p.text-muted.credit
+          = "Hummer (version #{Hummer::VERSION}). Application for analyze tempest reports."
+          = "Developed by Evgeniy Shurmin."

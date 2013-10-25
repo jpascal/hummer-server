@@ -27,5 +27,6 @@ namespace :deploy do
   end
   task :precompile, :roles => :web, :except => { :no_release => true } do
     run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} RAILS_GROUPS=assets assets:precompile"
+    run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} RAILS_GROUPS=assets assets:pages"
   end
 end

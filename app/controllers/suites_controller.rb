@@ -1,7 +1,8 @@
 class SuitesController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :new_suite, :only => :create
-  load_and_authorize_resource
+  load_resource :project, :except => :index
+  load_and_authorize_resource :suite, :throw => :project
   def index
     @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
     @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
@@ -9,11 +10,15 @@ class SuitesController < ApplicationController
   end
   def create
     @suite.user = current_user
+    @suite.project = @project
     if @suite.save
-      redirect_to suite_path @suite
+      redirect_to suites_path
     else
       render :new
     end
+  end
+  def new
+    @suite.feature_list = @project.feature_list
   end
   def edit
 
@@ -21,7 +26,7 @@ class SuitesController < ApplicationController
   def update
     @suite.update(update_suite)
     if @suite.save!
-      redirect_to suite_path(@suite)
+      redirect_to suites_path
     else
       render :edit
     end
@@ -43,7 +48,7 @@ class SuitesController < ApplicationController
     end
   end
   def search
-    render :json => Case.includes(:result).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => suite_case_path(params[:id],test), :type => test.result.type}}
+    render :json => Case.includes(:result,:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.result.type}}
   end
 private
   def update_suite

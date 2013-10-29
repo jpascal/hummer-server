@@ -2,25 +2,25 @@
 .masthead
   %ul.nav.nav-justified
     %li.search-tab
-      %input.typeahead{:placeholder=>"Tap to search", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_suite_path(@suite), :limit => 10, :template => render("search")} }
+      %input.typeahead{:placeholder=>"Tap to search", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_project_suite_path(@suite.project_id,@suite), :limit => 10, :template => render("search")} }
     %li{:class => ("active" unless params[:type])}
-      =link_to suite_path(@suite) do
+      =link_to project_suite_path(@suite.project_id,@suite) do
         All
         %span.label.label-default= @suite.total_tests
     %li{:class => ("active" if params[:type] == "error")}
-      =link_to suite_path(@suite, :type => "error") do
+      =link_to project_suite_path(@suite.project_id,@suite, :type => "error") do
         Errors
         %span.label.label-danger= @suite.total_errors
     %li{:class => ("active" if params[:type] == "failure")}
-      =link_to suite_path(@suite, :type => "failure") do
+      =link_to project_suite_path(@suite.project_id,@suite, :type => "failure") do
         Failures
         %span.label.label-warning= @suite.total_failures
     %li{:class => ("active" if params[:type] == "skipped")}
-      =link_to suite_path(@suite, :type => "skipped") do
+      =link_to project_suite_path(@suite.project_id,@suite, :type => "skipped") do
         Skip
         %span.label.label-info= @suite.total_skip
     %li{:class => ("active" if params[:type] == "passed")}
-      =link_to suite_path(@suite, :type => "passed") do
+      =link_to project_suite_path(@suite.project_id,@suite, :type => "passed") do
         Passed
         %span.label.label-success= @suite.total_passed
 %table.table.table-condensed.table-hover
@@ -33,7 +33,7 @@
     - @cases.each do |element|
       %tr
         %td
-          = link_to element.name, suite_case_path(@suite, element), :class => "case-#{element.result.type}"
+          = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.result.type}"
           - if element.tracker
             %br
             = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"

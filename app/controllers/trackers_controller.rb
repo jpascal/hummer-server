@@ -1,5 +1,6 @@
 class TrackersController < ApplicationController
-  load_resource :suite
+  load_resource :project
+  load_resource :suite, :through => :project
   load_resource :case, :through => :suite
   before_action :try_authorize
   respond_to :js

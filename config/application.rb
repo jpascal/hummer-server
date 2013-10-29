@@ -16,7 +16,7 @@ if defined?(Bundler)
 end
 
 module Hummer
-  VERSION = "0.1.3"
+  VERSION = "0.2.1"
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

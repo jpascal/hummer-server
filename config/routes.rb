@@ -14,20 +14,22 @@ Hummer::Application.routes.draw do
       get :search
     end
   end
-  resources :projects
-  resources :suites, :only => [:edit, :update, :create, :destroy, :new, :index, :show], :as => :suites do
-    member do
-      get :search
-      get :paste
-    end
-    resources :compares, :only => [:index, :show]
-    resources :cases, :only => :show do
-      resource :tracker, :only => [:show, :edit, :update], :controller => :trackers
+  resources :projects do
+    resources :suites, :only => [:edit, :update, :create, :destroy, :new, :index, :show], :as => :suites do
       member do
+        get :search
         get :paste
+      end
+      resources :compares, :only => [:index, :show]
+      resources :cases, :only => :show do
+        resource :tracker, :only => [:show, :edit, :update], :controller => :trackers
+        member do
+          get :paste
+        end
       end
     end
   end
+  resources :suites, :only => :index
 
   root :to => 'root#index'
 

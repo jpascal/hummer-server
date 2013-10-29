@@ -3,12 +3,12 @@
 .bs-callout{:class => "bs-callout-#{@case.result.type}"}
   - if @case.result.message
     .pull-right
-      = link_to "Paste2", paste_suite_case_path(@suite,@case), :class => "btn btn-default btn-xs" if can? :paste, @case
+      = link_to "Paste2", paste_project_suite_case_path(@suite.project_id,@suite,@case), :class => "btn btn-default btn-xs" if can? :paste, @case
       .btn-group.btn-group-xs
         - if @case.tracker or can? :track, @case
-          = link_to( (extract_tracker(@case.tracker) || "Link to"), suite_case_tracker_path(@suite,@case), :remote => true, :class => "btn btn-default", :id => :tracker)
+          = link_to( (extract_tracker(@case.tracker) || "Link to"), project_suite_case_tracker_path(@suite.project_id,@suite,@case), :remote => true, :class => "btn btn-default", :id => :tracker)
           - if can? :track, @case
-            = link_to edit_suite_case_tracker_path(@suite,@case), :remote => true, :class => "btn btn-default" do
+            = link_to edit_project_suite_case_tracker_path(@suite.project_id,@suite,@case), :remote => true, :class => "btn btn-default" do
               %span.glyphicon.glyphicon-pencil
   %h4
     Class:
@@ -32,6 +32,6 @@
       - @related_cases.each do |element|
         %tr
           %td= link_to element.suite.project.name, project_path(element.suite.project)
-          %td= link_to element.suite.build, suite_path(element.suite)
-          %td= link_to element.name, suite_case_path(element.suite, element), :class => "case-#{element.result.type}"
+          %td= link_to element.suite.build, project_suite_path(element.suite.project_id,element.suite)
+          %td= link_to element.name, project_suite_case_path(element.suite.project_id, element.suite, element), :class => "case-#{element.result.type}"
           %td{:style => "width: 1%;", :nowrap => true}= l(element.suite.created_at, :format => "%H:%M / %d.%m.%Y")

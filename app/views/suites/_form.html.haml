@@ -1,10 +1,5 @@
-= form_for @suite, :html => {:class => "separate-sections"} do |f|
+= form_for [@project,@suite], :html => {:class => "separate-sections"} do |f|
   = f.error_for_base :p, :class => "text-center"
-
-  = f.block_for :project_id, :class => "form-group" do
-    = f.label :project
-    = f.error_for :project_id
-    = f.select :project_id, current_user.all_projects.collect{|project| [project.name,project.id]}, {}, {:class => "form-control"}
 
   = f.block_for :build, :class => "form-group" do
     = f.label :build

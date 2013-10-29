@@ -1,6 +1,12 @@
 %h4
   Suites
-  = link_to "Add", new_suite_path, :class => "btn btn-success btn-xs pull-right" if can? :create, Suite
+  .btn-group.pull-right
+    %button.btn.btn-default.dropdown-toggle{:data => {:toggle => "dropdown"}}
+      Add suite to
+      %span.caret
+    %ul.dropdown-menu{:role=>"menu"}
+      - Project.all.each do |project|
+        %li= link_to project.name, new_project_suite_path(project)
 
 - if @features.all.any?
   %h5

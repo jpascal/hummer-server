@@ -61,7 +61,7 @@ private
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   def new_suite
-    suite_params = params.require(:suite).permit(:build, :tempest, :project_id, :feature_list)
+    suite_params = params.require(:suite).permit(:build, :tempest, :feature_list)
     @suite = Suite.new(suite_params)
   end
 end

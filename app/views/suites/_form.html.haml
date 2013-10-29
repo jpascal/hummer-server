@@ -12,6 +12,12 @@
     %div
       = f.text_field :feature_list, :class => "form-control", :data => {:role=> :tagsinput}
 
+  - unless @suite.new_record?
+    = f.block_for :project_id, :class => "form-group" do
+      = f.label :project
+      = f.error_for :project_id
+      = f.select :project_id, current_user.all_projects.collect{|project| [project.name,project.id]}, {}, {:class => "form-control"}
+
   - if @suite.new_record?
     = f.block_for :tempest, :class => "form-group" do
       = f.label :tempest

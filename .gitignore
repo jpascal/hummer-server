@@ -16,3 +16,5 @@
 public/404.html
 public/500.html
 public/502.html
+patch.diff
+config/smtp.yml

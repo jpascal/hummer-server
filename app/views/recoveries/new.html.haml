@@ -1,0 +1,9 @@
+.single-form
+  %h2.text-center
+    Recovery
+  .well
+    = form_tag recoveries_path do
+      .form-group
+        = label_tag :email
+        = text_field_tag :email, params[:email], :class => "form-control"
+      = submit_tag "Recovery", :class => "btn btn-block btn-success"

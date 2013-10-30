@@ -1,0 +1,10 @@
+default: &default
+  address:              <%= smtp_host %>
+  port:                 <%= smtp_port %>
+  domain:               <%= smtp_domain %>
+
+development:
+  <<: *default
+
+production:
+  <<: *default

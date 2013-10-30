@@ -1,0 +1,15 @@
+.single-form
+  %h2.text-center
+    Reset you password
+  .well
+    = form_for @password_form, :as => :user, :url => recovery_path(@user.perishable_token), :html => {:class => "separate-sections"}, :method => :put do |f|
+      = f.error_for_base :p, :class => "text-center"
+      = f.block_for :password, :class => "form-group" do
+        = f.label :password
+        = f.error_for :password
+        = f.password_field :password, :class => "form-control"
+      = f.block_for :password_confirmation, :class => "form-group" do
+        = f.label :password_confirmation
+        = f.error_for :password_confirmation
+        = f.password_field :password_confirmation, :class => "form-control"
+      = f.submit "Reset", :class => "btn btn-block btn-success"

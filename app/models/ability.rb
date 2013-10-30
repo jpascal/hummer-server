@@ -21,6 +21,7 @@ class Ability
     if current_user.new_record?
       can :create, Session # Allow signin
       can :create, User # Allow signup
+      can :recovery, User
     end
 
     # For registered users

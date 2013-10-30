@@ -1,0 +1,7 @@
+%h1 Password Reset Instructions
+%p
+  A request to reset your password has been made. If you did not make
+  this request, simply ignore this email. If you did make this
+  request, please follow the link below.
+
+= link_to "Reset Password!", url_for(:controller => :recoveries, :action => :show, :id => @user.perishable_token, :host => @request.host, :port => @request.port)

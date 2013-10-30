@@ -16,4 +16,6 @@
         %label
           = f.check_box :remember_me
           Remember me
+        .pull-right
+          = link_to "Recovery password", new_recovery_path
       = f.submit "Login", :class => "btn btn-block btn-success"

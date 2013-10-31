@@ -2,7 +2,7 @@
   %li
     = link_to "Suites", suites_path
   %li
-    = link_to @suite.build, suite_path(@suite)
+    = link_to @suite.build, project_suite_path(@suite.project_id, @suite)
   %li.active
     compare
 
@@ -24,7 +24,7 @@
   %tbody
     - @compares.each do |suite|
       %tr
-        %td= link_to suite.build, suite_path(suite)
+        %td= link_to suite.build, project_suite_path(suite.project_id, suite)
         %td= suite.total_tests
         %td= suite.total_errors
         %td= suite.total_failures
@@ -33,6 +33,6 @@
           %td= link_to suite.user.name, user_path(suite.user)
         %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
         %td{:style => "width: 1%;", :nowrap => true}
-          =link_to "Choose", suite_compare_path(@suite,suite), :class => "btn btn-info btn-xs"
+          =link_to "Choose", project_suite_compare_path(@suite.project_id, @suite,suite), :class => "btn btn-info btn-xs"
 - if @compares.respond_to? :current_page
   = paginate @compares

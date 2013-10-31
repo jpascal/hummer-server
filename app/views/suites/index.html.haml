@@ -9,7 +9,7 @@
         - Project.all.each do |project|
           %li= link_to project.name, new_project_suite_path(project)
 
-- if @features.all.any?
+- if @features.any?
   %h5
     Feature filter:
     = link_to "all", suites_path, :class => "tag label #{params[:feature].present? ? "label-info" : "label-success"}"

@@ -1,8 +1,8 @@
 class SuitesController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :new_suite, :only => :create
-  before_action :load_features, :only => [:index,:new,:create,:edit,:update]
   load_resource :project, :except => :index
+  before_action :load_features, :only => [:index,:new,:create,:edit,:update]
   load_and_authorize_resource :suite, :throw => :project
   def index
     @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
@@ -65,6 +65,6 @@ private
     @suite = Suite.new(suite_params)
   end
   def load_features
-    @features = ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"}).uniq
+    @features = (ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"}) + (@project.try(:features) || [])).uniq
   end
 end

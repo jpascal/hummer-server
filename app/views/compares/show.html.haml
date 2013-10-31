@@ -2,11 +2,11 @@
   %li
     = link_to "Suites", suites_path
   %li
-    = link_to @suite.build, suite_path(@suite)
+    = link_to @suite.build, project_suite_path(@suite.project_id, @suite)
   %li
-    = link_to "compare", suite_compares_path(@suite)
+    = link_to "compare", project_suite_compares_path(@suite.project_id,@suite)
   %li.active
-    = link_to @compare.build, suite_path(@compare)
+    = link_to @compare.build, project_suite_path(@suite.project_id,@compare)
 
 %table.table.table-condensed.table-hover
   %thead
@@ -17,9 +17,9 @@
   - @compares.each do |original, compare|
     %tr
       %td.text-right
-        = link_to original.name, suite_case_path(@suite, original), :class => "case-#{original.result.type}" if original
+        = link_to original.name, project_suite_case_path(@suite.project_id, @suite, original), :class => "case-#{original.result.type}" if original
       %td.text-left
         - if compare
-          = link_to compare.name, suite_case_path(@compare, compare), :class => "case-#{compare.result.type}" if compare
+          = link_to compare.name, project_suite_case_path(@suite.project_id,@compare, compare), :class => "case-#{compare.result.type}" if compare
 - if @compares.respond_to? :current_page
   = paginate @compares

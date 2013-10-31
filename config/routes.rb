@@ -1,5 +1,15 @@
 Hummer::Application.routes.draw do
 
+
+  # API controllers
+  namespace :api, :module => :api, :constraints => { :format => 'json' } do
+    resources :projects, :only => [:index,:show] do
+      resources :suites, :only => [:create,:index,:show]
+    end
+  end
+
+  # Regular web requests
+
   get :login, :controller => :sessions, :action => :new
   post :login, :controller => :sessions, :action => :create
   get :logout, :controller => :sessions, :action => :destroy

@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'net/http'
+require 'json'
+
+options = {
+    "url" => nil,
+    "user_id" => nil,
+    "user_token" => nil
+}
+
+config = File.expand_path("~/.hummer")
+
+if File.exist?(config)
+    options.merge!(YAML.load_file(config))
+end
+
+headers = {}
+headers["X-User-ID"] = options["user_id"]
+headers["X-User-Token"] = options["user_token"]
+
+uri = URI(options["url"])
+
+@http = Net::HTTP.new(uri.host, uri.port)
+
+def url_for(options)
+    if options.has_key? :project and options.has_key? :suite
+        "/api/projects/#{options[:project]}/suites/#{options[:suite]}"
+    elsif options.has_key? :project
+        "/api/projects/#{options[:project]}"
+    else
+        "/api/projects/"
+    end
+end
+
+class Project
+    def self.find(id)
+        @data = JSON @http.get(url_for(:project => id),@headers).response.dody
+    end
+    def self.all
+        JSON @http.get(url_for(:project => nil),@headers).response.body
+    end
+    def suites
+        JSON @http.get(url_for(:project => @data["id"]),@headers).response.body
+    end
+end
+
+puts Project.find("asdfsdF")
+

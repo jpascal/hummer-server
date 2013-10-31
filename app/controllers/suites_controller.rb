@@ -1,12 +1,12 @@
 class SuitesController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :new_suite, :only => :create
+  before_action :load_features, :only => [:index,:new,:create,:edit,:update]
   load_resource :project, :except => :index
   load_and_authorize_resource :suite, :throw => :project
   def index
     @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
     @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
-    @features = ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"}).uniq
   end
   def create
     @suite.user = current_user
@@ -63,5 +63,8 @@ private
   def new_suite
     suite_params = params.require(:suite).permit(:build, :tempest, :feature_list)
     @suite = Suite.new(suite_params)
+  end
+  def load_features
+    @features = ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"}).uniq
   end
 end

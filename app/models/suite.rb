@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 class Suite < ActiveRecord::Base
   self.primary_key = :id
   paginates_per 20

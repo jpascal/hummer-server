@@ -52,4 +52,4 @@ gem 'cancan'
 gem 'acts-as-taggable-on', :github => "awt/acts-as-taggable-on"
 
 # Nokogiri
-gem 'nokogiri', :require => true
+gem 'nokogiri'

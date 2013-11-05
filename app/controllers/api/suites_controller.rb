@@ -2,7 +2,7 @@ class Api::SuitesController < Api::BaseController
   load_and_authorize_resource :project
   load_and_authorize_resource :suite, :throw => :project
   def index
-    render :json => @project.suites.as_json
+    render :json => @project.suites.order("created_at desc").as_json
   end
   def show
     render :json => @suite.as_json

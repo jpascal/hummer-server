@@ -18,5 +18,5 @@
     .tab-pane.active
       - if params[:tab] == "personal" and @user == current_user
         = render "personal"
-      - elsif
+      - else
         = render "overview"

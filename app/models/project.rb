@@ -10,5 +10,10 @@ class Project < ActiveRecord::Base
   has_many :users, :through => :members
 
   acts_as_taggable_on :features
-
+  def owner_name
+    owner.name || ""
+  end
+  def as_json
+    super(:methods => [:feature_list,:owner_name],:except => :owner_id)
+  end
 end

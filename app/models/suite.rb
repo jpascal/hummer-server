@@ -40,4 +40,12 @@ class Suite < ActiveRecord::Base
       end
     end
   end
+
+  def user_name
+    user.name || ""
+  end
+  def as_json
+    super(:methods => [:feature_list,:user_name],:except => :user_id)
+  end
+
 end

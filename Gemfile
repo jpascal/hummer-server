@@ -50,3 +50,6 @@ gem 'cancan'
 # Add tags functionality
 # in future need change to gem from github
 gem 'acts-as-taggable-on', :github => "awt/acts-as-taggable-on"
+
+# Nokogiri
+gem 'nokogiri'

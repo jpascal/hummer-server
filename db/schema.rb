@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020124321) do
+ActiveRecord::Schema.define(version: 20131105114432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20131020124321) do
     t.string   "password_salt",                        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "api_token"
   end
 
 end

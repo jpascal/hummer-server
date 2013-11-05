@@ -275,3 +275,18 @@ form .base-error {
 .user-admin-true {
   text-decoration: underline;
 }
+
+.tab-content-border {
+  .nav-tabs {
+    padding: 0 20px 0 20px;
+    border-bottom: 0px;
+  }
+  .tab-content {
+    padding: 15px;
+    border-width: 1px 1px 1px 1px;
+    border-color: #ddd;
+    border-style: solid;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+}

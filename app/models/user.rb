@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class User < ActiveRecord::Base
   self.primary_key = :id
   validates :name, :length => { :minimum => 4 }
@@ -26,6 +28,10 @@ class User < ActiveRecord::Base
       self.admin = true
       self.active = true
     end
+  end
+
+  def api_token!
+    update(:api_token => SecureRandom.hex(48))
   end
 
   validate :custom_validate

@@ -13,6 +13,11 @@ class UsersController < ApplicationController
     @projects = @user.all_projects
     @bugs = @user.trackers
   end
+  def token
+    @user.api_token!
+    flash[:success] = "API token has been updated"
+    redirect_to user_path(@user, :anchor => 'personal')
+  end
   def edit
   end
   def update
@@ -31,7 +36,6 @@ class UsersController < ApplicationController
   end
   def create
     if @user.save
-      flash.now[:success] = t(".success")
       redirect_to login_path
     else
       render :new

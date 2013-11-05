@@ -26,7 +26,7 @@ class Ability
 
     # For registered users
     unless current_user.new_record?
-      can [:edit,:update], User do |user|
+      can [:edit,:update, :token], User do |user|
         current_user == user
       end
       can [:edit,:update], Project do |project|

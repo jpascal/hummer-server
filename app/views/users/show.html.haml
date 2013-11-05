@@ -2,13 +2,29 @@
   .row
     .col-lg-1
       = image_tag gravatar_url(@user,64), :class => "gravatar"
-    .col-lg-10
+    .col-lg-11
       %h3
         = @user.name
         = link_to "edit", edit_user_path(@user)
-%h4 Suites
-= render "suites/suites", :suites => @suites
-%h4 Bugs
-= render "bugs/bugs", :bugs => @bugs
-%h4 Projects
-= render "projects/projects", :projects => @projects
+
+.tab-content-border
+  %ul.nav.nav-tabs
+    %li.active
+      = link_to "Overview", "#overview", :data => {:toggle => "tab"}
+    - if @user == current_user
+      %li
+        = link_to "Personal", "#personal", :data => {:toggle => "tab"}
+  .tab-content
+    #overview.tab-pane.active
+      %h4 Suites
+      = render "suites/suites", :suites => @suites
+      %h4 Bugs
+      = render "bugs/bugs", :bugs => @bugs
+      %h4 Projects
+      = render "projects/projects", :projects => @projects
+    - if @user == current_user
+      #personal.tab-pane
+        %strong= "API Token ("
+        =link_to "update", token_user_path(@user)
+        = "):"
+        = @user.api_token

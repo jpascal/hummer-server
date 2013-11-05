@@ -20,6 +20,9 @@ Hummer::Application.routes.draw do
   resources :recoveries, :except => :index
   resources :bugs, :only => [:index, :show]
   resources :users do
+    member do
+      get :token
+    end
     collection do
       get :search
     end

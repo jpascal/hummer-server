@@ -9,22 +9,14 @@
 
 .tab-content-border
   %ul.nav.nav-tabs
-    %li.active
-      = link_to "Overview", "#overview", :data => {:toggle => "tab"}
+    %li{:class => ("active" if params[:tab]=="overview" or not params[:tab].present? )}
+      = link_to "Overview", user_path(@user, :tab => "overview")
     - if @user == current_user
-      %li
-        = link_to "Personal", "#personal", :data => {:toggle => "tab"}
+      %li{:class => ("active" if params[:tab]=="personal")}
+        = link_to "Personal", user_path(@user, :tab => "personal")
   .tab-content
-    #overview.tab-pane.active
-      %h4 Suites
-      = render "suites/suites", :suites => @suites
-      %h4 Bugs
-      = render "bugs/bugs", :bugs => @bugs
-      %h4 Projects
-      = render "projects/projects", :projects => @projects
-    - if @user == current_user
-      #personal.tab-pane
-        %strong= "API Token ("
-        =link_to "update", token_user_path(@user)
-        = "):"
-        = @user.api_token
+    .tab-pane.active
+      - if params[:tab] == "personal" and @user == current_user
+        = render "personal"
+      - elsif
+        = render "overview"

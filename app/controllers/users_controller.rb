@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def token
     @user.api_token!
     flash[:success] = "API token has been updated"
-    redirect_to user_path(@user, :anchor => 'personal')
+    redirect_to user_path(@user, :tab => 'personal')
   end
   def edit
   end

@@ -4,8 +4,9 @@ Hummer::Application.routes.draw do
   # API controllers
   namespace :api, :module => :api, :constraints => { :format => 'json' } do
     resources :projects, :only => [:index,:show] do
-      resources :suites, :only => [:create,:index,:show]
+      resources :suites, :only => [:create,:index]
     end
+    resources :suites, :only => [:index,:show]
   end
 
   # Regular web requests

@@ -7,6 +7,7 @@ Hummer::Application.routes.draw do
       resources :suites, :only => [:create,:index]
     end
     resources :suites, :only => [:index,:show]
+    resources :features, :only => [:index,:show]
   end
 
   # Regular web requests

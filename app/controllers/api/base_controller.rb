@@ -8,7 +8,7 @@ private
   def load_user
     @current_user = User.where(:id => request.headers["X-User-ID"], :api_token => request.headers["X-User-Token"]).first
     unless @current_user
-      render :json => {:error => "Unknown user"}, :status => 401
+      render :nothing, :status => 401
       return false
     end
   end

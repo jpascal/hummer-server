@@ -1,3 +1,5 @@
+- if suites.respond_to? :current_page
+  = paginate suites
 - if suites.all.count > 0
   %table.table.table-condensed.table-hover
     %thead
@@ -34,11 +36,10 @@
             %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
           %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
           %td.text-right{:style => "width: 1%;", :nowrap => true}
-            =link_to "Delete", project_suite_path(suite.project_id, suite), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, suite
-            =link_to "Edit", edit_project_suite_path(suite.project_id, suite), :class => "btn btn-default btn-xs" if can? :update, suite
-            =link_to "Download", suite.tempest.url, :class => "btn btn-default btn-xs"
-            =link_to "Compare", project_suite_compares_path(suite.project_id, suite), :class => "btn btn-info btn-xs"
-            =link_to "Paste2", paste_project_suite_path(suite.project_id, suite), :class => "btn btn-default btn-xs" if can? :paste, suite
+            - if defined? buttons
+              = render buttons, :suite => suite
+            - else
+              = render "suites/buttons", :suite => suite
 - else
   %p.well.text-center{:style => "margin-top: 20px;"}
     No suites

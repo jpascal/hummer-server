@@ -6,33 +6,35 @@
   %li.active
     compare
 
-.panel.panel-default
-  .panel-body
-    Choose report to compare with
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th Build
-      %th Tests
-      %th Errors
-      %th Failures
-      %th Skip
-      - if can? :read, User
-        %th User
-      %th Posted
-      %th Actions
-  %tbody
-    - @compares.each do |suite|
-      %tr
-        %td= link_to suite.build, project_suite_path(suite.project_id, suite)
-        %td= suite.total_tests
-        %td= suite.total_errors
-        %td= suite.total_failures
-        %td= suite.total_skip
-        - if can? :read, User
-          %td= link_to suite.user.name, user_path(suite.user)
-        %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
-        %td{:style => "width: 1%;", :nowrap => true}
-          =link_to "Choose", project_suite_compare_path(@suite.project_id, @suite,suite), :class => "btn btn-info btn-xs"
-- if @compares.respond_to? :current_page
-  = paginate @compares
+= render "suites/suites", :suites => @compares, :buttons => "choose"
+
+-#.panel.panel-default
+-#  .panel-body
+-#    Choose report to compare with
+-#%table.table.table-condensed.table-hover
+-#  %thead
+-#    %tr
+-#      %th Build
+-#      %th Tests
+-#      %th Errors
+-#      %th Failures
+-#      %th Skip
+-#      - if can? :read, User
+-#        %th User
+-#      %th Posted
+-#      %th Actions
+-#  %tbody
+-#    - @compares.each do |suite|
+-#      %tr
+-#        %td= link_to suite.build, project_suite_path(suite.project_id, suite)
+-#        %td= suite.total_tests
+-#        %td= suite.total_errors
+-#        %td= suite.total_failures
+-#        %td= suite.total_skip
+-#        - if can? :read, User
+-#          %td= link_to suite.user.name, user_path(suite.user)
+-#        %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
+-#        %td{:style => "width: 1%;", :nowrap => true}
+-#          =link_to "Choose", project_suite_compare_path(@suite.project_id, @suite,suite), :class => "btn btn-info btn-xs"
+-#- if @compares.respond_to? :current_page
+-#  = paginate @compares

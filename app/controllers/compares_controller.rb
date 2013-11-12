@@ -2,7 +2,7 @@ class ComparesController < ApplicationController
   load_and_authorize_resource :suite, :id_param => :suite_id
   load_and_authorize_resource :compare, :class => "Suite"
   def index
-    @compares = @compares.where("id != ?",@suite).page(params[:page])
+    @compares = @compares.where("id != ?",@suite).order("created_at desc").page(params[:page])
   end
   def show
     if params[:id] == @suite.id.to_s

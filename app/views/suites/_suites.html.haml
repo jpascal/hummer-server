@@ -10,7 +10,8 @@
         %th= sortable(:total_passed, "Passed")
         - if current_user
           %th User
-        %th Project
+        - unless defined? @project
+          %th Project
         %th= sortable(:created_at, "Posted")
         %th Actions
     %tbody
@@ -29,7 +30,8 @@
           %td= suite.total_passed
           - if current_user
             %td= link_to suite.user.name, user_path(suite.user)
-          %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
+          - unless defined? @project
+            %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
           %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
           %td.text-right{:style => "width: 1%;", :nowrap => true}
             =link_to "Delete", project_suite_path(suite.project_id, suite), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, suite

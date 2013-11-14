@@ -20,7 +20,7 @@ class Suite < ActiveRecord::Base
     self.total_errors = document.root.attribute("errors").value.to_i
     self.total_failures = document.root.attribute("failures").value.to_i
     self.total_tests = document.root.attribute("tests").value.to_i
-    self.total_skip = document.root.attribute("errors").value.to_i
+    self.total_skip = document.root.attribute("skip").value.to_i
     self.total_passed = self.total_tests - (self.total_errors + self.total_skip + self.total_failures)
     document.xpath("testsuite/testcase").each do |test_case|
       tmp = self.cases.build({

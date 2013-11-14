@@ -13,6 +13,9 @@ class Ability
         current_user != user
       end
       can [:edit,:update, :destroy], Suite
+      can :reload, Suite do |suite|
+        suite.tempest.present?
+      end
       can [:create,:edit,:update,:destroy], Project
       can [:search,:edit,:update], User
     end
@@ -36,6 +39,9 @@ class Ability
       can :create, Suite
       can [:edit,:update], Suite do |suite|
         suite.user == current_user
+      end
+      can :reload, Suite do |suite|
+        suite.tempest.present? and suite.user == current_user
       end
       can :destroy, Suite do |suite| # Allow poet tempest reports
         suite.user == current_user

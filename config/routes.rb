@@ -32,6 +32,7 @@ Hummer::Application.routes.draw do
   resources :projects do
     resources :suites, :only => [:edit, :update, :create, :destroy, :new, :index, :show], :as => :suites do
       member do
+        get :reload
         get :search
         get :paste
       end

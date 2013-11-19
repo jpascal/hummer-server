@@ -33,5 +33,10 @@
         %tr
           %td= link_to element.suite.project.name, project_path(element.suite.project)
           %td= link_to element.suite.build, project_suite_path(element.suite.project_id,element.suite)
-          %td= link_to element.name, project_suite_case_path(element.suite.project_id, element.suite, element), :class => "case-#{element.result.type}"
+          %td
+            = link_to element.name, project_suite_case_path(element.suite.project_id, element.suite, element), :class => "case-#{element.result.type}"
+            - if element.tracker
+              %br
+              = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"
+            %br
           %td{:style => "width: 1%;", :nowrap => true}= l(element.suite.created_at, :format => "%H:%M / %d.%m.%Y")

@@ -26,7 +26,7 @@
         %td= "#{@suite.percents[:skip]}%"
         %td= "#{@suite.percents[:passed]}%"
 
-  %h4 Tracking progress
+  %h4= "Tracking progress (#{@suite.percents[:tracked]}%)"
   .progress
     .progress-bar.progress-bar-danger{:style => "width: #{@suite.percents[:tracked]}%"}
       %span.sr-only= "#{@suite.percents[:errors]}% errors"

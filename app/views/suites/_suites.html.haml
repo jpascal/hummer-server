@@ -35,7 +35,7 @@
           - unless defined? @project
             %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
           %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
-          %td.text-right{:style => "width: 1%;", :nowrap => true}
+          %td{:style => "width: 1%;", :nowrap => true}
             - if defined? buttons
               = render buttons, :suite => suite
             - else

@@ -2,11 +2,10 @@
 .masthead
   %ul.nav.nav-justified
     %li.search-tab
-      %input.typeahead{:placeholder=>"Tap to search", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_project_suite_path(@suite.project_id,@suite), :limit => 10, :template => render("search")} }
+      %input.typeahead{:placeholder=>"Tap to search test", :autocomplete=>"off", :spellcheck=>"false", :dir=>"auto", :data => {:source => search_project_suite_path(@suite.project_id,@suite), :limit => 10, :template => render("search")} }
     %li{:class => ("active" unless params[:type])}
       =link_to project_suite_path(@suite.project_id,@suite) do
-        All
-        %span.label.label-default= @suite.total_tests
+        Overview
     %li{:class => ("active" if params[:type] == "error")}
       =link_to project_suite_path(@suite.project_id,@suite, :type => "error") do
         Errors
@@ -23,22 +22,24 @@
       =link_to project_suite_path(@suite.project_id,@suite, :type => "passed") do
         Passed
         %span.label.label-success= @suite.total_passed
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th Name
-      %th Class
-      %th Time
-  %tbody
-    - @cases.each do |element|
+- if params[:type].present?
+  %table.table.table-condensed.table-hover
+    %thead
       %tr
-        %td
-          = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.result.type}"
-          - if element.tracker
-            %br
-            = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"
-        %td= (element.classname unless element.name.start_with? "ContextSuite")
-        %td= element.time
-        %div{:id => "info-#{element.id}"}
-= paginate @cases
-
+        %th Name
+        %th Class
+        %th Time
+    %tbody
+      - @cases.each do |element|
+        %tr
+          %td
+            = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.result.type}"
+            - if element.tracker
+              %br
+              = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"
+          %td= (element.classname unless element.name.start_with? "ContextSuite")
+          %td= element.time
+          %div{:id => "info-#{element.id}"}
+  = paginate @cases
+- else
+  =render "overview"

@@ -50,6 +50,21 @@ class Suite < ActiveRecord::Base
     parse_tempest
   end
 
+  def bugs
+    cases.where("tracker IS NOT NULL").includes(:result)
+  end
+
+  def percents
+    results = {
+        :errors => ((total_errors.to_f / total_tests.to_f) * 100).to_i,
+        :failures => ((total_failures.to_f / total_tests.to_f) * 100).to_i,
+        :skip => ((total_skip.to_f / total_tests.to_f) * 100).to_i,
+    }
+    results[:tracked] = ((bugs.count.to_f / (total_errors + total_failures).to_f) * 100).to_i
+    results[:passed] = (100 - results[:errors] - results[:failures] - results[:skip])
+    results
+  end
+
   def user_name
     user.name || ""
   end

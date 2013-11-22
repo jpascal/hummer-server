@@ -1,0 +1,34 @@
+.content-border{:style => "margin-top: 20px; padding-bottom: 0px;"}
+  %h4= "Progress"
+  .progress
+    .progress-bar.progress-bar-danger{:style => "width: #{@suite.percents[:errors]}%"}
+      %span.sr-only= "#{@suite.percents[:errors]}% errors"
+    .progress-bar.progress-bar-warning{:style => "width: #{@suite.percents[:failures]}%"}
+      %span.sr-only= "#{@suite.percents[:failures]}% failures"
+    .progress-bar.progress-bar-info{:style => "width: #{@suite.percents[:skip]}%"}
+      %span.sr-only= "#{@suite.percents[:skip]}% skip"
+    .progress-bar.progress-bar-success{:style => "width: #{@suite.percents[:passed]}%"}
+      %span.sr-only= "#{@suite.percents[:passed]}% passed"
+
+  %table.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th Total tests
+        %th % of errors
+        %th % of failures
+        %th % of skip
+        %th % of passed
+    %tbody
+      %tr
+        %td= @suite.total_tests
+        %td= "#{@suite.percents[:errors]}%"
+        %td= "#{@suite.percents[:failures]}%"
+        %td= "#{@suite.percents[:skip]}%"
+        %td= "#{@suite.percents[:passed]}%"
+
+  %h4 Tracking progress
+  .progress
+    .progress-bar.progress-bar-danger{:style => "width: #{@suite.percents[:tracked]}%"}
+      %span.sr-only= "#{@suite.percents[:errors]}% errors"
+  %h4 Tracked bugs
+  = render "bugs/bugs", :bugs => @suite.bugs

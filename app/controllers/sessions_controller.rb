@@ -10,8 +10,16 @@ class SessionsController < ApplicationController
   def create
     @session = Session.new(params[:session])
     if @session.save
-      flash[:success] = "Sign in success"
-      redirect_to root_path
+      begin
+        Rails.application.routes.recognize_path (request[:path]) if request[:path].present?
+        flash[:success] = "Sign in success"
+        redirect_to request[:path]
+      rescue
+        if params[:path].present?
+            flash[:warning] = "Sign in success, but invalid route returning"
+        end
+        redirect_to root_path
+      end
     else
       render :new
     end

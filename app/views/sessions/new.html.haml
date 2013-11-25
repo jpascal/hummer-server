@@ -2,7 +2,7 @@
   %h2.text-center
     Login
   .well
-    = form_for @session, :url => login_path do |f|
+    = form_for @session, :url => login_path(:path => params[:path]) do |f|
       = f.error_for_base :p, :class => "text-center"
       = f.block_for :email, :class => "form-group" do
         = f.label :email

@@ -299,3 +299,8 @@ form .base-error {
   border-radius: 4px;
   margin-bottom: 20px;
 }
+
+.pager li > a, .pager li > span {
+  background-color: #e8e8e8;
+  border-radius: 5px;
+}

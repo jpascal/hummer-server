@@ -24,7 +24,7 @@
         %span.label.label-success= @suite.total_passed
 - if params[:type].present?
   .content-border{:style => "margin-top: 20px;"}
-    = paginate @cases
+    = paginate @cases, :style => "margin-top: 0px"
     %table.table.table-condensed.table-hover
       %thead
         %tr
@@ -42,6 +42,6 @@
             %td= (element.classname unless element.name.start_with? "ContextSuite")
             %td= element.time
             %div{:id => "info-#{element.id}"}
-    = paginate @cases
+    = paginate @cases, :style => "margin-bottom: 0px"
 - else
   =render "overview"

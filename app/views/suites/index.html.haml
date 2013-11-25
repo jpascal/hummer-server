@@ -16,4 +16,5 @@
     - @features.each do |feature|
       = link_to feature.name, suites_path(:feature => feature.name), :class => "tag label #{params[:feature] != feature.name ? "label-info" : "label-success"}"
 
-= render "suites", :suites => @suites
+.content-border
+  = render "suites", :suites => @suites

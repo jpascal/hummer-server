@@ -23,23 +23,25 @@
         Passed
         %span.label.label-success= @suite.total_passed
 - if params[:type].present?
-  %table.table.table-condensed.table-hover
-    %thead
-      %tr
-        %th Name
-        %th Class
-        %th Time
-    %tbody
-      - @cases.each do |element|
+  .content-border{:style => "margin-top: 20px;"}
+    = paginate @cases
+    %table.table.table-condensed.table-hover
+      %thead
         %tr
-          %td
-            = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.result.type}"
-            - if element.tracker
-              %br
-              = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"
-          %td= (element.classname unless element.name.start_with? "ContextSuite")
-          %td= element.time
-          %div{:id => "info-#{element.id}"}
-  = paginate @cases
+          %th Name
+          %th Class
+          %th Time
+      %tbody
+        - @cases.each do |element|
+          %tr
+            %td
+              = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.result.type}"
+              - if element.tracker
+                %br
+                = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"
+            %td= (element.classname unless element.name.start_with? "ContextSuite")
+            %td= element.time
+            %div{:id => "info-#{element.id}"}
+    = paginate @cases
 - else
   =render "overview"

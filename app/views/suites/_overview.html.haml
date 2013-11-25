@@ -26,9 +26,10 @@
         %td= "#{@suite.percents[:skip]}%"
         %td= "#{@suite.percents[:passed]}%"
 
-  %h4= "Tracking progress (#{@suite.percents[:tracked]}%)"
-  .progress
-    .progress-bar.progress-bar-danger{:style => "width: #{@suite.percents[:tracked]}%"}
-      %span.sr-only= "#{@suite.percents[:errors]}% errors"
-  %h4 Tracked bugs
-  = render "bugs/bugs", :bugs => @suite.bugs
+  - if @suite.bugs.any?
+    %h4= "Tracking progress (#{@suite.percents[:tracked]}% of #{@suite.total_errors + @suite.total_failures} troubles)"
+    .progress
+      .progress-bar.progress-bar-danger{:style => "width: #{@suite.percents[:tracked]}%"}
+        %span.sr-only #{@suite.percents[:errors]}% errors
+    %h4 Tracked bugs (#{@suite.bugs.count})
+    = render "bugs/bugs", :bugs => @suite.bugs

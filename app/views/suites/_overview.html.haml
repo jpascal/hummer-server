@@ -1,6 +1,6 @@
 .content-border{:style => "margin-top: 20px; padding-bottom: 0px;"}
   %h4= "Progress"
-  .progress
+  .progress{:style => "margin-bottom: 0px;"}
     .progress-bar.progress-bar-danger{:style => "width: #{@suite.percents[:errors]}%"}
       %span.sr-only= "#{@suite.percents[:errors]}% errors"
     .progress-bar.progress-bar-warning{:style => "width: #{@suite.percents[:failures]}%"}
@@ -21,10 +21,10 @@
     %tbody
       %tr
         %td= @suite.total_tests
-        %td= "#{@suite.percents[:errors]}%"
-        %td= "#{@suite.percents[:failures]}%"
-        %td= "#{@suite.percents[:skip]}%"
-        %td= "#{@suite.percents[:passed]}%"
+        %td.case-error= "#{@suite.percents[:errors]}%"
+        %td.case-failure= "#{@suite.percents[:failures]}%"
+        %td.case-skipped= "#{@suite.percents[:skip]}%"
+        %td.case-passed= "#{@suite.percents[:passed]}%"
 
   - if @suite.bugs.any?
     %h4= "Tracking progress (#{@suite.percents[:tracked]}% of #{@suite.total_errors + @suite.total_failures} troubles)"

@@ -17,7 +17,7 @@ class Suite < ActiveRecord::Base
   #end
   def reload
     Result.where(:id => self.case_ids).delete_all
-    self.cases.delete_all
+    self.cases.destroy_all
     parse_tempest
     self.save!
   end

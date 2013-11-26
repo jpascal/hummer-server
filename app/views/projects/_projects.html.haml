@@ -20,7 +20,7 @@
               %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
           %td= project.suites.count
           - if current_user
-            %td= link_to project.owner.name, user_path(project.owner)
+            %td= link_to_user project.owner
           -# TODO: need realise membership
           -#%td= project.members.count + 1
           %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")

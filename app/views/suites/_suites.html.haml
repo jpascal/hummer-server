@@ -10,6 +10,7 @@
         %th= sortable(:total_failures, "Failures")
         %th= sortable(:total_skip, "Skip")
         %th= sortable(:total_passed, "Passed")
+        %th Bugs
         - if current_user
           %th User
         - unless defined? @project
@@ -30,6 +31,7 @@
           %td= suite.total_failures
           %td= suite.total_skip
           %td= suite.total_passed
+          %td= suite.bugs.count
           - if current_user
             %td= link_to_user suite.user
           - unless defined? @project

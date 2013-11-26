@@ -38,7 +38,7 @@
     - @users.each do |user|
       %tr
         %td{:style => "width: 1%;", :nowrap => true}= image_tag gravatar_url(user,22), :class => "gravatar", :width => 22, :height => 22
-        %td= link_to user.name, user_path(user)
+        %td= link_to_user user
         - if current_user and current_user.admin
           %td= user.admin ? "Yes" : "No"
           %td= user.active ? "Yes" : "No"

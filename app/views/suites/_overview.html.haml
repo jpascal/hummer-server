@@ -32,4 +32,4 @@
       .progress-bar.progress-bar-danger{:style => "width: #{@suite.percents[:tracked]}%"}
         %span.sr-only #{@suite.percents[:errors]}% errors
     %h4 Tracked bugs (#{@suite.bugs.count})
-    = render "bugs/bugs", :bugs => @suite.bugs
+    = render "bugs/bugs", :bugs => @suite.bugs, :columns => [:created,:bug,:test, :owner]

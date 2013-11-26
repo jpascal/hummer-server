@@ -1,6 +1,6 @@
 %h4 Suites
-= render "suites/suites", :suites => @suites
+= render "suites/suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :bugs, :project, :created]
 %h4 Bugs
-= render "bugs/bugs", :bugs => @bugs, :hide_users => true
+= render "bugs/bugs", :bugs => @bugs, :columns => [:created,:suite,:bug,:test]
 %h4 Projects
-= render "projects/projects", :projects => @projects
+= render "projects/projects", :projects => @projects, :columns => [:name, :suites, :created]

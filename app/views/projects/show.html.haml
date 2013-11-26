@@ -3,4 +3,4 @@
     .col-lg-12
       = @project.name
 %h4 Suites
-= render "suites/suites", :suites => @project.suites
+= render "suites/suites", :suites => @project.suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]

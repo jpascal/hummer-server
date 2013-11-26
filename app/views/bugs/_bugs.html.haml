@@ -2,30 +2,37 @@
   %table.table.table-condensed.table-hover
     %thead
       %tr
-        %th Suite
-        %th Test
-        %th Bug
-        - if current_user and not defined?(hide_users)
+        - if columns.include? :suite
+          %th Suite
+        - if columns.include? :test
+          %th Test
+        - if columns.include? :bug
+          %th Bug
+        - if columns.include? :owner
           %th Owner
-        %th Linked
+        - if columns.include? :created
+          %th Created
     %tbody
       - bugs.each do |bug|
         %tr
-          %td
-            - if bug.case.present?
-              = link_to bug.suite.build, project_suite_path(bug.suite.project_id, bug.case.suite_id)
-          %td
-            - if bug.case.present?
-              = link_to bug.name, project_suite_case_path(bug.suite.project_id, bug.case.suite_id,bug), :class => "case-#{bug.level}"
-            - else
-              %span{:class => "case-#{bug.level}"}
-                = bug.name
+          - if columns.include? :suite
+            %td
+              - if bug.case.present?
+                = link_to bug.suite.build, project_suite_path(bug.suite.project_id, bug.case.suite_id)
+          - if columns.include? :test
+            %td
+              - if bug.case.present?
+                = link_to bug.name, project_suite_case_path(bug.suite.project_id, bug.case.suite_id,bug.case_id), :class => "case-#{bug.level}"
+              - else
+                %span{:class => "case-#{bug.level}"}
+                  = bug.name
+          - if columns.include? :bug
             %td= link_to extract_tracker(bug.tracker), bug.tracker
-          - if current_user and not defined?(hide_users)
+          - if columns.include? :owner and current_user
             %td
               = link_to_user bug.user
-          %td= l(bug.updated_at, :format => "%H:%M / %d.%m.%Y")
-          %td.text-right{:style => "width: 1%;", :nowrap => true}
+          - if columns.include? :created
+            %td= l(bug.created_at, :format => "%H:%M / %d.%m.%Y")
 - else
   %p.well.text-center{:style => "margin-top: 20px;"}
     No bugs

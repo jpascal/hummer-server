@@ -18,4 +18,5 @@
       =link_to bugs_path(@suite, :type => "skipped") do
         Skip
         %span.label.label-info= @total_skipped
-= render "bugs", :bugs => @bugs
+= render "bugs", :bugs => @bugs, :columns => [:created,:suite,:bug,:test, :owner]
+

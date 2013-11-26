@@ -17,4 +17,4 @@
       = link_to feature.name, suites_path(:feature => feature.name), :class => "tag label #{params[:feature] != feature.name ? "label-info" : "label-success"}"
 
 .content-border
-  = render "suites", :suites => @suites
+  = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :project, :tests, :created]

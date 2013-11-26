@@ -4,39 +4,55 @@
   %table.table.table-condensed.table-hover
     %thead
       %tr
-        %th= sortable(:build)
-        %th= sortable(:total_tests, "Tests")
-        %th= sortable(:total_errors, "Errors")
-        %th= sortable(:total_failures, "Failures")
-        %th= sortable(:total_skip, "Skip")
-        %th= sortable(:total_passed, "Passed")
-        %th Bugs
-        - if current_user
+        - if columns.include? :suite
+          %th= sortable(:build)
+        - if columns.include? :tests
+          %th= sortable(:total_tests, "Tests")
+        - if columns.include? :errors
+          %th= sortable(:total_errors, "Errors")
+        - if columns.include? :failures
+          %th= sortable(:total_failures, "Failures")
+        - if columns.include? :skipped
+          %th= sortable(:total_skip, "Skip")
+        - if columns.include? :passed
+          %th= sortable(:total_passed, "Passed")
+        - if columns.include? :bugs
+          %th Bugs
+        - if columns.include? :user and current_user
           %th User
-        - unless defined? @project
+        - if columns.include? :project
           %th Project
-        %th= sortable(:created_at, "Posted")
+        - if columns.include? :created
+          %th= sortable(:created_at, "Created")
         %th Actions
     %tbody
       - suites.each do |suite|
         %tr
-          %td
-            = link_to suite.build, project_suite_path(suite.project_id, suite)
-            - if suite.features.all.any?
-              %br
-              - suite.features.each do |feature|
-                %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
-          %td= suite.total_tests
-          %td= suite.total_errors
-          %td= suite.total_failures
-          %td= suite.total_skip
-          %td= suite.total_passed
-          %td= suite.bugs.count
-          - if current_user
+          - if columns.include? :suite
+            %td
+              = link_to suite.build, project_suite_path(suite.project_id, suite)
+              - if suite.features.all.any?
+                %br
+                - suite.features.each do |feature|
+                  %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
+          - if columns.include? :tests
+            %td= suite.total_tests
+          - if columns.include? :errors
+            %td= suite.total_errors
+          - if columns.include? :failures
+            %td= suite.total_failures
+          - if columns.include? :skipped
+            %td= suite.total_skip
+          - if columns.include? :passed
+            %td= suite.total_passed
+          - if columns.include? :bugs
+            %td= suite.bugs.count
+          - if columns.include? :user and current_user
             %td= link_to_user suite.user
-          - unless defined? @project
+          - if columns.include? :project
             %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
-          %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
+          - if columns.include? :created
+            %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")
           %td{:style => "width: 1%;", :nowrap => true}
             - if defined? buttons
               = render buttons, :suite => suite

@@ -2,28 +2,30 @@
   %table.table.table-condensed.table-hover
     %thead
       %tr
-        %th Name
-        %th Suites
-        - if current_user
+        - if columns.include? :name
+          %th Name
+        - if columns.include? :suites
+          %th Suites
+        - if columns.include? :owner and current_user
           %th Owner
-        -# TODO: need realise membership
-        -#%th Members
-        %th Created
+        - if columns.include? :created
+          %th Created
         %th Actions
     %tbody
       - projects.each do |project|
         %tr
-          %td
-            = link_to project.name, project_path(project)
-            %br
-            - project.features.each do |feature|
-              %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
-          %td= project.suites.count
-          - if current_user
+          - if columns.include? :name
+            %td
+              = link_to project.name, project_path(project)
+              %br
+              - project.features.each do |feature|
+                %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
+          - if columns.include? :suites
+            %td= project.suites.count
+          - if columns.include? :owner and current_user
             %td= link_to_user project.owner
-          -# TODO: need realise membership
-          -#%td= project.members.count + 1
-          %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")
+          - if columns.include? :created
+            %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")
           %td.text-right{:style => "width: 1%;", :nowrap => true}
             =link_to "Delete", project_path(project), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, project
             =link_to "Edit", edit_project_path(project), :class => "btn btn-default btn-xs" if can? :edit, project

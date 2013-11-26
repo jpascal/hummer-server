@@ -19,6 +19,10 @@
   - if @case.result.message
     %pre= @case.result.message
 
+- if @related_bugs.any?
+  %h4 Related bugs:
+  =render "bugs/bugs", :bugs => @related_bugs, :columns => [:suite, :bug, :owner, :created]
+
 - if @related_cases.any?
   %h4 Related tests:
   %table.table.table-condensed.table-hover
@@ -33,10 +37,5 @@
         %tr
           %td= link_to element.suite.project.name, project_path(element.suite.project)
           %td= link_to element.suite.build, project_suite_path(element.suite.project_id,element.suite)
-          %td
-            = link_to element.name, project_suite_case_path(element.suite.project_id, element.suite, element), :class => "case-#{element.result.type}"
-            - if element.bug.present?
-              %br
-              = link_to extract_tracker(element.bug.tracker), element.bug.tracker, :target => "_blank"
-            %br
+          %td= link_to element.name, project_suite_case_path(element.suite.project_id, element.suite, element), :class => "case-#{element.result.type}"
           %td{:style => "width: 1%;", :nowrap => true}= l(element.suite.created_at, :format => "%H:%M / %d.%m.%Y")

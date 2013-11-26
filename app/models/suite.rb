@@ -6,6 +6,9 @@ class Suite < ActiveRecord::Base
   mount_uploader :tempest, TempestUploader
   acts_as_taggable_on :features
   has_many :cases, :dependent => :delete_all, :autosave => true
+
+  has_many :bugs, :through => :cases
+
   belongs_to :user
   belongs_to :project
   validates :build, :user, :project_id, :presence => true
@@ -48,10 +51,6 @@ class Suite < ActiveRecord::Base
   end
   before_create do
     parse_tempest
-  end
-
-  def bugs
-    cases.where("tracker IS NOT NULL").includes(:result)
   end
 
   def percents

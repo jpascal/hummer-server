@@ -36,9 +36,9 @@
           %tr
             %td
               = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.result.type}"
-              - if element.tracker
+              - if element.bug.present?
                 %br
-                = link_to extract_tracker(element.tracker), element.tracker, :target => "_blank"
+                = link_to extract_tracker(element.bug.tracker), element.bug.tracker, :target => "_blank"
             %td= (element.classname unless element.name.start_with? "ContextSuite")
             %td= element.time
             %div{:id => "info-#{element.id}"}

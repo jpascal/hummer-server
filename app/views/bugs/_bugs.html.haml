@@ -11,8 +11,8 @@
     %tbody
       - bugs.each do |bug|
         %tr
-          %td= link_to bug.suite.build, project_suite_path(bug.suite.project_id, bug.suite_id)
-          %td= link_to bug.name, project_suite_case_path(bug.suite.project_id, bug.suite_id,bug), :class => "case-#{bug.result.type}"
+          %td= link_to bug.suite.build, project_suite_path(bug.suite.project_id, bug.case.suite_id)
+          %td= link_to bug.name, project_suite_case_path(bug.suite.project_id, bug.case.suite_id,bug), :class => "case-#{bug.case.result.type}"
           %td= link_to extract_tracker(bug.tracker), bug.tracker
           - if current_user
             %td= link_to bug.tracker_user.name, user_path(bug.tracker_user)

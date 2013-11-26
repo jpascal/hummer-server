@@ -4,4 +4,5 @@ class Case < ActiveRecord::Base
   belongs_to :suite
   has_one :result, :dependent => :delete, :autosave => true
   belongs_to :tracker_user, :class_name => "User"
+  has_one :bug, :dependent => :nullify
 end

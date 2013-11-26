@@ -5,7 +5,7 @@
         %th Suite
         %th Test
         %th Bug
-        - if current_user
+        - if current_user and not defined?(hide_users)
           %th Owner
         %th Linked
     %tbody
@@ -14,8 +14,6 @@
           %td
             - if bug.case.present?
               = link_to bug.suite.build, project_suite_path(bug.suite.project_id, bug.case.suite_id)
-            - else
-              deleted
           %td
             - if bug.case.present?
               = link_to bug.name, project_suite_case_path(bug.suite.project_id, bug.case.suite_id,bug), :class => "case-#{bug.level}"
@@ -23,12 +21,9 @@
               %span{:class => "case-#{bug.level}"}
                 = bug.name
             %td= link_to extract_tracker(bug.tracker), bug.tracker
-          - if current_user
+          - if current_user and not defined?(hide_users)
             %td
-              - if bug.user.present?
-                = link_to bug.user.name, user_path(bug.user)
-              - else
-                deleted
+              = link_to_user bug.user
           %td= l(bug.updated_at, :format => "%H:%M / %d.%m.%Y")
           %td.text-right{:style => "width: 1%;", :nowrap => true}
 - else

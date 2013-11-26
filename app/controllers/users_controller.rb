@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show
     @suites = @user.suites.page(params[:page])
     @projects = @user.all_projects
-    @bugs = @user.trackers
+    @bugs = @user.bugs
   end
   def token
     @user.api_token!

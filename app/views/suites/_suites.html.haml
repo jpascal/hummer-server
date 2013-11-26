@@ -31,7 +31,7 @@
           %td= suite.total_skip
           %td= suite.total_passed
           - if current_user
-            %td= link_to suite.user.name, user_path(suite.user)
+            %td= link_to_user suite.user
           - unless defined? @project
             %td= suite.project ? link_to(suite.project.name, project_path(suite.project)) : ""
           %td= l(suite.created_at, :format => "%H:%M / %d.%m.%Y")

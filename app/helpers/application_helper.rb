@@ -26,4 +26,9 @@ module ApplicationHelper
       title
     end
   end
+  def link_to_user(user)
+    if user.present?
+      link_to user.name, user_path(user)
+    end
+  end
 end

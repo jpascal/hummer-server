@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20131126104138) do
     t.uuid     "case_id"
     t.uuid     "user_id"
     t.string   "tracker"
+    t.string   "level"
     t.string   "name"
     t.string   "classname"
     t.text     "message"

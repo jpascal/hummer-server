@@ -4,6 +4,7 @@ class CreateBugs < ActiveRecord::Migration
       t.uuid    :case_id
       t.uuid    :user_id
       t.string  :tracker
+      t.string  :level
       t.string  :name
       t.string  :classname
       t.text    :message
@@ -11,6 +12,7 @@ class CreateBugs < ActiveRecord::Migration
     end
     Case.where("tracker IS NOT NULL").includes(:result).each do |test|
       Bug.create!(
+        :level => test.result.type,
         :user_id => test.tracker_user_id,
         :case_id => test.id,
         :tracker => test.tracker,

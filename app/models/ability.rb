@@ -7,6 +7,7 @@ class Ability
     can [:read,:search,:paste], Suite # Allow read and past2
     can [:read,:paste], Case # Allow read and past2
     can :read, Project
+    can :read, Bug
 
     if current_user.admin
       can :destroy, User do |user|

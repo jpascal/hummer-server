@@ -1,4 +1,5 @@
 class BugsController < ApplicationController
+  load_and_authorize_resource :bug
   def index
     @bugs = Bug.all
     @total_tests = @bugs.count
@@ -9,9 +10,5 @@ class BugsController < ApplicationController
     @bugs = @bugs.where(:level => params[:type]) if params[:type].present?
     @bugs = @bugs.page(params[:page])
     authorize!(:index, Case)
-  end
-  def show
-    @bug = Bug.find(params[:id])
-    authorize!(:read, @bug)
   end
 end

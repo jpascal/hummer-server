@@ -1,4 +1,5 @@
-%h4
-  Projects
-  = link_to "Add", new_project_path, :class => "btn btn-default pull-right" if can? :create, Project
-= render "projects", :projects => @projects, :columns => [:name, :suites, :created, :owner]
+.content-header
+  = link_to "Projects", projects_path
+  = link_to "Add", new_project_path, :class => "btn btn-default btn-xs pull-right" if can? :create, Project
+.content-border
+  = render "projects", :projects => @projects, :columns => [:name, :suites, :created, :owner]

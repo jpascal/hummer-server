@@ -1,0 +1,11 @@
+.content-header
+  %span.glyphicon.glyphicon-folder-close
+  =link_to suite.project.name, suite.project
+  \/
+  %span.glyphicon.glyphicon-list-alt
+  =link_to suite.build, project_suite_path(suite.project,suite)
+
+  .pull-right
+    - if suite.features.all.any?
+      - suite.features.each do |feature|
+        %span.label.label-success= feature

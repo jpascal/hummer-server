@@ -1,12 +1,4 @@
-.well
-  .row
-    .col-lg-1
-      = image_tag gravatar_url(@user,64), :class => "gravatar"
-    .col-lg-11
-      %h3
-        = @user.name
-        = link_to "edit", edit_user_path(@user)
-
+=render "header", :user => @user
 .tab-content-border
   %ul.nav.nav-tabs
     %li{:class => ("active" if params[:tab]=="overview" or not params[:tab].present? )}

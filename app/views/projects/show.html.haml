@@ -1,6 +1,3 @@
-.well
-  .row
-    .col-lg-12
-      = @project.name
-%h4 Suites
-= render "suites/suites", :suites => @project.suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]
+=render "header", :project => @project
+.content-border
+  = render "suites/suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]

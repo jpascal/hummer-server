@@ -1,9 +1,4 @@
-.well
-  .row
-    .col-lg-1
-      = image_tag gravatar_url(@user,64), :class => "gravatar"
-    .col-lg-11
-      %h3= @user.name_was
+=render "header", :user => @user
 .single-form
   %h2.text-center
     User profile

@@ -5,6 +5,10 @@ class ProjectsController < ApplicationController
   def index
 
   end
+  def show
+    @suites = @project.suites.page(params[:page]).order(suites_sort_column + " " + suites_sort_direction)
+    @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
+  end
   def create
     @users = User.where(:active => true)
     if @project.save
@@ -42,4 +46,11 @@ private
   def load_users
     @users = User.where(:active => true)
   end
+  def suites_sort_column
+    Suite.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+  def suites_sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
 end

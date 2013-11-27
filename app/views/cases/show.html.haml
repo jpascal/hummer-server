@@ -1,5 +1,4 @@
-= render "applications/breadcrumbs"
-
+=render "suites/header", :suite => @case.suite
 .bs-callout{:class => "bs-callout-#{@case.result.type}"}
   - if @case.result.message
     .pull-right

@@ -1,12 +1,10 @@
-%ol.breadcrumb
-  %li
-    = link_to "Suites", suites_path
-  %li
-    = link_to @suite.build, project_suite_path(@suite.project_id, @suite)
-  %li.active
-    compare
-.well
-  .row
-    .col-lg-12
-      Choose report to compare with
-= render "suites/suites", :suites => @compares, :buttons => "choose"
+.content-header
+  %span.glyphicon.glyphicon-folder-close
+  =link_to @suite.project.name, project_path(@suite.project)
+  \/
+  %span.glyphicon.glyphicon-list-alt
+  =link_to @suite.build, project_suite_path(@suite.project,@suite)
+  \/
+  =link_to "compare", project_suite_compares_path(@suite.project_id, @suite)
+.content-border
+  = render "suites/suites", :suites => @compares, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created], :buttons => "choose"

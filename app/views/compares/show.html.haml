@@ -1,25 +1,32 @@
-%ol.breadcrumb
-  %li
-    = link_to "Suites", suites_path
-  %li
-    = link_to @suite.build, project_suite_path(@suite.project_id, @suite)
-  %li
-    = link_to "compare", project_suite_compares_path(@suite.project_id,@suite)
-  %li.active
-    = link_to @compare.build, project_suite_path(@suite.project_id,@compare)
-
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th.text-right{:style => "width: 50%;"}= @suite.build
-      %th.text-left{:style => "width: 50%;"}= @compare.build
-  %tbody
-  - @compares.each do |original, compare|
-    %tr
-      %td.text-right
-        = link_to original.name, project_suite_case_path(@suite.project_id, @suite, original), :class => "case-#{original.result.type}" if original
-      %td.text-left
-        - if compare
-          = link_to compare.name, project_suite_case_path(@suite.project_id,@compare, compare), :class => "case-#{compare.result.type}" if compare
-- if @compares.respond_to? :current_page
-  = paginate @compares
+.content-header
+  %span.glyphicon.glyphicon-folder-close
+  =link_to @suite.project.name, project_path(@suite.project)
+  \/
+  %span.glyphicon.glyphicon-list-alt
+  =link_to @suite.build, project_suite_path(@suite.project,@suite)
+  \/
+  =link_to "compare", project_suite_compares_path(@suite.project_id, @suite)
+  \/
+  %span.glyphicon.glyphicon-folder-close
+  =link_to @compare.project.name, project_path(@compare.project)
+  \/
+  %span.glyphicon.glyphicon-list-alt
+  =link_to @compare.build, project_suite_path(@compare.project,@compare)
+.content-border
+  - if @compares.respond_to? :current_page
+    = paginate @compares
+  %table.table.table-condensed.table-hover
+    %thead
+      %tr
+        %th.text-right{:style => "width: 50%;"}= @suite.build
+        %th.text-left{:style => "width: 50%;"}= @compare.build
+    %tbody
+    - @compares.each do |original, compare|
+      %tr
+        %td.text-right
+          = link_to original.name, project_suite_case_path(@suite.project_id, @suite, original), :class => "case-#{original.result.type}" if original
+        %td.text-left
+          - if compare
+            = link_to compare.name, project_suite_case_path(@suite.project_id,@compare, compare), :class => "case-#{compare.result.type}" if compare
+  - if @compares.respond_to? :current_page
+    = paginate @compares

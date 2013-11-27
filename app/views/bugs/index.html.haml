@@ -1,5 +1,5 @@
-%h4
-  Bugs
+.content-header
+  = link_to "Bugs", bugs_path
 .masthead
   %ul.nav.nav-justified
     %li{:class => ("active" unless params[:type])}
@@ -18,5 +18,6 @@
       =link_to bugs_path(@suite, :type => "skipped") do
         Skip
         %span.label.label-info= @total_skipped
-= render "bugs", :bugs => @bugs, :columns => [:created,:suite,:bug,:test, :owner]
+.content-border
+  = render "bugs", :bugs => @bugs, :columns => [:created,:suite,:bug,:test, :owner]
 

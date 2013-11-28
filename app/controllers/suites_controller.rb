@@ -7,6 +7,7 @@ class SuitesController < ApplicationController
   def index
     @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
     @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
+    @suites = @suites.references(:features)
   end
   def create
     @suite.user = current_user
@@ -43,7 +44,7 @@ class SuitesController < ApplicationController
     redirect_to suites_path
   end
   def show
-    @cases = @suite.cases.includes(:result).page(params[:page])
+    @cases = @suite.cases.references(:result).page(params[:page])
     @cases = @cases.where(:results => {:type => params[:type]}) if params[:type]
   end
   def destroy
@@ -52,7 +53,7 @@ class SuitesController < ApplicationController
     end
   end
   def search
-    render :json => Case.includes(:result,:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.result.type}}
+    render :json => Case.references(:result,:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.result.type}}
   end
 private
   def update_suite

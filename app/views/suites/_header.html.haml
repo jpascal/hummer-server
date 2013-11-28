@@ -6,6 +6,6 @@
   =link_to suite.build, project_suite_path(suite.project,suite)
 
   .pull-right
-    - if suite.features.all.any?
+    - if suite.features.any?
       - suite.features.each do |feature|
         %span.label.label-success= feature

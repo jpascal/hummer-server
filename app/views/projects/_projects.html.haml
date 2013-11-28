@@ -1,4 +1,4 @@
-- if projects.all.count > 0
+- if projects.any?
   - if projects.respond_to? :current_page
     = paginate projects, :style => "margin-top: 0px"
   %table.table.table-condensed.table-hover

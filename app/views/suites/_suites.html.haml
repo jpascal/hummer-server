@@ -1,6 +1,6 @@
 - if suites.respond_to? :current_page
   = paginate suites, :style => "margin-top: 0px"
-- if suites.all.count > 0
+- if suites.any?
   %table.table.table-condensed.table-hover
     %thead
       %tr
@@ -31,7 +31,7 @@
           - if columns.include? :suite
             %td
               = link_to suite.build, project_suite_path(suite.project_id, suite)
-              - if suite.features.all.any?
+              - if suite.features.count > 0
                 %br
                 - suite.features.each do |feature|
                   %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature

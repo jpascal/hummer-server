@@ -2,8 +2,8 @@ class CasesController < ApplicationController
   load_and_authorize_resource :suite
   load_and_authorize_resource :case, :through => :suite
   def show
-    @related_cases = Case.where("suite_id != ?", @case.suite).where(:classname => @case.classname, :name => @case.name).includes(:result)
-    @related_bugs = Bug.where(:classname => @case.classname, :name => @case.name).where("case_id != ?",@case)
+    @related_cases = Case.where.not(:suite_id =>@case.suite).where(:classname => @case.classname, :name => @case.name).references(:result)
+    @related_bugs = Bug.where(:classname => @case.classname, :name => @case.name).where.not(:case_id => @case)
   end
   def paste
     unless @case.paste

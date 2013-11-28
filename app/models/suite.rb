@@ -71,4 +71,31 @@ class Suite < ActiveRecord::Base
     super(:methods => [:feature_list,:user_name],:except => :user_id)
   end
 
+  def compare_with_suite (suite)
+    select("id,name")
+  end
+
 end
+
+
+#Case.
+#
+#select
+#  original.id,
+#  original.name,
+#  original.classname,
+#  original_result.type,
+#  compare.id,
+#  compare.name,
+#  compare.classname,
+#  compare_result.type
+#from
+#  cases as original
+#left join
+#  cases as compare on compare.name = original.name and compare.classname = original.classname and compare.suite_id = '97ac4c3d-71bb-4801-aa5e-748a3f7536ae'
+#left join
+#  results as original_result on original_result.case_id = original.id
+#left join
+#  results as compare_result on compare_result.case_id = compare.id
+#where
+#  original.suite_id = 'e9b1fb61-e8ec-4f6f-94db-41e0a8776da8'

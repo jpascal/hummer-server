@@ -1,5 +1,5 @@
 .content-header
-  = link_to "Suites", suites_path
+  %h4 Suites
   - if can? :create, Suite
     .btn-group.pull-right
       %button.btn.btn-xs.btn-info.dropdown-toggle{:data => {:toggle => "dropdown"}}

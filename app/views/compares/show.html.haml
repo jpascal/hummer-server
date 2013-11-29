@@ -19,11 +19,21 @@
   %table.table.table-condensed.table-hover
     %thead
       %tr
-        %th.text-left{:style => "width: 50%;"}= @suite.build
-        %th.text-center
+        %th.text-left{:style => "width: 49%;"}
+          = link_to @suite.build, project_suite_path(@suite.project_id,@suite)
+          %br
+          - if @suite.features.any?
+            - @suite.features.each do |feature|
+              %span.label.label-success= feature
+        %th.text-center{:style => "width: 2%;"}
           .glyphicon.glyphicon-transfer
           = @differen
-        %th.text-right{:style => "width: 50%;"}= @compare.build
+        %th.text-right{:style => "width: 49%;"}
+          = link_to @compare.build, project_suite_path(@compare.project_id,@compare)
+          %br
+          - if @compare.features.any?
+            - @compare.features.each do |feature|
+              %span.label.label-success= feature
     %tbody
     - @diff.each do |record|
       %tr

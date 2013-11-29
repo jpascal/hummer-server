@@ -19,8 +19,8 @@
     %pre= @case.result.message
 
 - if @related_bugs.any?
+  %h4 Related bugs:
   .content-border
-    %h4 Related bugs:
     =render "bugs/bugs", :bugs => @related_bugs, :columns => [:suite, :bug, :owner, :created]
 
 - if @related_cases.any?

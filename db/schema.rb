@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20131126104138) do
 
   create_table "members", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "user_id"
-    t.boolean  "owner",      default: "false"
+    t.boolean  "owner",      default: false
     t.uuid     "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -99,17 +99,17 @@ ActiveRecord::Schema.define(version: 20131126104138) do
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "email"
     t.string   "name"
-    t.boolean  "active",             default: "false"
-    t.integer  "login_count",        default: 0,       null: false
-    t.integer  "failed_login_count", default: 0,       null: false
+    t.boolean  "active",             default: false
+    t.integer  "login_count",        default: 0,     null: false
+    t.integer  "failed_login_count", default: 0,     null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
-    t.boolean  "admin",              default: "false"
-    t.string   "persistence_token",                    null: false
-    t.string   "perishable_token",                     null: false
-    t.string   "crypted_password",                     null: false
-    t.string   "password_salt",                        null: false
+    t.boolean  "admin",              default: false
+    t.string   "persistence_token",                  null: false
+    t.string   "perishable_token",                   null: false
+    t.string   "crypted_password",                   null: false
+    t.string   "password_salt",                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "api_token"

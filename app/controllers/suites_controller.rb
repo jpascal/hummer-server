@@ -44,7 +44,7 @@ class SuitesController < ApplicationController
     redirect_to suites_path
   end
   def show
-    @cases = @suite.cases.references(:result).page(params[:page])
+    @cases = @suite.cases.includes(:result).page(params[:page])
     @cases = @cases.where(:results => {:type => params[:type]}) if params[:type]
   end
   def destroy

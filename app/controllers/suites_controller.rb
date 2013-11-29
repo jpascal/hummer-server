@@ -53,7 +53,7 @@ class SuitesController < ApplicationController
     end
   end
   def search
-    render :json => Case.references(:result,:suite).where(Ж"suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.result.type}}
+    render :json => Case.references(:result,:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.result.type}}
   end
 private
   def update_suite

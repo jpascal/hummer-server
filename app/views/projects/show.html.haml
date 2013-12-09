@@ -1,3 +1,51 @@
 =render "header", :project => @project
-.content-border
-  = render "suites/suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]
+.tab-content-border
+  %ul.nav.nav-tabs
+    %li{:class => ("active" if params[:controller]=="projects")}
+      = link_to "Overview", project_path(@project)
+    %li{:class => ("active" if params[:controller]== "suites")}
+      = link_to "Suites", project_suites_path(@project)
+  .tab-content
+    .tab-pane.active
+      .content-inside
+        %h4 Top 10 broken running tests
+        %table.table.table-condensed.table-hover
+          %thead
+            %tr
+              %th Name
+              %th Project
+              %th Type
+          %tbody
+            - @top_broken_tests.each do |test|
+              %tr
+                %td
+                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.result.type}"
+                %td= link_to test.suite.build, project_suite_path(@project, test.suite)
+                %td= test.result.type
+
+        %h4 Top 10 longest running tests
+        %table.table.table-condensed.table-hover
+          %thead
+            %tr
+              %th Name
+              %th Project
+              %th Time
+          %tbody
+            - @top_longest_tests.each do |test|
+              %tr
+                %td
+                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.result.type}"
+                %td= link_to test.suite.build, project_suite_path(@project, test.suite)
+                %td= test.time
+                %div{:id => "info-#{test.id}"}
+        %h4 Number of tests
+        %table.table.table-condensed.table-hover
+          %thead
+            %tr
+              %th Suite
+              %th Tests
+          %tbody
+            - @number_of_tests.each do |suite|
+              %tr
+                %td= link_to suite.build, project_suite_path(@project, suite)
+                %td= suite.total_tests

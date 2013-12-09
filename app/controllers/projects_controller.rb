@@ -1,14 +1,18 @@
 class ProjectsController < ApplicationController
   before_filter :new_project, :only => :create
-  before_filter :load_users, :only => [:edit,:update,:create,:new]
   load_and_authorize_resource
   def index
+  end
 
-  end
+  # Overview
   def show
-    @suites = @project.suites.page(params[:page]).order(suites_sort_column + " " + suites_sort_direction)
-    @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
+    @top_longest_tests = @project.cases.order("time desc").includes(:result).where.not(:results => { :type => [:passed,:skipped]}).limit(10)
+    @number_of_tests = @project.suites.order('created_at desc').limit(10)
+    @top_broken_tests = Case.where(:suite_id => @project.suite_ids).includes(:result).joins(:result).where.not(:results => { :type => [:passed,:skipped]}).limit(10).select("cases.name, cases.suite_id, cases.id")
   end
+
+  # SPLIT
+
   def create
     @users = User.where(:active => true)
     if @project.save
@@ -42,9 +46,6 @@ private
   end
   def new_project
     @project = Project.new(project_params)
-  end
-  def load_users
-    @users = User.where(:active => true)
   end
   def suites_sort_column
     Suite.column_names.include?(params[:sort]) ? params[:sort] : "created_at"

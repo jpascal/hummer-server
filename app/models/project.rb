@@ -16,4 +16,9 @@ class Project < ActiveRecord::Base
   def as_json
     super(:methods => [:feature_list,:owner_name],:except => :owner_id)
   end
+
+  has_many :all_features, :through => :suites, :source => :features
+  has_many :cases, :through => :suites, :source => :cases
+  has_many :bugs, :through => :cases, :source => :bug
+
 end

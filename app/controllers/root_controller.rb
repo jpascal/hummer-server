@@ -1,5 +1,5 @@
 class RootController < ApplicationController
   def index
-    redirect_to suites_path
+    redirect_to projects_path
   end
 end

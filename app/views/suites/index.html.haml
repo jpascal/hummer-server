@@ -17,4 +17,5 @@
       = link_to feature.name, suites_path(:feature => feature.name), :class => "btn btn-xs #{params[:feature] != feature.name ? "btn-default" : "btn-success"}"
 
 .content-border
-  = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :project, :tests, :created]
+  .content-inside
+    = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :project, :tests, :created]

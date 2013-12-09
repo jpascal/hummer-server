@@ -16,6 +16,6 @@
     = f.block_for :owner_id, :class => "form-group" do
       = f.label :owner
       = f.error_for :owner_id
-      = f.select :owner_id, @users.collect {|user| ["#{user.name}", user.id]}, {:include_blank => true}, {:class => "form-control"}
+      = f.select :owner_id, User.actived.collect {|user| ["#{user.name}", user.id]}, {:include_blank => true}, {:class => "form-control"}
 
   = f.submit "Submit", :class => "btn btn-block btn-success"

@@ -1,14 +1,16 @@
 class SuitesController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_action :new_suite, :only => :create
-  load_resource :project, :except => :index
-  before_action :load_features, :only => [:index,:new,:create,:edit,:update]
-  load_and_authorize_resource :suite, :throw => :project
+  resource :project, object: Project, :key => :project_id, :parent => true
+  resource :suite, :through => :project, :source => :suites
+  authorize :suite
+
   def index
+    @suites = @project.suites
     @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
     @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
     @suites = @suites.references(:features)
   end
+
   def create
     @suite.user = current_user
     @suite.project = @project
@@ -64,12 +66,5 @@ private
   end
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
-  def new_suite
-    suite_params = params.require(:suite).permit(:build, :tempest, :feature_list)
-    @suite = Suite.new(suite_params)
-  end
-  def load_features
-    @features = (ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"}) + (@project.try(:features) || [])).uniq
   end
 end

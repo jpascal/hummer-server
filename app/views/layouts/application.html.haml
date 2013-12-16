@@ -19,6 +19,9 @@
               %span{:class=>"glyphicon glyphicon-home"}
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
+              - if can? "projects", "index"
+                %li{:class => ("active" if params[:controller].split("/").first == "projects")}
+                  =link_to "Projects", projects_path
               - if can? :index, User
                 %li{:class => ("active" if params[:controller] == "users")}
                   =link_to "Users", users_path

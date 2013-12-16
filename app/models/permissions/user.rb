@@ -1,7 +1,7 @@
 class Permissions::User < Permissions::Base
   def initialize(current_user)
 
-    current_user ||= User.new
+    current_user ||= User.new({})
 
     # For all
     can "suites", ["index","paste","show"]
@@ -13,13 +13,12 @@ class Permissions::User < Permissions::Base
       can "users", "destroy" do |user|
         user != current_user
       end
-      can "users", ["index", "edit","update"]
-    #  can [:edit,:update, :destroy], Suite
+      can "users", ["index", "edit","update", "serarch"]
+      can "suites", ["edit","update", "destroy"]
       can "suites", "reload" do |suite|
         suite.tempest.present?
       end
       can "projects", ["create","edit","update","destroy"]
-    #  can [:search,:edit,:update], User
     end
 
     # Only for guests

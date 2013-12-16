@@ -4,12 +4,10 @@ class Permissions::User < Permissions::Base
     current_user ||= User.new
 
     # For all
-    can "suites", "index"
-    #can [:read,:search,:paste], Suite # Allow read and past2
-    #can [:read,:paste], Case # Allow read and past2
+    can "suites", ["index","paste","show","search"]
+    can "cases", ["index","paste","show"]
     can "projects", ["index", "show"]
-    #can :read, Project
-    #can :read, Bug
+    can "bugs", ["index", "show"]
 
     if current_user.admin
     #  can :destroy, User do |user|

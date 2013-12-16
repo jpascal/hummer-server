@@ -1,8 +1,8 @@
-=render "suites/header", :suite => @case.suite
+=render "suites/header", :suite => @suite, :project => @project
 .bs-callout{:class => "bs-callout-#{@case.result.type}"}
   - if @case.result.message
     .pull-right
-      = link_to "Paste2", paste_project_suite_case_path(@suite.project_id,@suite,@case), :class => "btn btn-default btn-xs" if can? :paste, @case
+      = link_to "Paste2", paste_project_suite_case_path(@suite.project_id,@suite,@case), :class => "btn btn-default btn-xs" if can? "cases", "paste", @case
       .btn-group.btn-group-xs
         - if @case.bug.present? or can? :track, @case
           = link_to( (extract_tracker(@case.bug.try(:tracker)) || "Link to"), project_suite_case_tracker_path(@suite.project_id,@suite,@case), :remote => true, :class => "btn btn-default", :id => :tracker)

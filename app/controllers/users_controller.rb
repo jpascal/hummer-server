@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_filter :new_user, :only => :create
-  load_and_authorize_resource
+  resource :user, object: User
+  authorize :user
+
   def index
     @users = User
     @users = @users.where(:active => true) if params[:type] == "active"
@@ -23,6 +25,7 @@ class UsersController < ApplicationController
   def update
     @user.update(edit_user)
     if @user.save
+      flash[:success] = "Profile has been updated successfuly"
       redirect_to :back
     else
       render :edit
@@ -30,6 +33,7 @@ class UsersController < ApplicationController
   end
   def destroy
     @user.destroy
+    flash[:success] = "User has been deleted"
     redirect_to users_path
   end
   def new

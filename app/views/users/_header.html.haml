@@ -6,3 +6,4 @@
       %h3
         = @user.name_was
         = link_to "edit", edit_user_path(@user) unless ["edit","update"].include? params[:action]
+=render "application/flash"

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   authorize :user
 
   def index
-    @users = User
+    @users = User.order("last_request_at desc")
     @users = @users.where(:active => true) if params[:type] == "active"
     @users = @users.where(:active => false) if params[:type] == "not_actived"
     @users = @users.where(:admin => true) if params[:type] == "admin"

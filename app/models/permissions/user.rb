@@ -34,20 +34,20 @@ class Permissions::User < Permissions::Base
       can "users", ["edit","update","token"] do |user|
         current_user == user
       end
-    #  can [:edit,:update], Project do |project|
-    #    project.owner == current_user
-    #  end
+      can "projects", ["edit","update"] do |project|
+        project.owner == current_user
+      end
       can "sessions", "destroy" # Allow signout
-    #  can :create, Suite
-    #  can [:edit,:update], Suite do |suite|
-    #    suite.user == current_user
-    #  end
+      can "suites", "create"
+      can "suites", ["edit","update"] do |suite|
+        suite.user == current_user
+      end
       can "suites", "reload" do |suite|
         suite.tempest.present? and suite.user == current_user
       end
-    #  can :destroy, Suite do |suite| # Allow poet tempest reports
-    #    suite.user == current_user
-    #  end
+      can "suites", "destroy" do |suite|
+        suite.user == current_user
+      end
       can "users",["show"]
     #  can :track, Case # Allow track cases
     end

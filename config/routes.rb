@@ -1,4 +1,4 @@
-UUID =""#||= /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|a|b)[a-f0-9]{3}-[a-f0-9]{12}/i
+UUID ||= /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|a|b)[a-f0-9]{3}-[a-f0-9]{12}/i
 
 Hummer::Application.routes.draw do
 
@@ -42,7 +42,7 @@ Hummer::Application.routes.draw do
     # Project resource routes
     resources :projects do
       # Suite resource routes inside Project
-      resources :suites, :only => [:edit, :update, :create, :destroy, :new, :show] do
+      resources :suites do
         member do
           get :reload
           get :search

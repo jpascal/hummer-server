@@ -20,7 +20,7 @@
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
               - if can? "projects", "index"
-                %li{:class => ("active" if params[:controller].split("/").first == "projects")}
+                %li{:class => ("active" if request.path.start_with? "/projects")}
                   =link_to "Projects", projects_path
               - if can? :index, User
                 %li{:class => ("active" if params[:controller] == "users")}

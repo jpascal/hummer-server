@@ -1,14 +1,4 @@
-.content-header
-  %h4 Suites
-  - if can? :create, Suite
-    .btn-group.pull-right
-      %button.btn.btn-xs.btn-info.dropdown-toggle{:data => {:toggle => "dropdown"}}
-        Add suite to
-        %span.caret
-      %ul.dropdown-menu{:role=>"menu"}
-        - Project.all.each do |project|
-          %li= link_to project.name, new_project_suite_path(project)
-
+= render "projects/header", :project => @project
 .tab-content-border
   %ul.nav.nav-tabs
     %li{:class => ("active" if params[:controller]=="projects")}
@@ -18,10 +8,9 @@
   .tab-content
     .tab-pane.active
       .content-inside
-        - if @project.all_features.any?
-          Feature filter:
-          = link_to "all", project_suites_path(@project), :class => "btn btn-xs #{params[:feature].present? ? "btn-default" : "btn-success"}"
-          - @project.all_features.each do |feature|
-            = link_to feature.name, project_suites_path(@project, :feature => feature.name), :class => "btn btn-xs #{params[:feature] != feature.name ? "btn-default" : "btn-success"}"
-        = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :project, :tests, :created]
-
+        .feature-filter
+          - if @project.all_features.any?
+            = link_to "all", project_suites_path(@project), :class => "btn btn-xs #{params[:feature].present? ? "btn-default" : "btn-success"}"
+            - @project.all_features.each do |feature|
+              = link_to feature.name, project_suites_path(@project, :feature => feature.name), :class => "btn btn-xs #{params[:feature] != feature.name ? "btn-default" : "btn-success"}"
+        = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]

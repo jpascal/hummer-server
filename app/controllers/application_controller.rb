@@ -2,7 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user
 
-private
+  include Resource::Load
+  include Resource::Authorize
+
+
+  private
 
   def require_user
     unless current_user
@@ -27,7 +31,4 @@ private
     @current_user = current_session && current_session.user
   end
 
-  def current_resource
-    @current_resource
-  end
 end

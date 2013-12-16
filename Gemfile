@@ -44,9 +44,6 @@ gem 'kaminari'
 # Post tempest to Paste2
 gem 'paste2'
 
-# Add authorization system
-gem 'cancan'
-
 # Add tags functionality
 # in future need change to gem from github
 gem 'acts-as-taggable-on', :github => "awt/acts-as-taggable-on"

@@ -59,7 +59,6 @@ GEM
       activesupport (>= 3.2)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
-    cancan (1.6.10)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -163,7 +162,6 @@ DEPENDENCIES
   acts-as-taggable-on!
   authlogic
   bcrypt-ruby
-  cancan
   capistrano (= 2.15.5)
   carrierwave
   coffee-rails

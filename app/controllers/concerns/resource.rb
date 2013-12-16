@@ -1,0 +1,2 @@
+module Resource
+end

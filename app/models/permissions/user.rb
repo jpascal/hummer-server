@@ -8,6 +8,10 @@ class Permissions::User < Permissions::Base
     can "cases", ["index","paste","show"]
     can "projects", ["index", "show"]
     can "bugs", ["index", "show"]
+    can "compares", ["index","show"]
+    can "tracker", "show" do |test|
+      test.bug.present?
+    end
 
     # Only for guests
     if current_user.new_record?
@@ -36,7 +40,7 @@ class Permissions::User < Permissions::Base
         suite.user == current_user
       end
       can "users",["show"]
-    #  can :track, Case # Allow track cases
+      can "tracker", ["show","update"]
     end
 
     if current_user.admin

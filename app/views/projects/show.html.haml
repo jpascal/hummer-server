@@ -8,22 +8,19 @@
   .tab-content
     .tab-pane.active
       .content-inside
-        %h4 Top 10 broken running tests
+        %h4 Top 10 broken running tests (last 30 days)
         %table.table.table-condensed.table-hover
           %thead
             %tr
               %th Name
-              %th Build
-              %th Type
+              %th Times
           %tbody
-            - @top_broken_tests.each do |test|
+            - @top_broken_tests.each do |test, count|
               %tr
-                %td
-                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.type}"
-                %td= link_to test.suite.build, project_suite_path(@project, test.suite)
-                %td= test.type
+                %td= test
+                %td= count
 
-        %h4 Top 10 longest running tests
+        %h4 Top 10 longest running tests (last 30 days)
         %table.table.table-condensed.table-hover
           %thead
             %tr
@@ -38,14 +35,3 @@
                 %td= link_to test.suite.build, project_suite_path(@project, test.suite)
                 %td= test.time
                 %div{:id => "info-#{test.id}"}
-        %h4 Number of tests
-        %table.table.table-condensed.table-hover
-          %thead
-            %tr
-              %th Suite
-              %th Tests
-          %tbody
-            - @number_of_tests.each do |suite|
-              %tr
-                %td= link_to suite.build, project_suite_path(@project, suite)
-                %td= suite.total_tests

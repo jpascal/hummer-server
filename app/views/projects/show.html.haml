@@ -19,9 +19,9 @@
             - @top_broken_tests.each do |test|
               %tr
                 %td
-                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.result.type}"
+                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.type}"
                 %td= link_to test.suite.build, project_suite_path(@project, test.suite)
-                %td= test.result.type
+                %td= test.type
 
         %h4 Top 10 longest running tests
         %table.table.table-condensed.table-hover
@@ -34,7 +34,7 @@
             - @top_longest_tests.each do |test|
               %tr
                 %td
-                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.result.type}"
+                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.type}"
                 %td= link_to test.suite.build, project_suite_path(@project, test.suite)
                 %td= test.time
                 %div{:id => "info-#{test.id}"}

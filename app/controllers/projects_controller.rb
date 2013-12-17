@@ -7,9 +7,9 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @top_longest_tests = @project.cases.order("time desc").includes(:result).where.not(:results => { :type => [:passed,:skipped]}).limit(10)
+    @top_longest_tests = @project.cases.order("time desc").where.not(:type => [:passed,:skipped]).limit(10)
     @number_of_tests = @project.suites.order('created_at desc').limit(10)
-    @top_broken_tests = Case.where(:suite_id => @project.suite_ids).includes(:result).joins(:result).where.not(:results => { :type => [:passed,:skipped]}).limit(10).select("cases.name, cases.suite_id, cases.id")
+    @top_broken_tests = Case.where(:suite_id => @project.suite_ids).where.not(:type => [:passed,:skipped]).limit(10).select("cases.name, cases.suite_id, cases.id, cases.type")
   end
 
   def create

@@ -46,8 +46,8 @@ class SuitesController < ApplicationController
     redirect_to suites_path
   end
   def show
-    @cases = @suite.cases.includes(:result).page(params[:page])
-    @cases = @cases.where(:results => {:type => params[:type]}) if params[:type]
+    @cases = @suite.cases.page(params[:page])
+    @cases = @cases.where(:type => params[:type]) if params[:type]
   end
   def destroy
     if @suite.destroy
@@ -55,7 +55,7 @@ class SuitesController < ApplicationController
     end
   end
   def search
-    render :json => Case.includes(:result,:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.result.type}}
+    render :json => Case.includes(:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.type}}
   end
 private
   def update_suite

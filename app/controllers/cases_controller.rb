@@ -4,7 +4,7 @@ class CasesController < ApplicationController
   resource :case, :through => :suite, :source => :cases
   authorize :case
   def show
-    @related_cases = Case.where.not(:suite_id =>@case.suite).where(:classname => @case.classname, :name => @case.name).references(:result)
+    @related_cases = Case.where.not(:suite_id =>@case.suite).where(:classname => @case.classname, :name => @case.name)
     @related_bugs = Bug.where(:classname => @case.classname, :name => @case.name).where.not(:case_id => @case)
   end
   def paste

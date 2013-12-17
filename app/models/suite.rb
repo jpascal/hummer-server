@@ -77,22 +77,20 @@ class Suite < ActiveRecord::Base
         tests.classname as classname,\
         tests.name as name,\
         original.id as o_id,
-        original_result.type as o_type,\
+        original.type as o_type,\
         compare.id as c_id,\
-        compare_result.type as c_type\
+        compare.type as c_type\
       from (\
         select classname, name from cases where suite_id = '#{original.id}'\
         union\
         select classname, name from cases where suite_id = '#{compare.id}'\
         ) as tests\
       left join cases as original on original.suite_id = '#{original.id}' and original.name = tests.name and original.classname = tests.classname\
-      left join results as original_result on original_result.case_id = original.id\
       left join cases as compare on compare.suite_id = '#{compare.id}' and compare.name = tests.name and compare.classname = tests.classname\
-      left join results as compare_result on compare_result.case_id = compare.id\
       where\
         ( original.id IS NULL or compare.id IS NULL)\
       or\
-        ( original_result.type != compare_result.type)\
+        ( original.type != compare.type)\
     ")
   end
 end

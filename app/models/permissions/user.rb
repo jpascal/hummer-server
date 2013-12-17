@@ -4,7 +4,7 @@ class Permissions::User < Permissions::Base
     current_user ||= User.new({})
 
     # For all
-    can "suites", ["index","paste","show"]
+    can "suites", ["index","paste","show","search"]
     can "cases", ["index","paste","show"]
     can "projects", ["index", "show"]
     can "bugs", ["index", "show"]

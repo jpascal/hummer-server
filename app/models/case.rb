@@ -5,4 +5,7 @@ class Case < ActiveRecord::Base
   has_one :result, :dependent => :delete, :autosave => true
   belongs_to :tracker_user, :class_name => "User"
   has_one :bug, :dependent => :nullify
+  def self.inheritance_column
+    "rails_type"
+  end
 end

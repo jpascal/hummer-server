@@ -9,18 +9,6 @@ class Permissions::User < Permissions::Base
     can "projects", ["index", "show"]
     can "bugs", ["index", "show"]
 
-    if current_user.admin
-      can "users", "destroy" do |user|
-        user != current_user
-      end
-      can "users", ["index", "edit","update", "serarch"]
-      can "suites", ["edit","update", "destroy"]
-      can "suites", "reload" do |suite|
-        suite.tempest.present?
-      end
-      can "projects", ["create","edit","update","destroy"]
-    end
-
     # Only for guests
     if current_user.new_record?
       can "sessions", ["create", "new"]
@@ -49,6 +37,18 @@ class Permissions::User < Permissions::Base
       end
       can "users",["show"]
     #  can :track, Case # Allow track cases
+    end
+
+    if current_user.admin
+      can "users", "destroy" do |user|
+        user != current_user
+      end
+      can "users", ["index", "edit","update", "serarch"]
+      can "suites", ["edit","update", "destroy"]
+      can "suites", "reload" do |suite|
+        suite.tempest.present?
+      end
+      can "projects", ["create","edit","update","destroy"]
     end
 
   end

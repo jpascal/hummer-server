@@ -15,10 +15,10 @@
               %th Name
               %th Times
           %tbody
-            - @top_broken_tests.each do |test, count|
+            - @top_broken_tests.each do |test, times|
               %tr
                 %td= test
-                %td= count
+                %td= times
 
         %h4 Top 10 longest running tests (last 30 days)
         %table.table.table-condensed.table-hover

@@ -3,7 +3,7 @@
     %button.btn.btn-default.btn-xs.dropdown-toggle{:type=>:button, :data => { :toggle => :dropdown}}
       Actions
       %span.caret
-    %ul.dropdown-menu{:role => :menu}
+    %ul.dropdown-menu{:role => :menu, :style => "text-align: left;"}
       %li= link_to "Edit", edit_project_suite_path(suite.project_id, suite) if can? "suites", "edit", suite
       %li= link_to "Reload", reload_project_suite_path(suite.project_id, suite) if can? "suites", "reload", suite
       %li.divider

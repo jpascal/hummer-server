@@ -7,11 +7,13 @@
       = link_to "Suites", project_suites_path(@project)
   .tab-content
     .tab-pane.active
-      .content-inside
-        .feature-filter
-          = link_to "Upload new", new_project_suite_path(@project), :class => "btn btn-xs btn-info pull-left"
+      .content-tools
+        .content-tools-left
           - if @project.all_features.any?
             = link_to "all", project_suites_path(@project), :class => "btn btn-xs #{params[:feature].present? ? "btn-default" : "btn-success"}"
             - @project.all_features.each do |feature|
               = link_to feature.name, project_suites_path(@project, :feature => feature.name), :class => "btn btn-xs #{params[:feature] != feature.name ? "btn-default" : "btn-success"}"
+        .content-tools-right
+          = link_to "Upload new", new_project_suite_path(@project), :class => "btn btn-xs btn-info"
+      .content-inside
         = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]

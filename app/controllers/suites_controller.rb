@@ -30,7 +30,7 @@ class SuitesController < ApplicationController
   def update
     @suite.update(update_suite)
     if @suite.save!
-      redirect_to suites_path
+      redirect_to project_suites_path(@project)
     else
       render :edit
     end
@@ -44,7 +44,7 @@ class SuitesController < ApplicationController
   end
   def reload
     @suite.reload
-    redirect_to suites_path
+    redirect_to project_suites_path(@project)
   end
   def show
     @cases = @suite.cases.page(params[:page])
@@ -52,7 +52,7 @@ class SuitesController < ApplicationController
   end
   def destroy
     if @suite.destroy
-      redirect_to suites_path
+      redirect_to project_suites_path(@project)
     end
   end
   def search

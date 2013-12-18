@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
 
   def create
     @users = User.where(:active => true)
+    @project = current_user.owner_of_projects.build(project_params)
     if @project.save
       redirect_to projects_path
     else
@@ -22,7 +23,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project.owner = current_user
+    @project = current_user.owner_of_projects.build
   end
 
   def destroy

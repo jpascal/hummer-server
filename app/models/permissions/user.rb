@@ -52,7 +52,7 @@ class Permissions::User < Permissions::Base
       can "suites", "reload" do |suite|
         suite.tempest.present?
       end
-      can "projects", ["create","edit","update","destroy"]
+      can "projects", ["create","new","edit","update","destroy"]
     end
 
   end

@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def require_guest
     if current_user
-      redirect_to root_path
+      redirect_to url_path(:back)
     end
   end
 

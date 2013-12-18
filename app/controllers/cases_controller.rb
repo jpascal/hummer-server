@@ -1,8 +1,10 @@
 class CasesController < ApplicationController
-  load_and_authorize_resource :suite
-  load_and_authorize_resource :case, :through => :suite
+  resource :project, object: Project, :key => :project_id, :parent => true
+  resource :suite, :through => :project, :source => :suites, :key => :suite_id, :parent => true
+  resource :case, :through => :suite, :source => :cases
+  authorize :case
   def show
-    @related_cases = Case.where.not(:suite_id =>@case.suite).where(:classname => @case.classname, :name => @case.name).references(:result)
+    @related_cases = Case.where.not(:suite_id =>@case.suite).where(:classname => @case.classname, :name => @case.name)
     @related_bugs = Bug.where(:classname => @case.classname, :name => @case.name).where.not(:case_id => @case)
   end
   def paste

@@ -282,12 +282,12 @@ form .base-error {
     border-bottom: 0px;
   }
   .tab-content {
-    padding: 15px;
+    padding: 15px 15px 0px 15px;
     border-width: 1px 1px 1px 1px;
     border-color: #ddd;
     border-style: solid;
     border-radius: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 }
 
@@ -297,7 +297,10 @@ form .base-error {
   border-color: #ddd;
   border-style: solid;
   border-radius: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+.content-inside {
+  margin-bottom: 15px;
 }
 
 .pager li > a, .pager li > span {
@@ -311,7 +314,7 @@ form .base-error {
   border-radius: 0px 0px 4px 4px;
   border-color: #ddd;
   border-style: solid;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 15px;
 }
 .content-header h4 {
@@ -319,6 +322,27 @@ form .base-error {
   line-height: 16px;
 }
 .masthead {
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.content-tools {
+  border-bottom: 5px solid #e3e3e3;
+  margin: -15px -15px 15px -15px;
+  padding: 15px 15px 15px 15px;
+  height: 56px;
+  .content-tools-right {
+    float: right !important;
+    text-align: right;
+    display: inline-block;
+  }
+  .content-tools-left {
+    float: left !important;
+    display: inline-block;
+    text-align: left;
+  }
+}
+
+.table {
+  margin-bottom: 15px;
 }

@@ -1,3 +1,44 @@
 =render "header", :project => @project
-.content-border
-  = render "suites/suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]
+.tab-content-border
+  %ul.nav.nav-tabs
+    %li{:class => ("active" if params[:controller]=="projects")}
+      = link_to "Overview", project_path(@project)
+    %li{:class => ("active" if params[:controller]== "suites")}
+      = link_to "Suites", project_suites_path(@project)
+  .tab-content
+    .tab-pane.active
+      .content-tools
+        .content-tools-right
+          =link_to "Delete", project_path(@project), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? "projects", "destroy", @project
+          =link_to "Edit", edit_project_path(@project), :class => "btn btn-default btn-xs" if can? "projects", "edit", @project
+
+      .content-inside
+        %h4 Last 5 suites
+        = render "suites/suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]
+        %h4 Top 10 broken tests (last 30 days)
+        %table.table.table-condensed.table-hover
+          %thead
+            %tr
+              %th Name
+              %th Times
+          %tbody
+            - @top_broken_tests.each do |test, times|
+              %tr
+                %td= test
+                %td= times
+
+        %h4 Top 10 longest tests (last 30 days)
+        %table.table.table-condensed.table-hover
+          %thead
+            %tr
+              %th Name
+              %th Suite
+              %th Time
+          %tbody
+            - @top_longest_tests.each do |test|
+              %tr
+                %td
+                  = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.type}"
+                %td= link_to test.suite.build, project_suite_path(@project, test.suite)
+                %td= test.time
+                %div{:id => "info-#{test.id}"}

@@ -1,8 +1,9 @@
 class TrackersController < ApplicationController
-  load_resource :project
-  load_resource :suite, :through => :project
-  load_resource :case, :through => :suite
-  before_action :try_authorize
+  resource :project, object: Project, :key => :project_id
+  resource :suite, :through => :project, :source => :suites, :key => :suite_id
+  resource :case, :through => :cases, :source => :suites, :key => :case_id
+
+  authorize :case
   respond_to :js
   def show
     unless @case.bug.present?
@@ -17,9 +18,5 @@ class TrackersController < ApplicationController
       bug.tracker = params[:tracker]
       bug.save!
     end
-  end
-private
-  def try_authorize
-    authorize!(:track, @case)
   end
 end

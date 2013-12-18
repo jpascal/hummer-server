@@ -1,4 +1,5 @@
-=render "header", :suite => @suite
+=render "header", :project => @project, :suite => @suite
+
 .masthead
   %ul.nav.nav-justified
     %li.search-tab
@@ -35,7 +36,7 @@
         - @cases.each do |element|
           %tr
             %td
-              = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.result.type}"
+              = link_to element.name, project_suite_case_path(@suite.project_id,@suite, element), :class => "case-#{element.type}"
               - if element.bug.present?
                 %br
                 = link_to extract_tracker(element.bug.tracker), element.bug.tracker, :target => "_blank"

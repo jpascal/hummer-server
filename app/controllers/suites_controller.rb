@@ -1,19 +1,22 @@
 class SuitesController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_action :new_suite, :only => :create
-  load_resource :project, :except => :index
-  before_action :load_features, :only => [:index,:new,:create,:edit,:update]
-  load_and_authorize_resource :suite, :throw => :project
+  resource :project, object: Project, :key => :project_id, :parent => true
+  resource :suite, :through => :project, :source => :suites
+  authorize :suite
+
   def index
+    @suites = @project.suites
     @suites = @suites.page(params[:page]).order(sort_column + " " + sort_direction)
     @suites = @suites.tagged_with(params[:feature]) if params[:feature].present?
     @suites = @suites.references(:features)
   end
+
   def create
+    @suite = @project.suites.new(create_suite)
     @suite.user = current_user
     @suite.project = @project
     if @suite.save
-      redirect_to suites_path
+      redirect_to project_suite_path(@project,@suite)
     else
       render :new
     end
@@ -27,7 +30,7 @@ class SuitesController < ApplicationController
   def update
     @suite.update(update_suite)
     if @suite.save!
-      redirect_to suites_path
+      redirect_to project_suites_path(@project)
     else
       render :edit
     end
@@ -41,21 +44,24 @@ class SuitesController < ApplicationController
   end
   def reload
     @suite.reload
-    redirect_to suites_path
+    redirect_to project_suites_path(@project)
   end
   def show
-    @cases = @suite.cases.includes(:result).page(params[:page])
-    @cases = @cases.where(:results => {:type => params[:type]}) if params[:type]
+    @cases = @suite.cases.page(params[:page])
+    @cases = @cases.where(:type => params[:type]) if params[:type]
   end
   def destroy
     if @suite.destroy
-      redirect_to suites_path
+      redirect_to project_suites_path(@project)
     end
   end
   def search
-    render :json => Case.includes(:result,:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.result.type}}
+    render :json => Case.includes(:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.type}}
   end
 private
+  def create_suite
+    params.require(:suite).permit(:build, :project_id, :feature_list, :tempest)
+  end
   def update_suite
     params.require(:suite).permit(:build, :project_id, :feature_list)
   end
@@ -64,12 +70,5 @@ private
   end
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
-  def new_suite
-    suite_params = params.require(:suite).permit(:build, :tempest, :feature_list)
-    @suite = Suite.new(suite_params)
-  end
-  def load_features
-    @features = (ActsAsTaggableOn::Tag.joins(:taggings).where(:taggings => { :context => "features", :taggable_type => "Suite"}) + (@project.try(:features) || [])).uniq
   end
 end

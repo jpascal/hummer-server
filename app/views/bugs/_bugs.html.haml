@@ -19,6 +19,11 @@
             %td
               - if bug.case.present?
                 = link_to bug.suite.build, project_suite_path(bug.suite.project_id, bug.case.suite_id)
+                - if bug.suite.features.count > 0
+                  %br
+                  - bug.suite.features.each do |feature|
+                    %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
+
           - if columns.include? :test
             %td
               - if bug.case.present?

@@ -29,8 +29,8 @@
           - if columns.include? :created
             %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")
           %td.text-right{:style => "width: 1%;", :nowrap => true}
-            =link_to "Delete", project_path(project), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, project
-            =link_to "Edit", edit_project_path(project), :class => "btn btn-default btn-xs" if can? :edit, project
+            =link_to "Delete", project_path(project), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? "projects", "destroy", project
+            =link_to "Edit", edit_project_path(project), :class => "btn btn-default btn-xs" if can? "projects", "edit", project
   - if projects.respond_to? :current_page
     = paginate projects
 

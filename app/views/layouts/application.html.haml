@@ -19,32 +19,25 @@
               %span{:class=>"glyphicon glyphicon-home"}
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
-              - if can? :index, Project
-                %li{:class => ("active" if params[:controller] == "projects")}
+              - if can? "projects", "index"
+                %li{:class => ("active" if request.path.start_with? "/projects")}
                   =link_to "Projects", projects_path
-              - if can? :index, Suite
-                %li{:class => ("active" if params[:controller] == "suites")}
-                  =link_to "Suites", suites_path
-              - if can? :index, Case
-                %li{:class => ("active" if params[:controller] == "bugs")}
+              - if can? "bugs", "index"
+                %li{:class => ("active" if request.path.start_with? "/bugs")}
                   =link_to "Bugs", bugs_path
-              - if can? :index, User
+              - if can? "users", "index"
                 %li{:class => ("active" if params[:controller] == "users")}
                   =link_to "Users", users_path
             .pull-right.navbar-right
-              = link_to "Login", login_path(:path => request.path_info), :class=>"btn btn-default navbar-btn" if can? :create, Session and not request.path.start_with? "/login"
-              = link_to "Sign up", signup_path, :class=>"btn btn-success navbar-btn" if can? :create, User and not request.path.start_with? "/signup"
+              = link_to "Login", login_path(:path => request.path_info), :class=>"btn btn-default navbar-btn" if can? "sessions", "create" and not request.path.start_with? "/login"
+              = link_to "Sign up", signup_path, :class=>"btn btn-success navbar-btn" if can? "users", "create" and not request.path.start_with? "/signup"
               - if current_user
                 %a.user-menu
                   = link_to user_path(current_user) do
                     = image_tag gravatar_url(current_user,32), :class => "gravatar"
-                = link_to "Logout", logout_path, :class=>"btn btn-default navbar-btn" if can? :destroy, Session
+                = link_to "Logout", logout_path, :class=>"btn btn-default navbar-btn" if can? "sessions", "destroy"
       .container
-        - flash.each do |key, value|
-          = content_tag :div, :class => "alert alert-#{key}" do
-            %button.close{:type=>"button", :data => {:dismiss=>"alert"}}
-              &times;
-            = value
+        = render "application/flash"
         = yield
     #footer
       .container
@@ -54,4 +47,3 @@
     #modal.modal.fade{:tabindex=>-1, :role => "dialog", :aria => {:labelledby =>"myModalLabel",  :hidden=>"true"}}
       .modal-dialog
         .modal-content
-

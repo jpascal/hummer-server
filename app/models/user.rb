@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 
   has_many :bugs
 
+  scope :actived, -> { where(:active => true) }
+
   def all_projects
     # TODO: return this when members will be full implemented
     #(self.owner_of_projects + self.member_of_projects + self.projects_of_suites).uniq

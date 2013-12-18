@@ -1,20 +1,19 @@
-.content-header
-  %h4 Suites
-  - if can? :create, Suite
-    .btn-group.pull-right
-      %button.btn.btn-xs.btn-info.dropdown-toggle{:data => {:toggle => "dropdown"}}
-        Add suite to
-        %span.caret
-      %ul.dropdown-menu{:role=>"menu"}
-        - Project.all.each do |project|
-          %li= link_to project.name, new_project_suite_path(project)
-
-.content-border{:style => "padding-bottom: 15px"}
-  - if @features.any?
-    Feature filter:
-    = link_to "all", suites_path, :class => "btn btn-xs #{params[:feature].present? ? "btn-default" : "btn-success"}"
-    - @features.each do |feature|
-      = link_to feature.name, suites_path(:feature => feature.name), :class => "btn btn-xs #{params[:feature] != feature.name ? "btn-default" : "btn-success"}"
-
-.content-border
-  = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :project, :tests, :created]
+= render "projects/header", :project => @project
+.tab-content-border
+  %ul.nav.nav-tabs
+    %li{:class => ("active" if params[:controller]=="projects")}
+      = link_to "Overview", project_path(@project)
+    %li{:class => ("active" if params[:controller]== "suites")}
+      = link_to "Suites", project_suites_path(@project)
+  .tab-content
+    .tab-pane.active
+      .content-tools
+        .content-tools-left
+          - if @project.all_features.any?
+            = link_to "all", project_suites_path(@project), :class => "btn btn-xs #{params[:feature].present? ? "btn-default" : "btn-success"}"
+            - @project.all_features.each do |feature|
+              = link_to feature.name, project_suites_path(@project, :feature => feature.name), :class => "btn btn-xs #{params[:feature] != feature.name ? "btn-default" : "btn-success"}"
+        .content-tools-right
+          = link_to "Upload new", new_project_suite_path(@project), :class => "btn btn-xs btn-info"
+      .content-inside
+        = render "suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]

@@ -1,11 +1,11 @@
 .content-header
   %span.glyphicon.glyphicon-folder-close
-  =link_to suite.project.name, suite.project
+  =link_to project.name, project_path(project)
   \/
-  %span.glyphicon.glyphicon-list-alt
-  =link_to suite.build, project_suite_path(suite.project,suite)
-
+  %span.glyphicon.glyphicon.glyphicon-list-alt
+  =link_to suite.build, project_suite_path(project, suite)
   .pull-right
-    - if suite.features.any?
+    - if suite.features.all.any?
       - suite.features.each do |feature|
         %span.label.label-success= feature
+=render "application/flash"

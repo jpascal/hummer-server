@@ -1,4 +1,4 @@
-.content-header
+.content-header{:style => "font-size: 20px;"}
   %h4 Users
 
 .masthead
@@ -50,7 +50,7 @@
               = l(user.last_request_at, :format => "%H:%M / %d.%m.%Y")
           %td= l(user.created_at, :format => "%H:%M / %d.%m.%Y")
           %td{:style => "width: 1%;", :nowrap => true}
-            = link_to "Edit", edit_user_path(user), :class => "btn btn-info btn-xs" if can? :edit, user
-            = link_to "Delete", user_path(user), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? :destroy, user
+            = link_to "Edit", edit_user_path(user), :class => "btn btn-info btn-xs" if can? "users", "edit", user
+            = link_to "Delete", user_path(user), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => "btn btn-danger btn-xs" if can? "users","destroy", user
   = paginate @users
 

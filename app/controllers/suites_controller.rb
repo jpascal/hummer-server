@@ -12,10 +12,11 @@ class SuitesController < ApplicationController
   end
 
   def create
+    @suite = @project.suites.new(create_suite)
     @suite.user = current_user
     @suite.project = @project
     if @suite.save
-      redirect_to suites_path
+      redirect_to project_suite_path(@project,@suite)
     else
       render :new
     end
@@ -58,6 +59,9 @@ class SuitesController < ApplicationController
     render :json => Case.includes(:suite).where("suite_id = ? and name like ?", params[:id],"%#{params[:query]}%").collect{|test| {:name => test.name, :path => project_suite_case_path(test.suite.project_id,test.suite_id,test), :type => test.type}}
   end
 private
+  def create_suite
+    params.require(:suite).permit(:build, :project_id, :feature_list, :tempest)
+  end
   def update_suite
     params.require(:suite).permit(:build, :project_id, :feature_list)
   end

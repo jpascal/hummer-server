@@ -29,7 +29,7 @@ class Permissions::User < Permissions::Base
         project.owner == current_user
       end
       can "sessions", "destroy" # Allow signout
-      can "suites", "create"
+      can "suites", ["create","new"]
       can "suites", ["edit","update"] do |suite|
         suite.user == current_user
       end

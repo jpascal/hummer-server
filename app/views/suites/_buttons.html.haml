@@ -4,7 +4,7 @@
       Actions
       %span.caret
     %ul.dropdown-menu{:role => :menu}
-      %li= link_to "Edit", edit_project_suite_path(suite.project_id, suite) if can? "suites", ["update","edit"], suite
+      %li= link_to "Edit", edit_project_suite_path(suite.project_id, suite) if can? "suites", "edit", suite
       %li= link_to "Reload", reload_project_suite_path(suite.project_id, suite) if can? "suites", "reload", suite
       %li.divider
       %li= link_to "Delete", project_suite_path(suite.project_id, suite), :method => :delete, :data => {:confirm => "Are you sure?"} if can? "suites", "destroy", suite

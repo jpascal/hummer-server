@@ -39,13 +39,10 @@ class Suite < ActiveRecord::Base
                              })
       result = test_case.elements.first
       if result.present?
-        tmp.build_result(
-            :type => result.name,
-            :name => result.attribute("type").value,
-            :message => result.attribute("message").value
-        )
+        tmp.type = result.name
+        tmp.message = result.attribute("message").value
       else
-        tmp.build_result(:type => "passed")
+        tmp.type = "passed"
       end
     end
   end

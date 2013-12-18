@@ -13,7 +13,7 @@
       = f.text_field :feature_list, :class => "form-control", :data => {:role=> :tagsinput}
     %label Exists features
     %div.tags
-      - @features.each do |feature|
+      - @project.features.each do |feature|
         = link_to_function feature.name, "$('#suite_feature_list').tagsinput('add','#{feature.name}');", :class => "tag label label-info"
 
   - unless @suite.new_record?

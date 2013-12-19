@@ -55,5 +55,10 @@ class Permissions::User < Permissions::Base
       can "projects", ["create","new","edit","update","destroy"]
     end
 
+    # API permissions (all time have user)
+    if current_user
+      can "api/projects", [ "index", "show" ]
+      can "api/suites", [ "index", "create", "show" ]
+    end
   end
 end

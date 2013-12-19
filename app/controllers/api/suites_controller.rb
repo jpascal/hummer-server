@@ -1,7 +1,8 @@
 class Api::SuitesController < Api::BaseController
-  load_and_authorize_resource :project, :only => :create
-  load_and_authorize_resource :suite, :throw => :project, :only => :create
-  load_and_authorize_resource :suite, :except => :create
+  resource :project, object: Project, :key => :project_id, :parent => true, :only => [:create, :show]
+  resource :suite, :through => :project, :source => :suites, :only => [:create, :show]
+  resource :suite, object: Suite, :except => :create
+  authorize :suite
   def index
     if @project
       render :json => @project.suites.order("created_at desc").as_json

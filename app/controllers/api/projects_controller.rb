@@ -1,5 +1,6 @@
 class Api::ProjectsController < Api::BaseController
-  load_and_authorize_resource
+  resource :project, object: Project
+  authorize :project
   def index
     render :json => Project.order("created_at desc").all.collect{|p| p.as_json}
   end

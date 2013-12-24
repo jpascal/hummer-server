@@ -7,7 +7,7 @@ class MembersController < ApplicationController
   def index
     @members = @project.members
   end
-  def edit
+  def new
 
   end
   def destroy

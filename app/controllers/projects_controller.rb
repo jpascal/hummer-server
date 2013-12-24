@@ -13,8 +13,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @users = User.where(:active => true)
-    @project = current_user.owner_of_projects.build(project_params)
+    @project.update(project_params)
+    @project.members.build(:user => current_user, :owner => true)
     if @project.save
       redirect_to projects_path
     else

@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20131217132951) do
   create_table "members", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "user_id",    null: false
     t.uuid     "project_id", null: false
+    t.boolean  "owner",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

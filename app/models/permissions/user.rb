@@ -22,7 +22,7 @@ class Permissions::User < Permissions::Base
       # existent user
       can "sessions", "destroy"
       can "projects", ["edit","update"] do |project|
-        project.owner == current_user
+        project.members.where(:user_id => current_user, :owner => true).any?
       end
       can "suites", ["create","new"]
       can "suites", ["edit","update"] do |suite|
@@ -36,15 +36,13 @@ class Permissions::User < Permissions::Base
       can "users", ["edit","update","token"] do |user|
         current_user == user
       end
-
       can "members", "index"
       can "members", ["new", "create"] do |project|
-        project.owner == current_user
+        project.members.where(:user_id => current_user, :owner => true).any?
       end
-      can "members", ["edit", "update", "destroy"] do |member|
-        member.project.owner == current_user
+      can "members", ["destroy","edit", "update"] do |member|
+        member.project.members.where(:user_id => current_user, :owner => true).any? and member.user != current_user
       end
-
       # API permissions
       can "api/projects", [ "index", "show" ]
       can "api/suites", [ "index", "create", "show" ]

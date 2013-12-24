@@ -1,6 +1,8 @@
 class Permissions::User < Permissions::Base
   def initialize(current_user)
 
+    current_user ||= User.new
+
     # for all users
     can "suites", ["index","paste","show","search"]
     can "projects", ["index", "show"]

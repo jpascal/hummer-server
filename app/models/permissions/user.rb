@@ -17,8 +17,7 @@ class Permissions::User < Permissions::Base
     if current_user.new_record?
       # anonymous
       can "sessions", ["create", "new"]
-      can "users", ["create", "recovery"]
-
+      can "users", ["create", "new", "recovery"]
     else
       # existent user
       can "sessions", "destroy"

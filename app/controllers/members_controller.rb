@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
   respond_to :json, :except => :index
-  resource :project, object: Project, :key => :project_id, :parent => true
+  resource :project, :object => Project, :key => :project_id, :parent => true
   resource :member, :through => :project, :source => :members
   authorize :project, :only => [:new, :create]
   authorize :member, :except => [:new, :create]

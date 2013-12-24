@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  resource :project, object: Project
+  resource :project, :object => Project
   authorize :project
 
   def index

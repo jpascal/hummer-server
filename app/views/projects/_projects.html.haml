@@ -23,7 +23,7 @@
               - project.features.each do |feature|
                 %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
           - if columns.include? :suites
-            %td= project.suites.count
+            %td= link_to project.suites.count, project_suites_path(project)
           - if columns.include? :owner and current_user
             %td= link_to_user project.owner
           - if columns.include? :created

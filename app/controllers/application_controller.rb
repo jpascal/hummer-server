@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   include Resource::Load
   include Resource::Authorize
 
-
   private
 
   def require_user

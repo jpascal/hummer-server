@@ -42,6 +42,7 @@ Hummer::Application.routes.draw do
     # Project resource routes
     resources :projects do
       # Suite resource routes inside Project
+      resources :members, :except => :show
       resources :suites do
         member do
           get :reload

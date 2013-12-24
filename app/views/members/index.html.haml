@@ -1,0 +1,11 @@
+=render "projects/header", :project => @project
+.tab-content-border
+  %ul.nav.nav-tabs
+    = render "projects/tabs", :project => @project
+  .tab-content
+    .tab-pane.active
+      .content-tools
+        .content-tools-right
+          = link_to "Add member", new_project_member_path(@project), :class => "btn btn-default btn-xs" if can? "members", "new", @project
+      .content-inside
+        = render "members", :members => @members, :columns => [:name, :created_at]

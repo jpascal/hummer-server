@@ -37,10 +37,20 @@ class Permissions::User < Permissions::Base
       can "users", ["edit","update","token"] do |user|
         current_user == user
       end
+
+      can "members", "index"
+      can "members", ["new", "create"] do |project|
+        project.owner == current_user
+      end
+      can "members", ["edit", "update", "destroy"] do |member|
+        member.project.owner == current_user
+      end
+
       # API permissions
       can "api/projects", [ "index", "show" ]
       can "api/suites", [ "index", "create", "show" ]
       if current_user.admin?
+
         can "users", ["index", "edit","update", "serarch"]
         can "users", "destroy" do |user|
           user != current_user

@@ -1,0 +1,10 @@
+%tr{:id => "member-#{member.id}"}
+  - if columns.include? :name
+    %td= member.user.name
+  - if columns.include? :created_at
+    %td= l(member.created_at, :format => "%H:%M / %d.%m.%Y")
+  %td.text-right{:style => "width: 1%;", :nowrap => true}
+    - if can? "members", "destroy", member
+      =link_to "Delete", project_member_path(member.project_id,member), :method => :delete, :data => {:confirm => "Are you sure?"}, :remote => true, :class => "btn btn-danger btn-xs"
+    - if can? "members", "edit", member
+      =link_to "Edit", edit_project_member_path(member.project_id,member), :class => "btn btn-info btn-xs", :remote => true

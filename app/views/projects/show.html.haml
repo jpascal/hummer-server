@@ -5,6 +5,8 @@
       = link_to "Overview", project_path(@project)
     %li{:class => ("active" if params[:controller]== "suites")}
       = link_to "Suites", project_suites_path(@project)
+    %li{:class => ("active" if params[:controller]== "members")}
+      = link_to "Members", project_members_path(@project)
   .tab-content
     .tab-pane.active
       .content-tools

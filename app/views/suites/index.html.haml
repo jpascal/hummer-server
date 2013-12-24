@@ -1,10 +1,7 @@
 = render "projects/header", :project => @project
 .tab-content-border
   %ul.nav.nav-tabs
-    %li{:class => ("active" if params[:controller]=="projects")}
-      = link_to "Overview", project_path(@project)
-    %li{:class => ("active" if params[:controller]== "suites")}
-      = link_to "Suites", project_suites_path(@project)
+    = render "projects/tabs", :project => @project
   .tab-content
     .tab-pane.active
       .content-tools

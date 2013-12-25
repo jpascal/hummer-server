@@ -12,10 +12,4 @@
     %div
       = f.text_field :feature_list, :class => "form-control", :data => {:role=> :tagsinput}
 
-  - if (current_user and current_user.admin) or @project.owner == current_user
-    = f.block_for :owner_id, :class => "form-group" do
-      = f.label :owner
-      = f.error_for :owner_id
-      = f.select :owner_id, User.actived.collect {|user| ["#{user.name}", user.id]}, {:include_blank => true}, {:class => "form-control"}
-
   = f.submit "Submit", :class => "btn btn-block btn-success"

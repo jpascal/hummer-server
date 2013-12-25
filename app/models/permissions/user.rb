@@ -48,6 +48,8 @@ class Permissions::User < Permissions::Base
       can "api/suites", [ "index", "create", "show" ]
       if current_user.admin?
 
+        can "members", ["new", "create","destroy","edit", "update"]
+
         can "users", ["index", "edit","update", "serarch"]
         can "users", "destroy" do |user|
           user != current_user

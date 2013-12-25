@@ -10,6 +10,12 @@ class MembersController < ApplicationController
   def new
 
   end
+  def create
+    @member = @project.members.build(member_params)
+    unless @member.save
+      render :edit
+    end
+  end
   def update
     @member.update(member_params)
     unless @member.save
@@ -21,6 +27,6 @@ class MembersController < ApplicationController
   end
 private
   def member_params
-    params.require(:member).permit(:owner)
+    params.require(:member).permit(:owner, :user_id)
   end
 end

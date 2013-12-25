@@ -11,7 +11,7 @@
         - if columns.include? :created_at
           %th Joined
         %th Actions
-    %tbody
+    %tbody{:id => :members}
       - members.each do |member|
         = render "members/member", :member => member, :columns => columns
   - if members.respond_to? :current_page

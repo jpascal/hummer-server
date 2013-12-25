@@ -1,0 +1,14 @@
+= form_for [@project, @member], :remote => true do |f|
+  .modal-header
+    %button.close{:type=>:button, :data => {:dismiss=>"modal", :aria => { :hidden => true }}} &times;
+    %h4.modal-title
+      - if @member.new_record?
+        New member
+      - else
+        = "Edit member #{@member.user.name}"
+  .modal-body
+
+    = f.check_box :owner
+  .modal-footer
+    %button.btn.btn-default{:type=>:button, :data => {:dismiss => :modal}} Cancel
+    = f.submit "Save", :class => "btn btn-default"

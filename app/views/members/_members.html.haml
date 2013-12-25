@@ -6,8 +6,10 @@
       %tr
         - if columns.include? :name
           %th Name
+        - if columns.include? :owner
+          %th Owner
         - if columns.include? :created_at
-          %th Suites
+          %th Joined
         %th Actions
     %tbody
       - members.each do |member|

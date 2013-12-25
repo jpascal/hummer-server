@@ -41,7 +41,7 @@ class Permissions::User < Permissions::Base
         project.members.where(:user_id => current_user, :owner => true).any?
       end
       can "members", ["destroy","edit", "update"] do |member|
-        member.project.members.where(:user_id => current_user, :owner => true).any? and member.user != current_user
+        member.project.members.where(:user => current_user, :owner => true).any? and member.user != current_user
       end
       # API permissions
       can "api/projects", [ "index", "show" ]

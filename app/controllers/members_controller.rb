@@ -10,7 +10,17 @@ class MembersController < ApplicationController
   def new
 
   end
+  def update
+    @member.update(member_params)
+    unless @member.save
+      render :edit
+    end
+  end
   def destroy
     @member.destroy
+  end
+private
+  def member_params
+    params.require(:member).permit(:owner)
   end
 end

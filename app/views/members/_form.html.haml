@@ -1,0 +1,21 @@
+= form_for [@project, @member], :remote => true, :html => {:class => "form-horizontal", :role => "form"} do |f|
+  .modal-header
+    %button.close{:type=>:button, :data => {:dismiss=>"modal", :aria => { :hidden => true }}} &times;
+    %h4.modal-title
+      - if @member.new_record?
+        New member
+      - else
+        = "Edit member #{@member.user.name}"
+  .modal-body
+    - if @member.new_record?
+      .form-group
+        = f.label :user
+        = f.select :user_id, User.all.collect {|user|  [user.name, user.id]}, :class => "form-control"
+    .form-group
+      .checkbox
+        %label
+          = f.check_box :owner
+        Is owner of project?
+  .modal-footer
+    %button.btn.btn-default{:type=>:button, :data => {:dismiss => :modal}} Cancel
+    = f.submit "Save", :class => "btn btn-default"

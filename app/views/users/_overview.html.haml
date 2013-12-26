@@ -2,5 +2,5 @@
 = render "suites/suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :bugs, :project, :created]
 %h4 Bugs
 = render "bugs/bugs", :bugs => @bugs, :columns => [:created,:suite,:bug,:test]
-%h4 Projects
+%h4 Member of projects
 = render "projects/projects", :projects => @projects, :columns => [:name, :suites, :created]

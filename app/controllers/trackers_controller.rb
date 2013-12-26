@@ -1,7 +1,7 @@
 class TrackersController < ApplicationController
-  resource :project, object: Project, :key => :project_id
-  resource :suite, :through => :project, :source => :suites, :key => :suite_id
-  resource :case, :through => :cases, :source => :suites, :key => :case_id
+  resource :project, object: Project, :key => :project_id, :parent => true
+  resource :suite, :through => :project, :source => :suites, :key => :suite_id, :parent => true
+  resource :case, :through => :suite, :source => :cases, :key => :case_id
 
   authorize :case
   respond_to :js
@@ -11,7 +11,7 @@ class TrackersController < ApplicationController
     end
   end
   def update
-    bug = @case.bug || @case.build_bug(:name => @case.name, :classname => @case.classname, :user => current_user, :level => @case.result.type, :message => @case.result.message)
+    bug = @case.bug || @case.build_bug(:name => @case.name, :classname => @case.classname, :user => current_user, :level => @case.type, :message => @case.message)
     if params[:tracker].empty?
       bug.destroy
     else

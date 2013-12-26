@@ -5,6 +5,9 @@
       = link_to "Overview", project_path(@project)
     %li{:class => ("active" if params[:controller]== "suites")}
       = link_to "Suites", project_suites_path(@project)
+    - if can? "members", "index", @project
+      %li{:class => ("active" if params[:controller]== "members")}
+        = link_to "Members", project_members_path(@project)
   .tab-content
     .tab-pane.active
       .content-tools
@@ -20,11 +23,18 @@
           %thead
             %tr
               %th Name
+              %th Suite
               %th Times
           %tbody
             - @top_broken_tests.each do |test, times|
               %tr
-                %td= test
+                - test = Case.joins(:suite).where(:suites => {:project_id => @project}, :name => test).first
+                %td= link_to test.name, project_suite_case_path(@project,test.suite,test)
+                %td
+                  = link_to test.suite.build, project_suite_path(@project, test.suite)
+                  %br
+                  - test.suite.features.each do |feature|
+                    %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
                 %td= times
 
         %h4 Top 10 longest tests (last 30 days)
@@ -39,6 +49,10 @@
               %tr
                 %td
                   = link_to test.name, project_suite_case_path(@project,test.suite_id, test), :class => "case-#{test.type}"
-                %td= link_to test.suite.build, project_suite_path(@project, test.suite)
+                %td
+                  = link_to test.suite.build, project_suite_path(@project, test.suite)
+                  %br
+                  - test.suite.features.each do |feature|
+                    %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
                 %td= test.time
                 %div{:id => "info-#{test.id}"}

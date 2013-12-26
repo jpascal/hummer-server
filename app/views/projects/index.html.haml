@@ -7,4 +7,4 @@
       .content-tools-right
         = link_to "New project", new_project_path, :class => "btn btn-info btn-xs"
   .content-inside
-    = render "projects", :projects => @projects, :columns => [:name, :suites, :created, :owner]
+    = render "projects", :projects => @projects, :columns => [:name, :suites, :created, :members]

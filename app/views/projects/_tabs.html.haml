@@ -1,0 +1,9 @@
+- if can? "projects", "show", project
+  %li{:class => ("active" if params[:controller]=="projects")}
+    = link_to "Overview", project_path(project)
+- if can? "suites", "index", project
+  %li{:class => ("active" if params[:controller]== "suites")}
+    = link_to "Suites", project_suites_path(project)
+- if can? "members", "index", project
+  %li{:class => ("active" if params[:controller]== "members")}
+    = link_to "Members", project_members_path(project)

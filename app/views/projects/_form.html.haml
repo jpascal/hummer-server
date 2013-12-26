@@ -6,16 +6,16 @@
     = f.error_for :name
     = f.text_field :name, :class => "form-control"
 
+  = f.block_for :private, :class => "checkbox" do
+    %label
+      = f.check_box :private
+      Private
+
   = f.block_for :feature_list, :class => "form-group" do
     = f.label :feature_list
     = f.error_for :feature_list
     %div
       = f.text_field :feature_list, :class => "form-control", :data => {:role=> :tagsinput}
 
-  - if (current_user and current_user.admin) or @project.owner == current_user
-    = f.block_for :owner_id, :class => "form-group" do
-      = f.label :owner
-      = f.error_for :owner_id
-      = f.select :owner_id, User.actived.collect {|user| ["#{user.name}", user.id]}, {:include_blank => true}, {:class => "form-control"}
 
   = f.submit "Submit", :class => "btn btn-block btn-success"

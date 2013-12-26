@@ -1,0 +1,21 @@
+- if members.any?
+  - if members.respond_to? :current_page
+    = paginate members, :style => "margin-top: 0px"
+  %table.table.table-condensed.table-hover
+    %thead
+      %tr
+        - if columns.include? :name
+          %th Name
+        - if columns.include? :owner
+          %th Owner
+        - if columns.include? :created_at
+          %th Joined
+        %th Actions
+    %tbody{:id => :members}
+      - members.each do |member|
+        = render "members/member", :member => member, :columns => columns
+  - if members.respond_to? :current_page
+    = paginate members, :style => "margin-top: 0px"
+- else
+  %p.well.text-center{:style => "margin-top: 20px;"}
+    No members

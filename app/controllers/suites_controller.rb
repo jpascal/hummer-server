@@ -1,8 +1,9 @@
 class SuitesController < ApplicationController
   helper_method :sort_column, :sort_direction
-  resource :project, object: Project, :key => :project_id, :parent => true
+  resource :project, :object => Project, :key => :project_id, :parent => true
   resource :suite, :through => :project, :source => :suites
-  authorize :suite
+  authorize :project, :only => [:new,:create]
+  authorize :suite, :except => [:new,:create]
 
   def index
     @suites = @project.suites

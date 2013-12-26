@@ -1,9 +1,9 @@
 class ProjectsController < ApplicationController
-  resource :project, object: Project
+  resource :project, :object => Project
   authorize :project
 
   def index
-    @projects = Project.all
+    @projects = Project.for(current_user)
   end
 
   def show
@@ -13,8 +13,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @users = User.where(:active => true)
-    @project = current_user.owner_of_projects.build(project_params)
+    @project.update(project_params)
+    @project.members.build(:user => current_user, :owner => true)
     if @project.save
       redirect_to projects_path
     else
@@ -43,11 +43,7 @@ class ProjectsController < ApplicationController
 private
 
   def project_params
-    if current_user.admin or @project.owner == current_user
-      params.require(:project).permit(:name, :owner_id, :feature_list)
-    else
-      params.require(:project).permit(:name, :feature_list)
-    end
+    params.require(:project).permit(:name, :feature_list, :private)
   end
 
   def suites_sort_column

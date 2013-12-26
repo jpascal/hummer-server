@@ -8,8 +8,8 @@
           %th Name
         - if columns.include? :suites
           %th Suites
-        - if columns.include? :owner and current_user
-          %th Owner
+        - if columns.include? :members
+          %th Members
         - if columns.include? :created
           %th Created
         %th Actions
@@ -24,8 +24,8 @@
                 %span.label{:class => (params[:feature] == feature.to_s ? "label-success" : "label-default")}= feature
           - if columns.include? :suites
             %td= link_to project.suites.count, project_suites_path(project)
-          - if columns.include? :owner and current_user
-            %td= link_to_user project.owner
+          - if columns.include? :members
+            %td= link_to project.members.count, project_members_path(project)
           - if columns.include? :created
             %td= l(project.created_at, :format => "%H:%M / %d.%m.%Y")
           %td.text-right{:style => "width: 1%;", :nowrap => true}

@@ -5,7 +5,7 @@
     %thead
       %tr
         - if columns.include? :suite
-          %th= sortable(:build)
+          %th= sortable(:build, "Suite")
         - if columns.include? :tests
           %th= sortable(:total_tests, "Tests")
         - if columns.include? :errors

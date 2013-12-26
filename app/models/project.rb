@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :owner, :class_name => "User"
 
-  validates :name, :owner_id, :presence => true
+  validates :name, :presence => true
   validates :name, :uniqueness => true
   has_many :members
   has_many :users, :through => :members
@@ -22,5 +22,15 @@ class Project < ActiveRecord::Base
   has_many :all_features, :through => :suites, :source => :features, :uniq => true
   has_many :cases, :through => :suites, :source => :cases
   has_many :bugs, :through => :cases, :source => :bug
+
+  def self.for(user = nil)
+    if user and user.admin?
+      Project.all
+    elsif user
+      user.projects
+    else
+      where(:private => false)
+    end
+  end
 
 end

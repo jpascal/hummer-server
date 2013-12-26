@@ -5,7 +5,7 @@ class MembersController < ApplicationController
   authorize :project, :only => [:new, :create]
   authorize :member, :except => [:new, :create]
   def index
-    @members = @project.members
+    @members = @project.members.order("created_at desc")
   end
   def new
 

@@ -29,10 +29,17 @@ class Permissions::User < Permissions::Base
 
       # existent user
       can "sessions", "destroy"
+
+      can "projects", "show" do |project|
+        not project.private or project.members.where(:user_id => current_user).any?
+      end
+
       can "projects", ["edit","update"] do |project|
         project.members.where(:user_id => current_user, :owner => true).any?
       end
-      can "suites", ["create","new"]
+      can "suites", ["create","new"] do |project|
+        project.members.where(:user_id => current_user).any?
+      end
       can "suites", ["edit","update"] do |suite|
         suite.user == current_user
       end

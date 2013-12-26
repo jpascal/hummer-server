@@ -11,7 +11,7 @@ module Resource::Authorize
       send(:before_action, options.slice(:only, :except, :if, :unless)) do |controller|
         object = instance_variable_get("@#{resource.to_s}") if resource
         unless current_permission.can?(controller.params[:controller], controller.params[:action], object)
-          Rails.logger.error "Access denied by #{@current_permission.class.name} to #{resource.to_s} in #{controller.params[:controller]}::#{controller.params[:action]}"
+          Rails.logger.error "Access denied by #{@current_permission.class.name} to #{object.class.name}(#{object.try(:id).to_s}) in #{controller.params[:controller]}::#{controller.params[:action]}"
           respond_to do |format|
             format.html do
               flash[:danger] = "Access denied"

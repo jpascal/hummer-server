@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131226104408) do
+ActiveRecord::Schema.define(version: 20131226141528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20131226104408) do
     t.string   "type"
     t.text     "message"
   end
+
+  add_index "cases", ["name"], name: "index_cases_on_name", using: :btree
 
   create_table "members", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.uuid     "user_id",    null: false

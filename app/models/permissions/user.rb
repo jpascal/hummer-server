@@ -23,7 +23,7 @@ class Permissions::User < Permissions::Base
       can "users", ["create", "new", "recovery"]
     else
 
-      can "trackers",["edit","show"] do |test|
+      can "trackers",["edit","show","update"] do |test|
         Project.for(current_user).ids.include? test.suite.project_id
       end
 

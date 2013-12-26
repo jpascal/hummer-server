@@ -11,7 +11,7 @@ class TrackersController < ApplicationController
     end
   end
   def update
-    bug = @case.bug || @case.build_bug(:name => @case.name, :classname => @case.classname, :user => current_user, :level => @case.result.type, :message => @case.result.message)
+    bug = @case.bug || @case.build_bug(:name => @case.name, :classname => @case.classname, :user => current_user, :level => @case.type, :message => @case.message)
     if params[:tracker].empty?
       bug.destroy
     else

@@ -23,7 +23,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = current_user.owner_of_projects.build
   end
 
   def destroy

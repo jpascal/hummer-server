@@ -1,7 +1,7 @@
 class TrackersController < ApplicationController
-  resource :project, object: Project, :key => :project_id
-  resource :suite, :through => :project, :source => :suites, :key => :suite_id
-  resource :case, :through => :cases, :source => :suites, :key => :case_id
+  resource :project, object: Project, :key => :project_id, :parent => true
+  resource :suite, :through => :project, :source => :suites, :key => :suite_id, :parent => true
+  resource :case, :through => :suite, :source => :cases, :key => :case_id
 
   authorize :case
   respond_to :js

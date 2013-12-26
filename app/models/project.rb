@@ -23,4 +23,14 @@ class Project < ActiveRecord::Base
   has_many :cases, :through => :suites, :source => :cases
   has_many :bugs, :through => :cases, :source => :bug
 
+  def self.for(user = nil)
+    if user and user.admin?
+      Project.all
+    elsif user
+      user.projects
+    else
+      where(:private => false)
+    end
+  end
+
 end

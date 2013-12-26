@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   authorize :project
 
   def index
-    @projects = Project.all
+    @projects = Project.for(current_user)
   end
 
   def show
@@ -43,11 +43,7 @@ class ProjectsController < ApplicationController
 private
 
   def project_params
-    if current_user.admin or @project.owner == current_user
-      params.require(:project).permit(:name, :owner_id, :feature_list)
-    else
-      params.require(:project).permit(:name, :feature_list)
-    end
+    params.require(:project).permit(:name, :feature_list, :private)
   end
 
   def suites_sort_column

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
   def show
     @suites = @user.suites.page(params[:page])
-    @projects = @user.member_of_projects
+    @projects = @user.projects
     @bugs = @user.bugs
   end
   def token

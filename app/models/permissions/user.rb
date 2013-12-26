@@ -5,7 +5,10 @@ class Permissions::User < Permissions::Base
 
     # for all users
     can "suites", ["index","paste","show","search"]
-    can "projects", ["index", "show"]
+    can "projects", "index"
+    can "projects", "show" do |project|
+      not project.private
+    end
     can "bugs", ["index", "show"]
     can "compares", ["index","show"]
     can "cases", ["index","paste","show"]
@@ -19,6 +22,11 @@ class Permissions::User < Permissions::Base
       can "sessions", ["create", "new"]
       can "users", ["create", "new", "recovery"]
     else
+
+      can "trackers",["edit","show"] do |test|
+        Project.for(current_user).ids.include? test.suite.project_id
+      end
+
       # existent user
       can "sessions", "destroy"
       can "projects", ["edit","update"] do |project|

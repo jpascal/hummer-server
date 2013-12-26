@@ -3,22 +3,19 @@ require 'securerandom'
 class User < ActiveRecord::Base
   self.primary_key = :id
   validates :name, :length => { :minimum => 4 }
-  has_many :suites
-  has_many :projects_of_suites, :through => :suites, :source => :project
-  has_many :owner_of_projects, :dependent => :nullify, :foreign_key => :owner_id, :class_name => "Project"
+
+  has_many :suites, :readonly => true
 
   has_many :members, :dependent => :delete_all
-  has_many :member_of_projects, :through => :members, :source => :project
 
+  def projects
+    Project.where("id IN (?) or private = ?", members.collect{|member| member.project_id},false)
+  end
+
+  has_many :projects, :through => :members
   has_many :bugs
 
   scope :actived, -> { where(:active => true) }
-
-  def all_projects
-    # TODO: return this when members will be full implemented
-    #(self.owner_of_projects + self.member_of_projects + self.projects_of_suites).uniq
-    Project.all
-  end
 
   paginates_per 20
 

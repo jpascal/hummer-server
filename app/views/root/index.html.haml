@@ -5,7 +5,7 @@
 .content-border
   .content-inside
     = render "suites/suites", :suites => @suites, :columns => [:suite, :tests, :errors, :failures, :skipped, :passed, :user, :bugs, :tests, :created]
-%h4 Last 5 suites
+%h4 Last 5 bugs
 .content-border
   .content-inside
     = render "bugs/bugs", :bugs => @bugs, :columns => [:created,:suite,:bug,:test]

@@ -6,10 +6,16 @@
     = f.error_for :name
     = f.text_field :name, :class => "form-control"
 
+  = f.block_for :private, :class => "checkbox" do
+    %label
+      = f.check_box :private
+      Private
+
   = f.block_for :feature_list, :class => "form-group" do
     = f.label :feature_list
     = f.error_for :feature_list
     %div
       = f.text_field :feature_list, :class => "form-control", :data => {:role=> :tagsinput}
+
 
   = f.submit "Submit", :class => "btn btn-block btn-success"

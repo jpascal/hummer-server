@@ -70,3 +70,9 @@ Hummer::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+Hummer::Application.config.middleware.use ExceptionNotification::Rack,
+                                          :email => {
+                                              :email_prefix => "[Hummer] ",
+                                              :sender_address => %{"Hummer" <noreplay@hummer.mirantis.com>},
+                                              :exception_recipients => %w{eshurmin@mirantis.com}
+                                          }

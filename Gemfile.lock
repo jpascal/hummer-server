@@ -80,6 +80,9 @@ GEM
       archive-tar-minitar (= 0.5.2)
       progress (~> 2.4.0)
     erubis (2.7.0)
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     execjs (2.0.2)
     haml (4.0.4)
       tilt
@@ -166,6 +169,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails
   dump
+  exception_notification
   haml-rails
   jquery-rails
   json

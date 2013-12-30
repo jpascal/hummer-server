@@ -8,19 +8,19 @@
       = f.block_for :name, :class => "form-group" do
         = f.label :name
         = f.error_for :name
-        = f.text_field :name, :class => "form-control"
+        = f.text_field :name, :class => "form-control", :disabled => @user.ldap?
       = f.block_for :email, :class => "form-group" do
         = f.label :email
         = f.error_for :email
-        = f.text_field :email, :class => "form-control"
+        = f.text_field :email, :class => "form-control", :disabled => @user.ldap?
       = f.block_for :password, :class => "form-group" do
         = f.label :password
         = f.error_for :password
-        = f.password_field :password, :class => "form-control"
+        = f.password_field :password, :class => "form-control", :disabled => @user.ldap?
       = f.block_for :password_confirmation, :class => "form-group" do
         = f.label :password_confirmation
         = f.error_for :password_confirmation
-        = f.password_field :password_confirmation, :class => "form-control"
+        = f.password_field :password_confirmation, :class => "form-control", :disabled => @user.ldap?
       - if current_user.admin?
         .checkbox-inline
           %label
@@ -30,4 +30,8 @@
           %label
             = f.check_box :active
             Active
+        .checkbox-inline
+          %label
+            = f.check_box :ldap
+            LDAP
       = f.submit "Save", :class => "btn btn-block btn-success"

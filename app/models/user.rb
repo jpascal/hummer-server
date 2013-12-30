@@ -43,4 +43,64 @@ class User < ActiveRecord::Base
   acts_as_authentic do |config|
     config.login_field = :email
   end
+
+  def ldap?
+    self.dn.present?
+  end
+
+  def ldap= value
+    if value
+      self.ldap!
+    else
+      self.dn = nil
+      self.save!
+    end
+  end
+
+  def name= value
+    self.attributes[:name] = value unless self.ldap?
+  end
+
+  def ldap
+    self.dn.present?
+  end
+
+  def ldap!
+    entry = Net::LDAP.new( :host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port] ).search(
+        :base => LDAP_CONFIG[:base],
+        :filter => Net::LDAP::Filter.eq("mail", self.email),
+        :attributes => [:mail,:gecos,:dn]
+    ).first
+    if entry.present?
+      self.dn = entry.dn
+      self.name = entry.gecos.first
+      self.save!
+    end
+  end
+
+protected
+
+  def valid_credentials? password
+    if self.dn.present?
+      Net::LDAP.new( :host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port]).bind(:method => :simple, :username => self.dn, :password => password)
+    else
+      self.valid_password? password
+    end
+  end
+
+  def self.find_user_or_create_ldap_user(email)
+    user = User.where(:email => email).first
+    unless user.present?
+      entry = Net::LDAP.new( :host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port] ).search(
+          :base => LDAP_CONFIG[:base],
+          :filter => Net::LDAP::Filter.eq("mail", email),
+          :attributes => [:mail,:gecos]
+      ).first
+      if entry.present?
+        user = User.find_or_create!(:name => entry.gecos, :email => entry.mail, :dn => entry.dn)
+      end
+    end
+    return user
+  end
+
 end

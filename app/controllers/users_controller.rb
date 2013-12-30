@@ -51,9 +51,17 @@ class UsersController < ApplicationController
 private
   def edit_user
     if current_user.admin
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :active, :admin)
+      if @user.ldap?
+        params.require(:user).permit(:active, :admin, :ldap)
+      else
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :active, :admin, :ldap)
+      end
     else
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      if @user.ldap?
+        params.require(:user).permit()
+      else
+        params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      end
     end
   end
   def new_user

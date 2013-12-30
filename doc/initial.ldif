@@ -1,0 +1,55 @@
+version: 1
+dn: dc=domain,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: domain
+o: Some Org
+description: A sample domain
+
+dn: ou=people,dc=domain,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: cn=John Smith,ou=people,dc=domain,dc=com
+objectClass: inetOrgPerson
+cn: John Smith
+sn: Smith
+givenname: John
+uid: jsmith
+userPassword: {SSHA}77qRr1u3HD/V/YJ3YNo5HKE10aDmJEjt
+mail: jsmith@domain.com
+description: This is John
+
+dn: cn=Susan Adams,ou=people,dc=domain,dc=com
+objectClass: inetOrgPerson
+cn: Susan Adams
+sn: Adams
+givenname: Susan
+uid: sadams
+userpassword: {SSHA}77qRr1u3HD/V/YJ3YNo5HKE10aDmJEjt
+mail: sadams@domain.com
+description: This is Sue
+
+dn: cn=Bob Adams,ou=people,dc=domain,dc=com
+objectClass: inetOrgPerson
+cn: Bob Adams
+sn: Adams
+givenname: Bob
+uid: badams
+userpassword: {SSHA}77qRr1u3HD/V/YJ3YNo5HKE10aDmJEjt
+mail: badams@domain.com
+description: This is Bob
+
+dn: ou=groups,dc=domain,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=registered_users,ou=groups,dc=domain,dc=com
+objectclass: groupofnames
+cn: registered_users
+description: Registered users
+member: cn=John Smith,ou=people,dc=domain,dc=com
+member: cn=Bob Adams,ou=people,dc=domain,dc=com

@@ -52,3 +52,5 @@ gem 'acts-as-taggable-on', :github => "awt/acts-as-taggable-on"
 gem 'nokogiri'
 
 gem 'exception_notification'
+
+gem 'net-ldap'

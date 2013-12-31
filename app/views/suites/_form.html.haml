@@ -20,7 +20,7 @@
     = f.block_for :project_id, :class => "form-group" do
       = f.label :project
       = f.error_for :project_id
-      = f.select :project_id, current_user.all_projects.collect{|project| [project.name,project.id]}, {}, {:class => "form-control"}
+      = f.select :project_id, current_user.projects.collect{|project| [project.name,project.id]}, {}, {:class => "form-control"}
 
   - if @suite.new_record?
     = f.block_for :tempest, :class => "form-group" do

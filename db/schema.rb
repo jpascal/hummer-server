@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(version: 20131230134850) do
     t.boolean  "admin",              default: false
     t.string   "persistence_token",                  null: false
     t.string   "perishable_token",                   null: false
-    t.string   "crypted_password",                   null: false
-    t.string   "password_salt",                      null: false
+    t.string   "crypted_password"
+    t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "api_token"

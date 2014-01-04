@@ -93,16 +93,20 @@ class User < ActiveRecord::Base
 
 protected
 
-
   def valid_credentials? password
 
     if self.dn.present?
-      tmp = Net::LDAP.new(:host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port])
-      tmp.auth self.dn, password
-      if tmp.bind
-        true
+      object = User.find_ldap :mail, self.email
+      if object
+        begin
+          type = object.userPassword.first.scan(/{(.+)}/).flatten.first.downcase
+          object.userPassword == Net::LDAP::Password.generate(type,password)
+        rescue => e
+          Rails.logger.warn e.message
+          false
+        end
       else
-        puts "LDAP response: #{tmp.get_operation_result.message}"
+        puts "generic"
         false
       end
     else
@@ -113,14 +117,9 @@ protected
   def self.find_user_or_create_ldap_user(email)
     user = User.where(:email => email).first
     unless user.present?
-      entry = Net::LDAP.new( :host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port] ).search(
-          :base => LDAP_CONFIG[:base],
-          :filter => Net::LDAP::Filter.eq("mail", email),
-          :attributes => [:mail,:cn,:dn]
-      )
-      if entry.present? and entry.first.present?
-        entry = entry.first
-        user = User.where(:name => entry.cn.first, :email => email, :dn => entry.dn).first_or_create
+      object = User.find_ldap :mail, email
+      if object
+        return User.where(:email => email, :dn => object.dn).first_or_create(:ldap => true)
       end
     end
     return user

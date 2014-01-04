@@ -1,12 +1,37 @@
 require 'securerandom'
 
 class User < ActiveRecord::Base
+  include ActiveModel::AttributeMethods
   self.primary_key = :id
-  validates :name, :length => { :minimum => 4 }, :presence => true
 
-  has_many :suites, :readonly => true
+  has_many :suites
 
   has_many :members, :dependent => :delete_all
+
+  attr_accessor :ldap
+  def ldap
+    @ldap ||= self.dn.present?
+  end
+
+
+  after_validation do
+    unless errors.any?
+      puts self.ldap
+      puts self.dn
+    end
+    #if self.ldap
+    #  puts "ldap - #{self.ldap}"
+    #  if user = User.find_ldap(:mail, self.email)
+    #    @ldap = true
+    #    self.dn = user.dn
+    #  else
+    #    puts "not found"
+    #  end
+    #else
+    #  @ldap = false
+    #  self.dn = nil
+    #end
+  end
 
   def projects
     Project.where("id IN (?) or private = ?", members.collect{|member| member.project_id},false)
@@ -24,9 +49,6 @@ class User < ActiveRecord::Base
       self.admin = true
       self.active = true
     end
-    if self.dn.present?
-      self.password = self.password_confirmation = SecureRandom.hex(48)
-    end
   end
 
   def api_token!
@@ -38,31 +60,41 @@ class User < ActiveRecord::Base
     if (self.admin_change == [true, false] or self.active_change == [true, false]) and User.where(:admin => true, :active => true).count == 1
       errors.add :base, "Can't uncheck admin/active for this user."
     end
-    if self.password_confirmation.present? and self.password_confirmation != self.password
-      errors.add :password, "doesn't match Password confirmation"
-    end
   end
+
+  merge_validates_length_of_password_field_options :if => Proc.new {|user| not user.ldap}, :within => 8..20
+  validates :name, :length => { :minimum => 8, :maximum => 20 }, :presence => true
 
   acts_as_authentic do |config|
     config.login_field = :email
   end
 
-  def ldap!
-    entry = Net::LDAP.new( :host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port] ).search(
-        :base => LDAP_CONFIG[:base],
-        :filter => Net::LDAP::Filter.eq("mail", self.email),
-        :attributes => [:mail,:cn,:dn]
-    ).first
-    if entry.present?
-      self.dn = entry.dn
-      self.name = entry.cn.first
-      self.save!
+  before_validation do
+    if self.ldap
+      if object = User.find_ldap(:mail, self.email)
+        puts object.inspect
+        self.dn = object.dn
+        self.name = object.cn.first
+      end
+    else
+      self.dn = nil
     end
+  end
+
+  def self.find_ldap(key, value, attributes = [:mail, :cn, :dn, :userPassword])
+    ldap = Net::LDAP.new(:host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port], :base => LDAP_CONFIG[:base])
+    ldap.search(
+        :filter => Net::LDAP::Filter.eq(key, value),
+        :attributes => attributes,
+        :return_result => true
+    ).first
   end
 
 protected
 
+
   def valid_credentials? password
+
     if self.dn.present?
       tmp = Net::LDAP.new(:host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port])
       tmp.auth self.dn, password

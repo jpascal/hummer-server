@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(version: 20131230134850) do
     t.datetime "updated_at"
     t.string   "api_token"
     t.string   "dn"
-    t.boolean  "ldap",               default: false
   end
 
 end

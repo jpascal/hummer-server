@@ -71,7 +71,8 @@ class User < ActiveRecord::Base
 
   before_validation do
     if self.ldap
-      if object = User.find_ldap(:mail, self.email)
+      object = User.find_ldap(:mail, self.email)
+      if object
         puts object.inspect
         self.dn = object.dn
         self.name = object.cn.first

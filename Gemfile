@@ -53,4 +53,4 @@ gem 'nokogiri'
 
 gem 'exception_notification'
 
-gem 'net-ldap'
+gem 'net-ldap', :github => "globocom/ruby-net-ldap"

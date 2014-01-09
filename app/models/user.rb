@@ -84,11 +84,13 @@ class User < ActiveRecord::Base
 
   def self.find_ldap(key, value, attributes = [:mail, :cn, :dn, :userPassword])
     ldap = Net::LDAP.new(:host => LDAP_CONFIG[:server], :port => LDAP_CONFIG[:port], :base => LDAP_CONFIG[:base])
-    ldap.search(
+    object = ldap.search(
         :filter => Net::LDAP::Filter.eq(key, value),
         :attributes => attributes,
         :return_result => true
     ).first
+    puts object.inspect
+    object
   end
 
 protected
@@ -96,17 +98,40 @@ protected
   def valid_credentials? password
 
     if self.dn.present?
+      puts "LDAP password validation"
       object = User.find_ldap :mail, self.email
       if object
         begin
           type = object.userPassword.first.scan(/{(.+)}/).flatten.first.downcase
-          object.userPassword == Net::LDAP::Password.generate(type,password)
+
+
+          salt = [Array.new(6){rand(256).chr}.join].pack("m")[0..7];
+          hash = "{SSHA}"+Base64.encode64(Digest::SHA1.digest(password,salt),salt).chomp!
+
+          puts salt
+          puts hash
+
+          puts object.userPassword.first.gsub(/^{SSHA}/, '')
+
+          decoded = Base64.decode64(object.userPassword.first.gsub(/^{SSHA}/, ''))
+
+          hash = decoded[0,20]
+          salt = decoded[20,-1]
+
+          puts hash
+          puts salt
+
+          p = Net::LDAP::Password.generate(type.to_sym,password)
+          puts p
+          puts object.userPassword.first
+
+          object.userPassword.first == Net::LDAP::Password.generate(type.to_sym,p)
         rescue => e
           Rails.logger.warn e.message
           false
         end
       else
-        puts "generic"
+        puts "Internal password validation"
         false
       end
     else
@@ -119,7 +144,7 @@ protected
     unless user.present?
       object = User.find_ldap :mail, email
       if object
-        return User.where(:email => email, :dn => object.dn).first_or_create(:ldap => true)
+        return User.where(:email => email, :dn => object.dn, :active => false).first_or_create(:ldap => true)
       end
     end
     return user

@@ -6,6 +6,12 @@ GIT
       rails (>= 3, < 5)
 
 GIT
+  remote: git://github.com/globocom/ruby-net-ldap.git
+  revision: d8cb4957364056505d9547bea30caff41deb2f90
+  specs:
+    net-ldap (0.5.0.glb)
+
+GIT
   remote: git://github.com/rails/rails.git
   revision: aee1be6fe3460cd0ccd578a85f9d9803240ddf35
   ref: v4.0.2
@@ -109,7 +115,6 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
-    net-ldap (0.3.1)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -175,7 +180,7 @@ DEPENDENCIES
   jquery-rails
   json
   kaminari
-  net-ldap
+  net-ldap!
   nokogiri
   paste2
   pg

@@ -9,7 +9,7 @@ class CasesController < ApplicationController
   end
   def paste
     unless @case.paste
-      @case.paste = Paste2::Client.post(@case.result.message)
+      @case.paste = Paste2::Client.post(@case.message)
       @case.save!
     end
     redirect_to @case.paste

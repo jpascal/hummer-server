@@ -41,11 +41,15 @@ class Permissions::User < Permissions::Base
         project.members.where(:user_id => current_user).any?
       end
       can "suites", ["edit","update"] do |suite|
-        suite.user == current_user
+        suite.user == current_user or suite.project.members.where(:user_id => current_user, :owner => true).any?
       end
       can "suites", "reload" do |suite|
-        suite.tempest.present? and suite.user == current_user
+        suite.tempest.present? and ( suite.user == current_user or suite.project.members.where(:user_id => current_user, :owner => true).any?)
       end
+      can "suites", "destroy" do |suite|
+        suite.user == current_user or suite.project.members.where(:user_id => current_user, :owner => true).any?
+      end
+
       can "users",["show"]
       can "tracker", ["show","update"]
       can "users", ["edit","update","token"] do |user|

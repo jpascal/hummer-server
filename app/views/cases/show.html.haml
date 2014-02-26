@@ -2,7 +2,8 @@
 .bs-callout{:class => "bs-callout-#{@case.type}"}
   - if @case.message
     .pull-right
-      = link_to "Description", project_suite_case_description_path(@suite.project_id,@suite,@case), :class => "btn btn-default btn-xs", :remote => true
+      - if can? "descriptions", "update", @case
+        = link_to "Description", project_suite_case_description_path(@suite.project_id,@suite,@case), :class => "btn btn-default btn-xs", :remote => true
       = link_to "Paste2", paste_project_suite_case_path(@suite.project_id,@suite,@case), :class => "btn btn-default btn-xs" if can? "cases", "paste", @case
       .btn-group.btn-group-xs
         - if can? "tracker", "show", @case
@@ -13,9 +14,14 @@
   %h4
     Class:
     = @case.classname
+
   %p
     Test:
     = @case.name
+
+  #description
+    = render "description", :test => @case if @case.description
+
   - if @case.message
     %pre= @case.message
 

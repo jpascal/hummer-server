@@ -30,6 +30,10 @@ class Permissions::User < Permissions::Base
       # existent user
       can "sessions", "destroy"
 
+      can "descriptions", ["update","show","destroy"] do |test|
+        test.suite.user == current_user or test.suite.project.members.where(:user_id => current_user, :owner => true).any?
+      end
+
       can "projects", "show" do |project|
         not project.private or project.members.where(:user_id => current_user).any?
       end

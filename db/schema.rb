@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131226141528) do
+ActiveRecord::Schema.define(version: 20140226144646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,23 +30,24 @@ ActiveRecord::Schema.define(version: 20131226141528) do
   end
 
   create_table "cases", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
-    t.string   "classname",                null: false
-    t.string   "name",                     null: false
-    t.float    "time",       default: 0.0
+    t.string   "classname",                 null: false
+    t.string   "name",                      null: false
+    t.float    "time",        default: 0.0
     t.string   "paste"
     t.uuid     "suite_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
     t.text     "message"
+    t.text     "description"
   end
 
   add_index "cases", ["name"], name: "index_cases_on_name", using: :btree
 
   create_table "members", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
-    t.uuid     "user_id",    null: false
-    t.uuid     "project_id", null: false
+    t.uuid     "user_id"
     t.boolean  "owner",      default: false
+    t.uuid     "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -119,6 +120,8 @@ ActiveRecord::Schema.define(version: 20131226141528) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "api_token"
+    t.string   "dn"
+    t.boolean  "ldap",               default: false
   end
 
 end

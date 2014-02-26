@@ -1,6 +1,6 @@
 class Api::SuitesController < Api::BaseController
-  resource :project, object: Project, :key => :project_id, :parent => true, :only => [:create, :show]
-  resource :suite, :through => :project, :source => :suites, :only => [:create, :show]
+  resource :project, object: Project, :key => :project_id, :parent => true, :only => [:create, :edit]
+  resource :suite, :through => :project, :source => :suites, :only => [:create, :edit]
   resource :suite, object: Suite, :except => :create
   authorize :suite
   def index

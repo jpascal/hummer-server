@@ -55,6 +55,7 @@ Hummer::Application.routes.draw do
           # TODO: refactor to
           # resource :bug { member { get :paste } }
           resource :tracker, :only => [:show, :edit, :update], :controller => :trackers
+          resource :description, :only => [:show, :edit, :update, :destroy], :controller => :descriptions
           member do
             get :paste
           end

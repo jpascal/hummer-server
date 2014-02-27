@@ -1,0 +1,11 @@
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th Test
+      %th Class name
+  %tbody
+    - cases.with_description.each do |test|
+      %tr{:id => "description-#{test.id}"}
+        %td= link_to test.name, project_suite_case_path(test.suite.project_id, test.suite, test), :class => "case-#{test.type}"
+        %td= test.classname
+

@@ -30,6 +30,10 @@
           %td.case-skipped= "#{@suite.percents[:skip]}%"
           %td.case-passed= "#{@suite.percents[:passed]}%"
 
+    - if @suite.cases.with_description.any?
+      %h4= "Descriptions"
+      = render("descriptions/descriptions", :cases => @suite.cases.with_description)
+
     - if @suite.bugs.any?
       %h4= "Tracking progress (#{@suite.percents[:tracked]}% of #{@suite.total_errors + @suite.total_failures} troubles)"
       .progress

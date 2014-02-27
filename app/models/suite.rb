@@ -5,7 +5,11 @@ class Suite < ActiveRecord::Base
   paginates_per 20
   mount_uploader :tempest, TempestUploader
   acts_as_taggable_on :features
-  has_many :cases, :dependent => :delete_all, :autosave => true
+  has_many :cases, :dependent => :delete_all, :autosave => true do
+    def with_description
+      where.not(:description => nil)
+    end
+  end
 
   has_many :bugs, :through => :cases
 

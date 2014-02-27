@@ -50,6 +50,7 @@ class SuitesController < ApplicationController
   def show
     @cases = @suite.cases.page(params[:page])
     @cases = @cases.where(:type => params[:type]) if params[:type]
+
   end
   def destroy
     if @suite.destroy

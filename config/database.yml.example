@@ -1,0 +1,24 @@
+development:
+  adapter: postgresql
+  database: hummer_development
+  pool: 5
+  username: hummer
+  password:
+  host: localhost
+  timeout: 5000
+test:
+  adapter: postgresql
+  database: hummer_test
+  pool: 5
+  username: hummer
+  password:
+  host: localhost
+  timeout: 5000
+production:
+  adapter: postgresql
+  database: hummer_production
+  pool: 5
+  username: hummer
+  password:
+  host: localhost
+  timeout: 5000

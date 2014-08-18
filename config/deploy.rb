@@ -1,24 +1,28 @@
 require 'bundler/capistrano'
 require 'puma/capistrano'
 
+load 'config/recipes/config'
+
 load 'config/recipes/base'
 load 'config/recipes/database'
 load 'config/recipes/console'
 load 'config/recipes/dump'
 
 set :application,   "hummer"
-set :user,          "hummer"
+set :user,          config["user"]
 
 # Repository
-set :repository,    "http://eshurmin@stash.teamcentre.ru/scm/self/hummer.git"
+set :repository,    config["repository"]
 set :scm,           :git
 set :branch,        :master
-set :deploy_to,     "/home/#{user}/application"
+set :deploy_to,     config["deploy_to"]
 set :deploy_via,    :copy
 set :copy_exclude,  [".git"]
 
 # Servers
-server "hummer.vm.mirantis.net", :web, :app, :db, :primary => true
+config["servers"].each do |node, roles|
+  server node, *roles
+end
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = false

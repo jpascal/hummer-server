@@ -1,0 +1,8 @@
+repository: git@github.com:jpascal/hummer-server.git
+user: hummer
+deploy_to: "/home/hummer/application"
+servers:
+  server.domain.local:
+    - :db
+    - :web
+    - :app
